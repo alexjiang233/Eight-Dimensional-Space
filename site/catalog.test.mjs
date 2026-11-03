@@ -121,13 +121,20 @@ test('guide pages contain every imported paragraph and table, including unfinish
   assert.ok(catalog.documents.find(doc => doc.id === 'full-review-guide').blocks.some(block => block.type === 'table'));
 });
 
-test('all pages expose every first and second level page in the footer and navigation links have no arrows', () => {
+test('footer keeps compact work/member navigation and links have no arrows', () => {
   const pages = createSite(catalog);
   for (const [path, html] of pages) {
     const footer = html.match(/<footer class="site-footer full-footer">([\s\S]*?)<\/footer>/)[1];
     for (const target of pages.keys()) {
+      if (/^\/(works|people)\/[^/]+\/$/.test(target)) {
+        assert.ok(!footer.includes(`href="${target}"`), `${path}: footer must not list individual works or members`);
+        continue;
+      }
       assert.ok(footer.includes(`href="${target}"`), `${path}: footer missing ${target}`);
     }
+    const groups = [...footer.matchAll(/<section><h2>[\s\S]*?<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g)];
+    assert.equal((groups[1][1].match(/<li>/g) || []).length, 4);
+    assert.equal((groups[3][1].match(/<li>/g) || []).length, 2);
     for (const link of html.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)) {
       assert.ok(!/[↗↘↙↖→←↑↓➜➝➔➞⇒]/u.test(link[1].replace(/<[^>]*>/g, '')), `${path}: navigation arrow`);
     }
