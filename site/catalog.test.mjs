@@ -134,10 +134,10 @@ test('all pages expose every first and second level page in the footer and navig
   }
 });
 
-test('video playback is an online bilibili embed and no local video files remain', () => {
+test('full films use bilibili; only the home cover hosts a short silent loop', () => {
   const pages = createSite(catalog);
   for (const [path, html] of pages) {
-    assert.ok(!html.includes('<video'), path);
+    assert.equal((html.match(/<video\b/g) || []).length, path === '/' ? 1 : 0, path);
     assert.ok(!/\/promo\/(film|preview)\.mp4/.test(html), path);
     assert.ok(!html.includes('data-preview-toggle'), path);
   }
@@ -154,6 +154,12 @@ test('video playback is an online bilibili embed and no local video files remain
   assert.ok(home.includes('data-film'));
   assert.ok(home.includes('BV1xwKr6yE9G'));
   assert.ok(home.includes('hero-still'));
+  assert.ok(home.includes('data-hero-video'));
+  assert.ok(home.includes('muted loop playsinline preload="none"'));
+  assert.ok(home.includes('data-hero-toggle'));
+  const loop = catalog.media.find(m => m.id === catalog.site.heroVideoId);
+  assert.equal(loop.duration, 18);
+  assert.equal(loop.purpose, 'cover-loop');
 });
 
 test('a GitHub Pages sub-path base prefixes every emitted URL without changing logical routes', () => {
@@ -163,6 +169,8 @@ test('a GitHub Pages sub-path base prefixes every emitted URL without changing l
   assert.ok(home.includes('href="/Eight-Dimensional-Space/app.css"'));
   assert.ok(home.includes('src="/Eight-Dimensional-Space/app.js"'));
   assert.ok(home.includes('src="/Eight-Dimensional-Space/promo/poster.jpg"'));
+  assert.ok(home.includes('data-src="/Eight-Dimensional-Space/promo/hero-loop.mp4"'));
+  assert.ok(home.includes('poster="/Eight-Dimensional-Space/promo/poster.jpg"'));
   assert.ok(home.includes('href="/Eight-Dimensional-Space/works/promo-2026/"'));
   assert.ok(!home.includes('href="/app.css"'));
   const event = pages.get('/events/military-2026/');

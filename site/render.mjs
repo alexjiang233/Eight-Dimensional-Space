@@ -37,6 +37,8 @@ export function validateCatalog(data) {
       ref('sources', asset.sourceId);
       continue;
     }
+    if (asset.kind === 'video' && (asset.id !== data.site.heroVideoId || asset.purpose !== 'cover-loop' || asset.duration > 30))
+      throw new Error(`Only a short cover loop may be hosted locally: ${asset.id}`);
     if (!asset.src.startsWith('/media/') && !asset.src.startsWith('/promo/') && !asset.src.startsWith('/photos/'))
       throw new Error(`Invalid media path: ${asset.id}`);
     if (asset.width <= 0 || asset.height <= 0) throw new Error(`Invalid dimensions: ${asset.id}`);
@@ -84,6 +86,8 @@ export function validateCatalog(data) {
   ref('events', data.site.featuredEventId);
   ref('works', data.site.promoWorkId);
   ref('media', data.site.heroStillId);
+  ref('media', data.site.heroVideoId);
+  if (indexes.media.get(data.site.heroVideoId)?.kind !== 'video') throw new Error('Hero loop must be video');
   return indexes;
 }
 
@@ -176,8 +180,10 @@ export function createSite(data, { base = '/' } = {}) {
   function home(skin) {
     const stillMedia = get('media', data.site.heroStillId);
     const still = `<img class="hero-still" src="${e(withBase(stillMedia.src))}" width="${stillMedia.width}" height="${stillMedia.height}" alt="${e(stillMedia.alt)}" loading="eager" fetchpriority="high">`;
+    const loopMedia = get('media', data.site.heroVideoId);
+    const video = `<video class="hero-video" data-hero-video data-src="${e(withBase(loopMedia.src))}" poster="${e(withBase(stillMedia.src))}" width="${loopMedia.width}" height="${loopMedia.height}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>`;
     const identity = `<h1><span>八维空间</span><span class="club-name">摄影社</span></h1><p class="brand-english" lang="en">Eight-Dimensional-Space</p>${filmButton(skin)}`;
-    const hero = `<section class="hero hero-editorial">${still}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#selection">看作品与活动</a></div></section>`;
+    const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#selection">看作品与活动</a><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
     return collection.home(hero, skin);
   }
 

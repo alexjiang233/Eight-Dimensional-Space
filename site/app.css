@@ -257,7 +257,8 @@ figcaption span {
 .hero {
   position: relative;
 }
-.hero-still {
+.hero-still,
+.hero-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2023,3 +2024,5 @@ dialog button {
 }
 html:has(.record-nav) { scroll-padding-top:64px; }
 .record-section { scroll-margin-top:0; }
+
+[data-hero-toggle] { min-height:44px; padding:8px 0 8px 16px; color:inherit; font-size:13px; text-decoration:underline; text-underline-offset:5px; }

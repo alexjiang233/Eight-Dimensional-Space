@@ -24,6 +24,8 @@ export interface Photo extends MediaBase {
 }
 export interface Film extends MediaBase {
   kind: 'video';
+  purpose: 'cover-loop';
+  publicationStatus: 'approved' | 'public-source';
   duration: number;
   poster: string;
 }
@@ -154,6 +156,7 @@ export interface Catalog {
     featuredEventId: Id;
     promoWorkId: Id;
     heroStillId: Id;
+    heroVideoId: Id;
   };
   sources: Source[];
   appointments?: { memberId: Id; cohortLabel: string; role: string; sourceId: Id }[];

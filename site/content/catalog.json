@@ -7,7 +7,8 @@
     "english": "Eight-Dimensional-Space",
     "featuredEventId": "military-2026",
     "promoWorkId": "promo-2026",
-    "heroStillId": "promo-hero-still"
+    "heroStillId": "promo-hero-still",
+    "heroVideoId": "promo-cover-loop"
   },
   "sources": [
     {
@@ -638,6 +639,19 @@
       "photographer": null,
       "exif": null,
       "publicationStatus": "public-source"
+    },
+    {
+      "id": "promo-cover-loop",
+      "kind": "video",
+      "purpose": "cover-loop",
+      "src": "/promo/hero-loop.mp4",
+      "width": 960,
+      "height": 540,
+      "duration": 18,
+      "poster": "/promo/poster.jpg",
+      "caption": "宣传片静音封面片段",
+      "sourceId": "source-promo",
+      "publicationStatus": "approved"
     }
   ],
   "members": [

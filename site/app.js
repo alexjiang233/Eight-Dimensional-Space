@@ -106,6 +106,75 @@ $('[data-image-next]').addEventListener('click', () => {
   showImage();
 });
 
+// Lightweight local cover loop. The file is referenced only through data-src so
+// reduced-motion and data-saver visitors download nothing until they ask to play.
+const heroVideo = $('video[data-hero-video]');
+const heroToggle = $('button[data-hero-toggle]');
+if (heroVideo && heroToggle) {
+  const connection = navigator.connection;
+  const autoBlocked = () => reduce.matches || Boolean(connection && connection.saveData);
+  let manualPause = false;
+  let inView = !('IntersectionObserver' in window);
+  let loaded = false;
+
+  heroVideo.muted = true;
+  heroVideo.loop = true;
+  heroToggle.hidden = false;
+
+  const sync = (playing) => {
+    heroToggle.textContent = playing ? '暂停封面' : '播放封面';
+    heroToggle.setAttribute('aria-pressed', String(playing));
+  };
+  const load = () => {
+    if (loaded) return;
+    loaded = true;
+    heroVideo.src = heroVideo.dataset.src;
+  };
+  const start = () => {
+    if (!heroVideo.paused) return;
+    load();
+    heroVideo.play().catch(() => sync(false));
+  };
+  const resume = () => {
+    if (manualPause || autoBlocked() || document.hidden || !inView) return;
+    start();
+  };
+
+  sync(false);
+  heroVideo.addEventListener('play', () => sync(true));
+  heroVideo.addEventListener('pause', () => sync(false));
+
+  heroToggle.addEventListener('click', () => {
+    if (heroVideo.paused) {
+      manualPause = false;
+      start();
+    } else {
+      manualPause = true;
+      heroVideo.pause();
+    }
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (inView) resume();
+      else heroVideo.pause();
+    }).observe(heroVideo);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) heroVideo.pause();
+    else resume();
+  });
+
+  reduce.addEventListener('change', () => {
+    if (reduce.matches) heroVideo.pause();
+    else resume();
+  });
+
+  resume();
+}
+
 async function changePicture(task) {
   if (!reduce.matches && document.startViewTransition) {
     try {
