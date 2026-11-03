@@ -66,12 +66,12 @@
 <option value="notes/broadcast-guide/">直播全文</option><option value="notes/full-review-guide/">回顾全文</option>
           <option value="notes/military-review/">复盘</option>
         </select></label
-      ><a id="direct" href="editorial/">直接打开</a
+      ><a id="direct" href="./">直接打开</a
       ><output id="metrics" style="font-size: 12px; flex-basis: 100%; text-align: center"
         >检查中</output
       >
     </header>
-    <main><iframe title="实际页面的窄屏检查" src="editorial/"></iframe></main>
+    <main><iframe title="实际页面的窄屏检查" src="./"></iframe></main>
     <script>
       const params = new URLSearchParams(location.search),
         // The QA wrapper sits next to the site root, so its own directory is the
@@ -86,7 +86,7 @@
       p.value = pages.includes(params.get('page')) ? params.get('page') : '';
       function update() {
         frame.style.width = w.value + 'px';
-        frame.src = base + 'editorial/' + p.value;
+        frame.src = base + p.value;
         document.querySelector('#direct').href = frame.src;
         const u = new URL(location.href);
         u.searchParams.set('width', w.value);

@@ -103,11 +103,11 @@ export function createSite(data, { base = '/' } = {}) {
     return `<figure class="${cls}"><a href="${e(withBase(m.src))}" data-image data-gallery="${group}" data-caption="${e(m.caption)}" data-exif="${e(m.exif ? JSON.stringify(m.exif) : '') }">${img(id, ['event-cover', 'record-cover'].includes(cls) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"')}</a><figcaption>${e(m.caption)}<span>${m.sourceId === 'source-promo' ? '宣传片静帧' : m.sourceId === 'source-photo-selection' ? (m.capturedAt || '').slice(0,10) : '原文配图'}</span></figcaption></figure>`;
   };
   const url = (skin, kind = '', id = '') =>
-    withBase(`/${skin}/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`);
+    withBase(`/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`);
   // Page registry keys and the route manifest stay logical (unprefixed) so the
   // test suite and the preview server keep one stable route space.
   const route = (skin, kind = '', id = '') =>
-    `/${skin}/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`;
+    `/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`;
   const featured = get('events', data.site.featuredEventId);
   const promoWork = get('works', data.site.promoWorkId);
   const promoEmbed = promoWork.mediaId ? get('media', promoWork.mediaId) : null;

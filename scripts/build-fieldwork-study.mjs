@@ -1,5 +1,5 @@
 import { loadCatalog } from '../site/content-loader.mjs';
-import { mkdir, writeFile, copyFile, stat } from "node:fs/promises";
+import { mkdir, writeFile, copyFile, stat, readFile, rm } from "node:fs/promises";
 import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -39,6 +39,17 @@ if (assets) {
     await copyFile(join(assets, 'fonts/fieldwork', name), join(fontDir, name));
 }
 const pages = createSite(data, { base });
+// Retired routes must disappear from static hosts too, not just the preview manifest.
+let previousRoutes = [];
+try {
+  previousRoutes = JSON.parse(await readFile(join(output, 'route-manifest.json'), 'utf8')).routes;
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
+for (const route of previousRoutes) {
+  if (!pages.has(route) && /^\/(?:[a-z0-9-]+\/)*$/.test(route))
+    await rm(join(output, route, 'index.html'), { force: true });
+}
 for (const [url, html] of pages) {
   const target = join(output, url, "index.html");
   await mkdir(dirname(target), { recursive: true });
@@ -51,10 +62,6 @@ for (const name of [
   "responsive.html",
 ])
   await copyFile(join(source, name), join(output, name));
-await writeFile(
-  join(output, "index.html"),
-  `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${mount}/editorial/"><title>八维空间</title><a href="${mount}/editorial/">进入八维空间</a></html>`,
-);
 await writeFile(
   join(output, "route-manifest.json"),
   JSON.stringify(
@@ -70,7 +77,7 @@ await writeFile(
   ),
 );
 await writeFile(join(output, '.nojekyll'), '');
-await writeFile(join(output, '404.html'), `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>页面未找到 · 八维空间</title><h1>页面未找到</h1><p>页面可能已调整位置。</p><a href="${mount}/editorial/">返回首页</a></html>`);
+await writeFile(join(output, '404.html'), `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>页面未找到 · 八维空间</title><h1>页面未找到</h1><p>页面可能已调整位置。</p><a href="${mount}/">返回首页</a></html>`);
 console.log(
   `Built ${pages.size} pages, ${data.events.length} events, ${data.works.length} works, ${data.members.length} credited people (base "${mount || "/"}").`,
 );
