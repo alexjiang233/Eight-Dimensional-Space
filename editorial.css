@@ -6,7 +6,8 @@
   isolation: isolate;
   overflow: hidden;
 }
-  .hero-editorial .hero-still {
+  .hero-editorial .hero-still,
+.hero-editorial .hero-video {
   position: absolute;
   inset: 0;
   z-index: -2;
@@ -93,7 +94,8 @@
     height: calc(100svh - 78px);
     min-height: 655px;
   }
-.hero-editorial .hero-still {
+.hero-editorial .hero-still,
+.hero-editorial .hero-video {
     object-position: 61% center;
   }
   .hero-editorial::after {
