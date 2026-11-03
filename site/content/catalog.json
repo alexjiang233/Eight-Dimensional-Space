@@ -1,0 +1,1120 @@
+{
+  "version": 1,
+  "site": {
+    "name": "八维空间",
+    "subtitle": "摄影社",
+    "school": "淮北一中",
+    "english": "Eight-Dimensional-Space",
+    "featuredEventId": "military-2026",
+    "promoWorkId": "promo-2026",
+    "heroStillId": "promo-hero-still"
+  },
+  "sources": [
+    {
+      "id": "source-review",
+      "title": "【复盘】2026一中军训直播：现阶段的集大成之作",
+      "url": "https://mp.weixin.qq.com/s/CjHsHVzWDHz_vD516HBFyA",
+      "authorLabel": "撞上树桩的猪-杂谈随笔",
+      "publishedAt": "2026-09-01"
+    },
+    {
+      "id": "source-promo",
+      "title": "《定稿-0719》",
+      "url": "https://www.bilibili.com/video/BV1xwKr6yE9G/",
+      "authorLabel": null,
+      "publishedAt": "2026-07-19"
+    },
+    {
+      "id": "source-photo-selection",
+      "title": "社团照片选集 · 2024–2026",
+      "url": null,
+      "authorLabel": null,
+      "publishedAt": null
+    },
+    {
+      "id": "source-full-review-guide",
+      "title": "全程回顾制作指南",
+      "url": null,
+      "authorLabel": null,
+      "publishedAt": "2025-04"
+    },
+    {
+      "id": "source-broadcast-guide",
+      "title": "如何完成一场活动直播？",
+      "url": null,
+      "authorLabel": null,
+      "publishedAt": "2026-01-18"
+    },
+    {
+      "id": "source-camera-communication",
+      "title": "导播话术规范与沟通技巧",
+      "url": null,
+      "authorLabel": null,
+      "publishedAt": null
+    },
+    {
+      "id": "source-bilibili-military",
+      "title": "【直播回放】淮北一中2026年军训总结大会",
+      "url": "https://www.bilibili.com/video/BV1pWhP6wE67/",
+      "authorLabel": "淮北一中摄影社",
+      "publishedAt": "2026-08-24"
+    }
+  ],
+  "media": [
+    {
+      "id": "article-00",
+      "kind": "image",
+      "src": "/media/article-00.jpg",
+      "width": 1080,
+      "height": 1382,
+      "alt": "原文注明：彩排后有调整，部分调整未记录。",
+      "caption": "早期方案",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-01",
+      "kind": "image",
+      "src": "/media/article-01.jpg",
+      "width": 1080,
+      "height": 810,
+      "alt": "准备投入本场直播的器材。",
+      "caption": "设备与工作台",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-02",
+      "kind": "image",
+      "src": "/media/article-02.jpg",
+      "width": 1080,
+      "height": 1440,
+      "alt": "主席台上的固定机位。",
+      "caption": "主席台上机位",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-03",
+      "kind": "image",
+      "src": "/media/article-03.jpg",
+      "width": 1080,
+      "height": 1440,
+      "alt": "跑道一侧的固定机位。",
+      "caption": "主席台下机位",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-04",
+      "kind": "image",
+      "src": "/media/article-04.jpg",
+      "width": 1080,
+      "height": 720,
+      "alt": "跑道边的稳定器工作现场。",
+      "caption": "稳定器拍摄",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-05",
+      "kind": "image",
+      "src": "/media/article-05.jpg",
+      "width": 1080,
+      "height": 1440,
+      "alt": "队伍旁的稳定器工作现场。",
+      "caption": "稳定器工作照",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-06",
+      "kind": "image",
+      "src": "/media/article-06.jpg",
+      "width": 1080,
+      "height": 810,
+      "alt": "便携屏、电脑与导播设备。",
+      "caption": "导播工作台",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-07",
+      "kind": "image",
+      "src": "/media/article-07.jpg",
+      "width": 1080,
+      "height": 720,
+      "alt": "掌机与耳麦配合的工作状态。",
+      "caption": "现场通话",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-08",
+      "kind": "image",
+      "src": "/media/article-08.jpg",
+      "width": 1080,
+      "height": 810,
+      "alt": "操场、队伍与空中的彩烟。",
+      "caption": "汇演现场",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-09",
+      "kind": "image",
+      "src": "/media/article-09.jpg",
+      "width": 1080,
+      "height": 810,
+      "alt": "操场与大屏的现场画面。",
+      "caption": "现场大屏",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-10",
+      "kind": "image",
+      "src": "/media/article-10.jpg",
+      "width": 1080,
+      "height": 813,
+      "alt": "原文画面链路章节的配图。",
+      "caption": "相机与现场",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "article-11",
+      "kind": "image",
+      "src": "/media/article-11.jpg",
+      "width": 1080,
+      "height": 810,
+      "alt": "直播团队在工作台旁的合影。",
+      "caption": "直播团队合影",
+      "sourceId": "source-review",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "promo-stage",
+      "kind": "image",
+      "src": "/promo/stage.jpg",
+      "width": 1440,
+      "height": 810,
+      "alt": "宣传片中带有2025元旦汇演字幕的舞台画面。",
+      "caption": "2025元旦汇演 · 宣传片静帧 00:52.5",
+      "sourceId": "source-promo",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "promo-group",
+      "kind": "image",
+      "src": "/promo/together.jpg",
+      "width": 1440,
+      "height": 810,
+      "alt": "宣传片中成员在室内准备设备的画面。",
+      "caption": "设备准备 · 宣传片静帧 00:33",
+      "sourceId": "source-promo",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "promo-hero-still",
+      "kind": "image",
+      "src": "/promo/poster.jpg",
+      "width": 1440,
+      "height": 810,
+      "alt": "黄昏道路上，几名成员背向镜头向前走。宣传片开场静帧。",
+      "caption": "宣传片开场静帧",
+      "sourceId": "source-promo",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "promo-embed",
+      "kind": "embed",
+      "platform": "bilibili",
+      "bvid": "BV1xwKr6yE9G",
+      "page": 1,
+      "title": "Hey，朋友！八维空间摄影社，欢迎你的到来！",
+      "durationLabel": "1分55秒",
+      "caption": "摄影社宣传片《定稿-0719》",
+      "sourceId": "source-promo",
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "replay-military-embed",
+      "kind": "embed",
+      "platform": "bilibili",
+      "bvid": "BV1pWhP6wE67",
+      "page": 1,
+      "title": "【直播回放】淮北一中2026年军训总结大会",
+      "durationLabel": "1:53:06",
+      "caption": "军训总结大会直播回放",
+      "sourceId": "source-bilibili-military",
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "photo-cover-group",
+      "kind": "image",
+      "src": "/photos/display/cover-group.jpg",
+      "width": 6000,
+      "height": 4000,
+      "alt": "成员在操场看台前的合影。",
+      "caption": "操场看台 / 合影",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2025-09-30 11:04",
+      "photographer": null,
+      "exif": {
+        "camera": "Canon EOS R10",
+        "lens": "50F1.8R DF",
+        "shutter": "1/1250 s",
+        "aperture": "f/2.5",
+        "iso": "125",
+        "focal": "50 mm",
+        "date": "2025-09-30 11:04"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-work-tripod",
+      "kind": "image",
+      "src": "/photos/display/work-tripod.jpg",
+      "width": 7728,
+      "height": 5152,
+      "alt": "一名同学站在摄像机三脚架旁。",
+      "caption": "会场",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-12-30 16:13",
+      "photographer": null,
+      "exif": {
+        "camera": "FUJIFILM X-T50",
+        "lens": "XF16-50mmF2.8-4.8 R LM WR",
+        "shutter": "1/120 s",
+        "aperture": "f/4.8",
+        "iso": "12800",
+        "focal": "50 mm",
+        "date": "2024-12-30 16:13"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-work-edit",
+      "kind": "image",
+      "src": "/photos/display/work-edit.jpg",
+      "width": 7728,
+      "height": 5152,
+      "alt": "两名同学在笔记本电脑前看素材。",
+      "caption": "会场 / 电脑前",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-12-30 11:09",
+      "photographer": null,
+      "exif": {
+        "camera": "FUJIFILM X-T50",
+        "lens": "XF16-50mmF2.8-4.8 R LM WR",
+        "shutter": "1/50 s",
+        "aperture": "f/4.5",
+        "iso": "6400",
+        "focal": "44.5 mm",
+        "date": "2024-12-30 11:09"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-work-camera",
+      "kind": "image",
+      "src": "/photos/display/work-camera.jpg",
+      "width": 7728,
+      "height": 5152,
+      "alt": "两名同学在会场里举着相机。",
+      "caption": "机位",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-12-30 11:09",
+      "photographer": null,
+      "exif": {
+        "camera": "FUJIFILM X-T50",
+        "lens": "XF16-50mmF2.8-4.8 R LM WR",
+        "shutter": "1/100 s",
+        "aperture": "f/3",
+        "iso": "2500",
+        "focal": "18.5 mm",
+        "date": "2024-12-30 11:09"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-work-review",
+      "kind": "image",
+      "src": "/photos/display/work-review.jpg",
+      "width": 7728,
+      "height": 5152,
+      "alt": "几名同学在看台前看相机和电脑。",
+      "caption": "看素材",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-12-30 11:39",
+      "photographer": null,
+      "exif": {
+        "camera": "FUJIFILM X-T50",
+        "lens": "XF16-50mmF2.8-4.8 R LM WR",
+        "shutter": "1/100 s",
+        "aperture": "f/3.8",
+        "iso": "6400",
+        "focal": "33.3 mm",
+        "date": "2024-12-30 11:39"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-work-gear",
+      "kind": "image",
+      "src": "/photos/display/work-gear.jpg",
+      "width": 4000,
+      "height": 6000,
+      "alt": "几名同学在走廊地面整理相机、电池和线材。",
+      "caption": "器材",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-09-29 13:23",
+      "photographer": null,
+      "exif": {
+        "camera": "Canon EOS 77D",
+        "lens": "EF-S18-55mm f/4-5.6 IS STM",
+        "shutter": "1/250 s",
+        "aperture": "f/4",
+        "iso": "125",
+        "focal": "18 mm",
+        "date": "2024-09-29 13:23"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-work-screen",
+      "kind": "image",
+      "src": "/photos/display/work-screen.jpg",
+      "width": 6000,
+      "height": 4000,
+      "alt": "五名同学围在笔记本电脑前。",
+      "caption": "看画面",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-09-29 13:23",
+      "photographer": null,
+      "exif": {
+        "camera": "Canon EOS 77D",
+        "lens": "EF-S18-55mm f/4-5.6 IS STM",
+        "shutter": "1/250 s",
+        "aperture": "f/4",
+        "iso": "125",
+        "focal": "20 mm",
+        "date": "2024-09-29 13:23"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-see-campus",
+      "kind": "image",
+      "src": "/photos/display/see-campus.jpg",
+      "width": 3716,
+      "height": 2787,
+      "alt": "黄昏时分的校园、操场和远山。",
+      "caption": "校园 / 黄昏",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2025-07-06 09:13",
+      "photographer": null,
+      "exif": {
+        "camera": "DJI FC3582",
+        "lens": "6.7 mm f/1.7",
+        "shutter": "1/15 s",
+        "aperture": "f/1.7",
+        "iso": "470",
+        "focal": "6.72 mm",
+        "date": "2025-07-06 09:13"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-see-flower",
+      "kind": "image",
+      "src": "/photos/display/see-flower.jpg",
+      "width": 3753,
+      "height": 2502,
+      "alt": "夕阳下的红色花朵。",
+      "caption": "花",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2026-05-13 17:33",
+      "photographer": null,
+      "exif": {
+        "camera": "NIKON CORPORATION NIKON Z 30",
+        "lens": "NIKKOR Z DX 16-50mm f/3.5-6.3 VR",
+        "shutter": "1/200 s",
+        "aperture": "f/3.5",
+        "iso": "100",
+        "focal": "16 mm",
+        "date": "2026-05-13 17:33"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-see-wires",
+      "kind": "image",
+      "src": "/photos/display/see-wires.jpg",
+      "width": 6000,
+      "height": 4000,
+      "alt": "黄昏天空下的电塔和桥上的人影。",
+      "caption": "天线与云",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-07-18 18:50",
+      "photographer": null,
+      "exif": {
+        "camera": "Canon EOS 77D",
+        "lens": "",
+        "shutter": "1/4000 s",
+        "aperture": "f/5.6",
+        "iso": "400",
+        "focal": "47 mm",
+        "date": "2024-07-18 18:50"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-see-blossom",
+      "kind": "image",
+      "src": "/photos/display/see-blossom.jpg",
+      "width": 4081,
+      "height": 2759,
+      "alt": "深蓝色天空下的白花。",
+      "caption": "花",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2026-03-13 18:28",
+      "photographer": null,
+      "exif": {
+        "camera": "NIKON CORPORATION NIKON Z 30",
+        "lens": "NIKKOR Z DX 16-50mm f/3.5-6.3 VR",
+        "shutter": "1/50 s",
+        "aperture": "f/5",
+        "iso": "220",
+        "focal": "16 mm",
+        "date": "2026-03-13 18:28"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-see-track",
+      "kind": "image",
+      "src": "/photos/display/see-track.jpg",
+      "width": 4032,
+      "height": 3024,
+      "alt": "晚霞下的学校操场和钟楼。",
+      "caption": "操场 / 黄昏",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2025-09-25 18:18",
+      "photographer": null,
+      "exif": {
+        "camera": "DJI FC4382",
+        "lens": "",
+        "shutter": "1/15 s",
+        "aperture": "f/2.8",
+        "iso": "440",
+        "focal": "19.35 mm",
+        "date": "2025-09-25 18:18"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-together-red",
+      "kind": "image",
+      "src": "/photos/display/together-red.jpg",
+      "width": 7008,
+      "height": 4672,
+      "alt": "七名穿红色外套的同学拿着相机在舞台前。",
+      "caption": "活动 / 合影",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2025-12-31 12:14",
+      "photographer": null,
+      "exif": {
+        "camera": "SONY ILCE-7M4",
+        "lens": "FE 24-105mm F4 G OSS",
+        "shutter": "1/200 s",
+        "aperture": "f/4",
+        "iso": "400",
+        "focal": "29 mm",
+        "date": "2025-12-31 12:14"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-together-stand",
+      "kind": "image",
+      "src": "/photos/display/together-stand.jpg",
+      "width": 4928,
+      "height": 3264,
+      "alt": "四名同学坐在看台上看相机和手机。",
+      "caption": "看台",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-09-29 11:21",
+      "photographer": null,
+      "exif": {
+        "camera": "PENTAX K-5",
+        "lens": "smc PENTAX-DA L 18-55mm F3.5-5.6 AL",
+        "shutter": "1/200 s",
+        "aperture": "f/4",
+        "iso": "100",
+        "focal": "30.63 mm",
+        "date": "2024-09-29 11:21"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-together-dinner",
+      "kind": "image",
+      "src": "/photos/display/together-dinner.jpg",
+      "width": 7680,
+      "height": 4320,
+      "alt": "一群同学在食堂长桌旁。",
+      "caption": "食堂聚餐 / 合影",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2026-06-10 18:12",
+      "photographer": null,
+      "exif": {
+        "camera": "DJI OP-041",
+        "lens": "",
+        "shutter": "1/20 s",
+        "aperture": "f/2",
+        "iso": "200",
+        "focal": "7.08 mm",
+        "date": "2026-06-10 18:12"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "promo-sports",
+      "kind": "image",
+      "src": "/promo/sports.jpg",
+      "width": 1440,
+      "height": 810,
+      "alt": "宣传片中的2025运动会画面",
+      "caption": "2025运动会 / 宣传片静帧",
+      "sourceId": "source-promo",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    }
+  ],
+  "members": [
+    {
+      "id": "person-jky",
+      "name": "蒋凯阳",
+      "specialties": [
+        "导播",
+        "策划"
+      ],
+      "cohort": null,
+      "portraitId": null,
+      "bio": null
+    },
+    {
+      "id": "person-dwb",
+      "name": "杜文博",
+      "specialties": [
+        "航拍"
+      ],
+      "cohort": null,
+      "portraitId": null,
+      "bio": null
+    },
+    {
+      "id": "person-lmg",
+      "name": "李牧耕",
+      "specialties": [
+        "稳定器"
+      ],
+      "cohort": null,
+      "portraitId": null,
+      "bio": null
+    },
+    {
+      "id": "person-smj",
+      "name": "苏明君",
+      "specialties": [
+        "摄像"
+      ],
+      "cohort": null,
+      "portraitId": null,
+      "bio": null
+    },
+    {
+      "id": "person-zyh",
+      "name": "郑钰涵",
+      "specialties": [
+        "摄像"
+      ],
+      "cohort": null,
+      "portraitId": null,
+      "bio": null
+    },
+    {
+      "id": "person-why",
+      "name": "王浩宇",
+      "specialties": [
+        "摄像"
+      ],
+      "cohort": null,
+      "portraitId": null,
+      "bio": null
+    },
+    {
+      "id": "person-wxn",
+      "name": "王小诺",
+      "specialties": [],
+      "cohort": null,
+      "portraitId": null,
+      "bio": null
+    }
+  ],
+  "events": [
+    {
+      "id": "military-2026",
+      "title": "2026军训总结大会",
+      "fullTitle": "淮北一中2026军训总结大会",
+      "year": 2026,
+      "date": "2026-08-24",
+      "place": "淮北一中操场",
+      "timeLabel": "15:00–18:00（复盘正文）",
+      "timeNote": "内嵌回放署名另记16:00，保留两种来源，不据此推算回放时长。",
+      "teamSize": 7,
+      "cameraCount": 4,
+      "coverId": "article-08",
+      "groupId": "article-11",
+      "galleryIds": [
+        "article-00",
+        "article-01",
+        "article-02",
+        "article-03",
+        "article-04",
+        "article-05",
+        "article-06",
+        "article-07",
+        "article-08",
+        "article-09",
+        "article-10",
+        "article-11"
+      ],
+      "workIds": [
+        "military-replay",
+        "military-photos"
+      ],
+      "noteIds": [
+        "military-review"
+      ],
+      "sourceId": "source-review",
+      "summary": "主席台上、主席台下、稳定器与航拍，四个机位共同完成本场转播。",
+      "contributions": [
+        {
+          "memberId": "person-jky",
+          "role": "导播 / 策划",
+          "source": "原文内嵌回放署名",
+          "detail": "导播与策划，负责画面切换和现场协调。"
+        },
+        {
+          "memberId": "person-dwb",
+          "role": "飞手",
+          "source": "原文内嵌回放署名",
+          "note": "复盘正文的稳定器段落也列有杜文博；此处主要职责沿用内嵌回放署名。",
+          "detail": "回放署名为飞手；正文稳定器段落也有其参与记录。"
+        },
+        {
+          "memberId": "person-lmg",
+          "role": "稳定器",
+          "source": "原文内嵌回放署名",
+          "detail": "稳定器拍摄，提供移动视角。"
+        },
+        {
+          "memberId": "person-smj",
+          "role": "掌机",
+          "source": "原文内嵌回放署名",
+          "detail": "正文记录其在主席台下掌机。"
+        },
+        {
+          "memberId": "person-zyh",
+          "role": "掌机",
+          "source": "原文内嵌回放署名",
+          "detail": "正文记录其在主席台上掌机。"
+        },
+        {
+          "memberId": "person-why",
+          "role": "掌机",
+          "source": "原文内嵌回放署名",
+          "detail": "回放署名为掌机；来源未标注具体机位。"
+        }
+      ],
+      "titleLines": [
+        "2026军训",
+        "总结大会"
+      ],
+      "viewpoints": [
+        {
+          "mediaId": "article-08",
+          "label": "现场效果"
+        },
+        {
+          "mediaId": "article-06",
+          "label": "制作现场"
+        },
+        {
+          "mediaId": "article-07",
+          "label": "机位与通话"
+        },
+        {
+          "mediaId": "article-11",
+          "label": "团队合影"
+        }
+      ],
+      "cameras": [
+        {
+          "label": "主席台上",
+          "equipment": "索尼 a7m5 / 腾龙 50–400",
+          "imageId": "article-02"
+        },
+        {
+          "label": "主席台下",
+          "equipment": "索尼 ZV-E10 / 索尼 24–105 G",
+          "imageId": "article-03"
+        },
+        {
+          "label": "稳定器",
+          "equipment": "富士 X-H2S / 18–55 / RS2",
+          "imageId": "article-04"
+        },
+        {
+          "label": "航拍",
+          "equipment": "Mavic 3 Pro / RC Pro",
+          "imageId": null
+        }
+      ],
+      "featuredGalleryIds": [
+        "article-02",
+        "article-04",
+        "article-05",
+        "article-06",
+        "article-08",
+        "article-11"
+      ],
+      "secondaryCoverId": "article-07",
+      "creditsNote": "按原文内嵌回放中的公开署名列出；7 人团队中其余人员未补写。",
+      "storyId": "military-2026"
+    },
+    {
+      "id": "gala-2025",
+      "title": "2025元旦汇演",
+      "fullTitle": "2025元旦汇演 · 宣传片中的现场",
+      "year": 2025,
+      "date": null,
+      "place": null,
+      "timeLabel": null,
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "promo-stage",
+      "groupId": null,
+      "galleryIds": [
+        "promo-stage"
+      ],
+      "workIds": [
+        "promo-2026"
+      ],
+      "noteIds": [],
+      "sourceId": "source-promo",
+      "summary": "宣传片中的元旦汇演画面。",
+      "contributions": []
+    },
+    {
+      "id": "sports-2025",
+      "title": "2025运动会",
+      "fullTitle": "2025运动会",
+      "year": 2025,
+      "date": null,
+      "place": null,
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "promo-sports",
+      "groupId": null,
+      "galleryIds": [
+        "promo-sports"
+      ],
+      "workIds": [
+        "promo-2026"
+      ],
+      "noteIds": [],
+      "sourceId": "source-promo",
+      "summary": "开幕式、比赛与拍摄现场。",
+      "contributions": []
+    }
+  ],
+  "works": [
+    {
+      "id": "promo-2026",
+      "title": "摄影社宣传片",
+      "subtitle": "《定稿-0719》",
+      "kind": "film",
+      "year": 2026,
+      "mediaId": "promo-embed",
+      "coverId": "promo-group",
+      "eventId": null,
+      "authorIds": [],
+      "creditMemberIds": [],
+      "sourceId": "source-promo",
+      "externalUrl": "https://www.bilibili.com/video/BV1xwKr6yE9G/",
+      "description": "近几年拍摄现场与作品的共同记录。完整影片在哔哩哔哩在线播放。"
+    },
+    {
+      "id": "military-replay",
+      "title": "军训总结大会 · 直播回放",
+      "subtitle": "哔哩哔哩在线播放",
+      "kind": "replay",
+      "year": 2026,
+      "mediaId": "replay-military-embed",
+      "coverId": "article-09",
+      "eventId": "military-2026",
+      "authorIds": [],
+      "creditMemberIds": [
+        "person-jky",
+        "person-dwb",
+        "person-lmg",
+        "person-smj",
+        "person-zyh",
+        "person-why"
+      ],
+      "sourceId": "source-bilibili-military",
+      "externalUrl": "https://www.bilibili.com/video/BV1pWhP6wE67/",
+      "notice": "本场回放声音丢失；B站发布版本时长1:53:06。",
+      "description": "微信视频号与哔哩哔哩参与播出；在线播放来自哔哩哔哩，原复盘文章保留另一观看入口。"
+    },
+    {
+      "id": "military-photos",
+      "title": "军训直播 · 现场配图",
+      "subtitle": "2026.08.24 / 现场图集",
+      "kind": "photos",
+      "year": 2026,
+      "mediaId": null,
+      "coverId": "article-07",
+      "eventId": "military-2026",
+      "galleryIds": [
+        "article-02",
+        "article-03",
+        "article-04",
+        "article-05",
+        "article-06",
+        "article-07",
+        "article-08",
+        "article-09",
+        "article-10",
+        "article-11",
+        "article-01"
+      ],
+      "authorIds": [],
+      "creditMemberIds": [],
+      "sourceId": "source-review",
+      "description": "本场复盘中的工作照、现场效果与合影。"
+    },
+    {
+      "id": "working-photos",
+      "title": "拍摄现场",
+      "subtitle": "会场、机位与工作台",
+      "kind": "photos",
+      "year": null,
+      "yearLabel": "2024",
+      "mediaId": null,
+      "coverId": "photo-work-tripod",
+      "eventId": null,
+      "galleryIds": [
+        "photo-work-tripod",
+        "photo-work-edit",
+        "photo-work-camera",
+        "photo-work-review",
+        "photo-work-gear",
+        "photo-work-screen"
+      ],
+      "authorIds": [],
+      "creditMemberIds": [],
+      "sourceId": "source-photo-selection",
+      "description": ""
+    },
+    {
+      "id": "campus-photos",
+      "title": "校园与日常",
+      "subtitle": "校园、花木与黄昏",
+      "kind": "photos",
+      "year": null,
+      "yearLabel": "2024–2026",
+      "mediaId": null,
+      "coverId": "photo-see-campus",
+      "eventId": null,
+      "galleryIds": [
+        "photo-see-campus",
+        "photo-see-flower",
+        "photo-see-wires",
+        "photo-see-blossom",
+        "photo-see-track"
+      ],
+      "authorIds": [],
+      "creditMemberIds": [],
+      "sourceId": "source-photo-selection",
+      "description": ""
+    },
+    {
+      "id": "together-photos",
+      "title": "合影",
+      "subtitle": "舞台、看台与食堂",
+      "kind": "photos",
+      "year": null,
+      "yearLabel": "2024–2026",
+      "mediaId": null,
+      "coverId": "photo-together-red",
+      "eventId": null,
+      "galleryIds": [
+        "photo-together-red",
+        "photo-together-stand",
+        "photo-together-dinner"
+      ],
+      "authorIds": [],
+      "creditMemberIds": [],
+      "sourceId": "source-photo-selection",
+      "description": ""
+    }
+  ],
+  "notes": [
+    {
+      "id": "military-review",
+      "title": "2026军训直播复盘",
+      "subtitle": "筹备、现场、问题与总结",
+      "sourceId": "source-review",
+      "eventId": "military-2026",
+      "kind": "复盘原文",
+      "authorLabel": "原文：撞上树桩的猪-杂谈随笔",
+      "publishedAt": "2026-09-01",
+      "sections": [],
+      "documentId": "military-review-original",
+      "editorialSummary": false
+    },
+    {
+      "id": "full-review-guide",
+      "title": "全程回顾制作指南",
+      "subtitle": "机位、声音与后期",
+      "kind": "制作指南",
+      "publishedAt": "2025-04",
+      "sections": [],
+      "sourceId": "source-full-review-guide",
+      "eventId": null,
+      "authorLabel": "",
+      "editorialSummary": false,
+      "documentId": "full-review-guide"
+    },
+    {
+      "id": "broadcast-guide",
+      "title": "如何完成一场活动直播？",
+      "subtitle": "从机位到导播",
+      "kind": "直播教程",
+      "publishedAt": "2026-01-18",
+      "sections": [],
+      "sourceId": "source-broadcast-guide",
+      "eventId": null,
+      "authorLabel": "",
+      "editorialSummary": false,
+      "documentId": "broadcast-guide"
+    },
+    {
+      "id": "camera-communication",
+      "title": "导播话术与沟通",
+      "subtitle": "现场通话",
+      "kind": "岗位参考",
+      "publishedAt": null,
+      "sections": [
+        {
+          "title": "指令先到，人再动作",
+          "text": "通话先说明机位，再说明需要的画面或动作。指令尽量简短，避免多人同时讲话。",
+          "imageId": null
+        },
+        {
+          "title": "彩排时约定用语",
+          "text": "推、拉、摇移等用语需要提前统一。掌机有疑问或遇到设备问题时，及时反馈给导播。",
+          "imageId": null
+        }
+      ],
+      "sourceId": "source-camera-communication",
+      "eventId": null,
+      "authorLabel": "",
+      "editorialSummary": true
+    }
+  ],
+  "appointments": [
+    {
+      "memberId": "person-lmg",
+      "cohortLabel": "2023级",
+      "role": "副社长",
+      "sourceId": "source-promo"
+    },
+    {
+      "memberId": "person-jky",
+      "cohortLabel": "2024级",
+      "role": "社长",
+      "sourceId": "source-promo"
+    },
+    {
+      "memberId": "person-wxn",
+      "cohortLabel": "2025级",
+      "role": "社长",
+      "sourceId": "source-promo"
+    },
+    {
+      "memberId": "person-dwb",
+      "cohortLabel": "2026级",
+      "role": "社长",
+      "sourceId": "source-promo"
+    },
+    {
+      "memberId": "person-smj",
+      "cohortLabel": "2026级",
+      "role": "副社长",
+      "sourceId": "source-promo"
+    }
+  ]
+}

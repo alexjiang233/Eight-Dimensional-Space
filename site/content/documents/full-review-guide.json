@@ -1,0 +1,960 @@
+{
+  "title": "全程回顾制作指南",
+  "dateLabel": "2025.04",
+  "sourceName": "全程回顾制作指南.docx",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "sourceIndex": 3,
+      "text": "一直以来，摄影社承担着各类活动的全程回顾视频的制作任务，涵盖一年一度的运动会开幕式、元旦文艺汇演、高一课本剧、高二心理剧、两年一度的合唱比赛等。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 4,
+      "text": "本教程将以过去制作案例的经验教训为蓝本，结合我校实际情况，讲解大型活动全程回顾视频的制作方法和技巧。 "
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 7,
+      "text": "前期准备",
+      "prefix": "第一部分 ",
+      "level": 2,
+      "anchor": "doc-p-7"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 9,
+      "text": "一、机位设置",
+      "level": 3,
+      "anchor": "doc-p-9"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 11,
+      "text": "1.主机位，即正对舞台的机位。在央视春晚等大型活动的摄制中，该机位也通常被命名为1号机，其重要程度可见一斑。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 12,
+      "text": "(1)主机位设置的核心思路是稳定。我们需要保证在其他机位均中断录制的极限情况下，主机位依然有可用的素材。所以，在设备的分配上，尽量在主机位使用支持USB供电且支持长时间（一小时以上）连续录制的相机，并搭配容量较大的存储卡。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 13,
+      "text": "(2)由于主机位主要承担全景画面的拍摄，故对焦段覆盖的要求较低，全画幅24-70mm、APS-C 18-55mm左右即可。再结合一些恰当的运镜（详见下文），便可实现良好的效果。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 14,
+      "text": "(3)主机位的布置可能会对部分观众的视线造成一些影响。为避免产生不必要的麻烦，请提前与现场负责老师说明并协商。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 16,
+      "text": "2.副机位，与主机位同属固定机位，但更注重从侧面视角捕捉舞台细节，同时可在镜头调度中起到丰富和完善作用。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 17,
+      "text": "(1)副机位的安排较主机位更灵活多变，可根据现场实际情况进行动态调整。一般情况下，主副机位的朝向夹角应控制在30°-60°之间，以45°左右为宜。若角度过小，则主副机位区别不明显，利用率低；若角度过大，则会造成偏台。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 18,
+      "text": "(2)副机位大多数时候需要拍摄人物特写。因此，诸如全画幅24-105mm（开启APS-C裁切）及以上、APS-C画幅18-135mm以上，是副机位的最佳镜头搭配。当然，若设备不充足，也可使用85mm f1.8等定焦镜头作为下位替代。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 19,
+      "text": "(3)副机位一般设置在主机位左侧，以便在串场时更好的拍摄主持人的正面特写，减小镜头调度压力。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 21,
+      "text": "3.移动机位，即稳定器机位，是将相机挂载到稳定器上，再手持稳定器在舞台前进行运镜的机位。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 22,
+      "text": "(1)相较固定机位，移动机位机动性极强，对运动状态人物的拍摄有不可替代的作用。操作稳定器虽需要一定门槛，但上手较快，练习一段时间后，便可利用稳定器实现很多固定机位无法实现的镜头。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 23,
+      "text": "(2)稳定器对焦段要求也不高。若将外变焦镜头移至长焦端，会对设备调平提出极大挑战，对操作稳定性的要求直线上升，效果也较为一般。所以，移动机位与主机位相同，一般使用全画幅24-70mm、APS-C 18-55mm左右即可。如有条件，也可利用跟焦器，实现运镜时的焦段变化，实现更优质的效果。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 24,
+      "text": "由于社团对移动机位掌机的需求量不大（3人左右即可），我们将不再大范围开设稳定器使用的培训。如有想要学习稳定器操作的同学，也可以利用课余时间私下进行练习。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 26,
+      "text": "器材管理",
+      "prefix": "二、 ",
+      "level": 3,
+      "anchor": "doc-p-26"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 27,
+      "text": "1.请将所有需要使用的器材（含相机、存储卡、麦克风、无人机、三脚架、对讲机等）分类统计；列出清单，登记机主信息。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 28,
+      "text": "例：2024届运动会 设备清单"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 29,
+      "text": "相机",
+      "prefix": "一、 "
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 30,
+      "text": "1.Nikon Z6  2.Sony a7 III  3.Canon EOS R6"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 31,
+      "text": "4.Canon EOS R50（黑） 5.Canon EOS R50（白）"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 32,
+      "text": "6.Lumix GH5S"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 33,
+      "text": "无人机",
+      "prefix": "二、 "
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 34,
+      "text": "    1.DJI Mavic3  2.DJI Air3  3.DJI Mini3 Pro"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 35,
+      "text": "稳定器",
+      "prefix": "三、 "
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 36,
+      "text": "    1.DJI RS3  2.DJI RS2 Combo"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 37,
+      "text": "对讲机 x10",
+      "prefix": "四、 "
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 38,
+      "text": "（后略）"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 40,
+      "text": "2.较贵重的设备一般都有自带的收纳包。在活动开始前，由机主携带到活动现场即可。接收器材时，请在清单的对应项上打“√”，确保没有遗漏。请提前与机主约定好归还时间，活动结束后请原封不动放在包内归还。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 41,
+      "text": "    3.对于相机、无人机等，在有条件的情况下，应预留一台机器作为备份，以防止出现事故时被迫中断拍摄。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 44,
+      "text": "第二部分 现场拍摄",
+      "level": 2,
+      "anchor": "doc-p-44"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 45,
+      "text": "【注：下文的“掌机”指该机位的操作人员和负责人。】"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 46,
+      "text": "参数设置",
+      "prefix": "一、 ",
+      "level": 3,
+      "anchor": "doc-p-46"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 47,
+      "text": "请在机器架设后、活动开始前，仔细检查相机的各项设置"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 48,
+      "text": "1.检查录制参数。无论录制何种规格，都须保证各机器的统一。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 49,
+      "text": "(1)录制参数主要由相机拍摄能力与电脑性能决定。为保证清晰度，建议录制4K（2160p），30p（29.97p）。如电脑性能一般，可以在剪辑前手动转换代理文件（方法详见下文）。转换代理文件后，任意电脑均可负担超高清、多机位的剪辑任务，不会卡顿。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 50,
+      "text": "(2)调整曝光。由于拍摄角度的差异，不同机位自动曝光的策略都不同。部分场景环境光亮度会不断变化，故不要使用自动曝光。依据过去的经验，在默认曝光时，主机位画面会比副机位更亮。若在室内，主机位建议+0.3EV，副机位建议+0.7EV。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 51,
+      "text": "(3)检查收音。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 52,
+      "text": "二、掌机技巧",
+      "level": 3,
+      "anchor": "doc-p-52"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 53,
+      "text": "首先，无论是哪个机位，运镜的顺滑都是首要的。如果相机的运镜不够顺滑，其效果甚至差于不操纵相机。所以，无论是旋转变焦环、调整三脚架、或是端稳定器，都必须保证稳定和流畅。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 55,
+      "text": "1.主机位：主机位的地位和作用，决定了其不需要繁多和灵活的运镜。作为“压舱石”，一般情况下，主机位的掌机只需实时监控录制的连续性和稳定性即可，确保记录舞台上的一切，任务相对较轻。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 56,
+      "text": "若舞台上只有一个人（如独唱、独舞、独奏等），由于此时舞台较空，全景效果一般，主机位的掌机也可适当调整镜头，将焦段适当拉长，使后期画面的选择更加多元。但每个节目的首尾，以及整场活动的开始和结束环节，主机位必须回正，将画面中心对准舞台中轴线，并将焦段调整至最短。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 57,
+      "text": "2.副机位：灵活多变的副机位，对掌机的水平提出了较大考验。副机位的掌机必须保持高度专注，以便实时操作焦段变化和运镜，敏锐抓住场上的精彩部分。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 58,
+      "text": "在舞蹈类节目中，副机位可以通过尝试跟随舞者动作（轻微上下/左右摆动镜头），或快速放大/缩小画面（参考SBS），增加画面动感，提高视觉冲击力，几次尝试均收获了高度评价。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 59,
+      "text": "在拍摄领导讲话等较为单调的内容时，与舞蹈节目相反，应做到足够的稳重，不要在领导讲话过程中随意变动画面。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 60,
+      "text": "同时，副机位还兼具拍摄主持人串场的画面，因此在演员下台（一般与主持人上台方向相同）时，可将焦段适当缩小，衔接主持人上台动作，保证连贯性。在主持人串场时，拍摄焦段以刚好覆盖上半身为宜，也可稍大。在开场和结尾，由于舞台全景的任务已由主机位承担，故若焦段允许，可跟随拍摄正在讲话的主持人的脸部特写。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 61,
+      "text": "3.移动机位："
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 62,
+      "text": "(1)移动机位常被称作“万金油”，其重要性不言而喻。做个不恰当的比喻，移动机位的运镜可以尽量“花哨”。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 63,
+      "text": "(2)作为移动机位的掌机，切勿让思维过于局限，一定要尽己所能丰富画面。当然，移动机位也可静止在某处不动，作为固定机位的补充，但需尽量避免与固定机位的视角重叠，否则就失去了其价值。另外，由于固定机位的局限性，观众的临场反应、鼓掌等，也由移动机位负责。此时请无比关注画面亮度，以防出现画面欠曝、噪点爆炸等现象。请注意避让其他机位的镜头，以免遮挡。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 64,
+      "text": "(3)前面提到，移动机位主要起到丰富画面、增加效果的作用，具有一定的可替代性。以大礼堂为例，大礼堂允许我们活动的空间较为狭小，容易影响演出。所以，综合各种因素，有些持续时间长，且场景较为固定的活动，如心理剧、课本剧等，建议不要设置移动机位。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 68,
+      "text": "三、信息传递与交流",
+      "level": 3,
+      "anchor": "doc-p-68"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 69,
+      "text": "1.对讲机的使用"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 70,
+      "text": "社团于2024年9月众筹购买了对讲机，型号为：宝峰 BF-999S。由于初期管理混乱，原本购买的10台对讲机，有两台在运动会期间不慎遗失，当前仅剩余8台。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 71,
+      "text": "对讲机顶部有两个旋钮，较大的、标注数字的为信道调整旋钮，较小的旋钮为开关机与音量调节旋钮。领取对讲机后，顺时针转动较小的旋钮，打开对讲机。再根据现场负责人的安排调整信道。若在扬声器中听到该信道的数字，即为更改信道成功。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 72,
+      "text": "在拍摄前，可将后勤、视频、照片、负责人等组分配至不同信道，并向所有人员告知。在活动中可根据与不同人员的联系需要，切换不同的信道，以实现高效沟通。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 73,
+      "text": "该对讲机的配套耳机音质一般，佩戴不方便，使用也较为繁琐。所以，除移动机位外，其他组别均可不使用耳机，但请注意控制音量，以免打扰到舞台和观众。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 74,
+      "text": "附：耳机的佩戴方法"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 75,
+      "text": "对讲机的配套耳机由插头、麦克风和耳机组成。使用时，请先将插头插入对讲机右侧的耳机插孔，测试耳机是否可以使用。如按下麦克风上的银色按键后，对讲机指示灯变为绿色，且其他对讲机成功接收声音，则耳机可以使用。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 76,
+      "text": "将对讲机放在口袋中（请注意露出天线）或别在腰间，将耳机线从衣服内穿过（如不方便，也可将线束裸露在外）。耳机需佩戴在右耳，将耳机外侧的环形部件套在右耳耳廓上，黑色的发声单元轻置于耳道口（平头塞耳机无需完全塞入耳中，请勿过于用力，以免损伤身体），调整到自己认为舒服的状态，并再次测试。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 79,
+      "text": "2.机位间的协同配合"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 80,
+      "text": "在拍摄过程中，不同机位应在不影响拍摄稳定性的基础上，积极进行相互沟通，避免机位和拍摄主体重复，尽可能保证各机位间的差异化。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 81,
+      "text": "例：舞台上的场景是老师给学生上课，拍摄主题为老师和学生。通过沟通，确定了主机位拍摄师生全景，副机位拍摄教师特写，移动机位到舞台右侧拍摄学生特写的方案。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 83,
+      "text": "3.电池、存储卡、等的补给"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 84,
+      "text": "请随时监控设备的剩余电量。当相机电量≤20%时，请用对讲机联系后勤组，并告知机型。后勤组成员请及时将另一块满电的电池送达。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 85,
+      "text": "在拍摄开始前，请及时检查存储卡剩余容量，确保容量充足。如相机提示“存储卡容量已满”，也请联系后勤组。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 86,
+      "text": "后勤组在运送物资时，请务必注意脚下的电线和杂物、身旁的观众等，更要注意尽量躲开相机视角，从后方绕过，快速送达。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 88,
+      "text": "四、音频录制方案",
+      "level": 3,
+      "anchor": "doc-p-88"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 89,
+      "text": "1.机内麦克风直接录制"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 90,
+      "text": "  方法：打开相机后，不进行任何操作，直接录制。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 91,
+      "text": "优点：最方便，省时省力、稳定。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 92,
+      "text": "缺点：音质较差，噪音非常严重，只能用于后期视频合成。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 93,
+      "text": "2.加装机顶麦克风"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 94,
+      "text": "方法：在相机的冷靴接口加装机顶麦克风，并将麦克风的3.5mm音频接口插到相机的麦克风接口。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 95,
+      "text": "优点：对比后几种方法，其操作相对简单、易上手，且机顶麦价格相对低廉。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 96,
+      "text": "      缺点：音质一般，杂音较大，舞台声音（尤其是歌声）的听感较差；3.5mm音频接口容易松动或未插好，导致音频“消失”，造成严重事故。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 97,
+      "text": "3.调音台内录【此方法仅限校体育馆使用】"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 98,
+      "text": "      【注：校体育馆于2024年12月升级了音响设备，新的调音台加入了内录功能，可以在调音台上外接音频设备，不间断录制16bit/48kHz/1536kbps/wav格式的音频】"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 99,
+      "text": "方法：准备一个容量较大的U盘（剩余空间≥32GB），插入调音台的USB接口，点击Record，再点击Start，开始录制。活动结束后，再点击Stop，结束录制，并拔出U盘。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 100,
+      "text": "  优点：音质出色，完美收录舞台声音，且没有杂音"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 101,
+      "text": "      缺点：经测试，该方案有录制缺失的情况（即文件完好，但中间缺失一段音频），对后期的对轨工作影响较大，建议谨慎使用。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 102,
+      "text": "4.调音台监听输出"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 103,
+      "text": "  4.1 直接使用录音笔录制"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 104,
+      "text": "方法：在学校任意调音台上，都有监听接口，规格多为6.35mm（故应提前准备转接线）。将录音笔或其他录音设备打开，将监听接口插入录音笔输入口，点击录制。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 105,
+      "text": "优点：音质出色，完美收录舞台声音，且没有杂音"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 106,
+      "text": "缺点：需要提前准备录音笔；且无法收录环境音，现场氛围感一般；后期音视频匹配比较麻烦。x"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 107,
+      "text": "  4.2 外接多通道无线麦克风，并同时输入环境音"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 108,
+      "text": "方法：将多通道麦克风的接收器固定在相机的冷靴接口，并插好麦克风附带的3.5mm TRS-TRS连接线；在调音台监听接口上插入6.35mm-3.5mm转接头，再用另一条3.5mm TRS-TRS连接线连接发射器与调音台。如有需要，可以将另一个发射器夹在主机位镜头的遮光罩上，将音量调低，附带一些音量较大的环境声（如喝彩、鼓掌），增加临场感。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 109,
+      "text": "优点：录制稳定且高质量；后期无需对轨，工作量大幅降低；音质出色，噪音小（集合以上所有优点，为目前的最佳解决方案）。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 110,
+      "text": "缺点：需要提前准备无线麦克风。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 112,
+      "text": "五、拍摄封面图",
+      "level": 3,
+      "anchor": "doc-p-112"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 113,
+      "text": "    在活动过程中，请安排一位同学（运动会请安排无人机飞手）前往活动会场后方的高处，拍摄活动全景，作为视频封面。封面图应尽量包含活动名称（可以横幅、条屏、主屏等方式呈现）、部分观众作为前景，营造气氛。封面图应通过调整曝光突出主体。（例：在体育馆等光比过大的场景时，应压低曝光，以舞台的准确曝光为参考，同时不应出现任何艺术化的表现手法（如黑白照片、高度风格化、夸张的构图和透视等。）如有符合上述条件的演职人员合影，也可以采用。各类案例请参考摄影社账号内往期视频，或学校公众号文章的封面。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 117,
+      "text": "第三部分 后期制作",
+      "level": 2,
+      "anchor": "doc-p-117"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 119,
+      "text": "一、素材存储与整理",
+      "level": 3,
+      "anchor": "doc-p-119"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 120,
+      "text": "1.收集和管理存储卡：在收集存储卡时，请及时记录存储卡型号与物主信息，完善对应关系表，以便查找。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 121,
+      "text": "参考示例："
+    },
+    {
+      "type": "table",
+      "sourceIndex": 122,
+      "rows": [
+        [
+          "序号",
+          "名称",
+          "物主"
+        ],
+        [
+          "1",
+          "",
+          ""
+        ],
+        [
+          "2",
+          "",
+          ""
+        ],
+        [
+          "3",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 124,
+      "text": "如果条件允许，可以购置专用的存储卡盒，避免存储卡的丢失或损坏。完成拷卡操作后，请尽快将存储卡归还机主。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 125,
+      "text": "2.拷卡：将素材传入电脑内部空间充足的硬盘分区，作为临时存储。针对最常用的 SD 卡，可提前准备多个高速读卡器，以提升拷卡效率，防止因读卡器数量不足或性能不佳，耽误过多时间。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 126,
+      "text": "    注：在以往的内容制作时，曾出现数次素材丢失的情况，且这种情况无法用数据恢复软件找回，造成无法挽回的损失。所以，请在拷卡时务必确保电脑空闲，不要在拷卡时运行其他应用。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 127,
+      "text": "3.素材汇总：以机位为名称创建文件夹，便于区分和查找不同机位素材。为了提升稳定性，在拷卡完成后，我们可以在开始剪辑前，把所有素材集中转存至一块大容量硬盘，统一管理。对于项目的总文件夹，其名称需按照“时间+活动名称”的格式编写，方便在有需要时，依据时间与活动主题检索素材。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 129,
+      "text": "素材转码",
+      "prefix": "二、 ",
+      "level": 3,
+      "anchor": "doc-p-129"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 130,
+      "text": "在这里，我们将会把素材压缩为一个清晰度很低的视频（即代理文件），方便剪辑，提高流畅度。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 131,
+      "text": "在电脑安装并打开软件“格式工厂”（下载地址：http://www.pcfreetime.com/formatfactory/CN/download.html）。在格式转换中，选择“→MP4”，点击“调整输出参数”。在参数设置页中，将分辨率调整为720P，帧率设置为30p，码率为2M，其余保持默认。设置参数后，将所有机位的所有素材拖拽到“添加文件”处，无需分类。随后点击右下角的“完成”。返回主界面后，点击上方的“开始”即可。此步骤耗时很长，但对设备性能要求不高。为节省时间，可在班级大屏内进行。但请注意遵守纪律，可与老师或班干说明。为防止打扰他人，请务必在主界面右下角，将“转换完成后：完成通知”取消选择。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 134,
+      "text": "视频对齐",
+      "prefix": "三、 ",
+      "level": 3,
+      "anchor": "doc-p-134"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 136,
+      "text": "此段已废弃，正在修订。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 138,
+      "text": "1.素材导入：在电脑上启动“剪映专业版”，点击“新建工程”，并将所需素材拖曳至软件界面。在素材管理器中创建以机位命名的文件夹，将对应素材分类移入。之后，点击“转换代理文件”，设置代理文件存储路径（非系统盘）。注意更改代理文件存放路径，以免塞满硬盘。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 139,
+      "text": "2.轨道分配：先将素材拖拽到时间轴，并使每个机位的素材独占一轨，将主机位放置在主轨。再找到单独录制的音轨文件，拖入时间轴并置于主轨下方。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 140,
+      "text": "3.音视频匹配：不同机位逐个对轨，利用视频素材内录的音频与音轨对齐。对齐后，分离内录的音频，并将其删除。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 142,
+      "text": "多机位切换",
+      "prefix": "（三） ",
+      "level": 3,
+      "anchor": "doc-p-142"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 144,
+      "text": "此段已废弃，正在修订。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 146,
+      "text": "1.在软件的预览窗口右下角，把预览分辨率调至1/4，以减少系统资源占用，确保剪辑流畅。当然，若电脑性能充足，也可视情况调整。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 147,
+      "text": "2.将多个机位的素材分别放置在不同轨道后，同时在预览窗口查看各机位画面。仔细对比后，确定效果最佳的画面，然后截取并删除其他轨道上同一时间段的视频片段。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 148,
+      "text": "3.在剪辑时，尽量每隔几秒就切换一次画面，增添画面的丰富度与多样性。基于移动机位的特点，在整体剪辑方案中，可适当提高移动机位素材的使用比例，从而提升视频的视觉吸引力与观赏性。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 150,
+      "text": "  （四）音视频处理",
+      "level": 3,
+      "anchor": "doc-p-150"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 151,
+      "text": "1.在调色界面对画面进行调节，调整画面亮度、对比度、色温等，保证基础画面观感。针对色彩调节，通过调整色相、饱和度等参数，使画面色彩自然且富有层次感。调色过程中，请时刻注意肤色，依据经验，可以适当向左调整白平衡，以免肤色过黄，观感更佳。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 152,
+      "text": "2.调整音量增益数值，避免音量过小、听不清，或音量过大导致失真。若录制时使用无线麦克风，则不用做其他调整；若使用其他方法，则可适当进行降噪。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 154,
+      "text": "  （五）字幕制作（选做）",
+      "level": 3,
+      "anchor": "doc-p-154"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 155,
+      "text": "使用剪映自带的“识别字幕”功能，自动识别字幕；识别完成后，在界面逐一校对即可。此步骤建议使用剪映5.9版本制作，该功能在5.9以前的版本为免费,后改为付费功能。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 156,
+      "text": "参考字体设置："
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 157,
+      "text": "字体：系统字体（或使用思源黑体）"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 158,
+      "text": "字号：6"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 159,
+      "text": "颜色：白色"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 160,
+      "text": "位置：居中，靠下"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 162,
+      "text": "描边："
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 163,
+      "text": "颜色：黑色"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 164,
+      "text": "粗细：20"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 166,
+      "text": "阴影："
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 167,
+      "text": "颜色：黑色"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 168,
+      "text": "不透明度：20%"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 169,
+      "text": "模糊度: 25%"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 170,
+      "text": "距离：5"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 171,
+      "text": "角度：-45°"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 173,
+      "text": "（六）导出",
+      "level": 3,
+      "anchor": "doc-p-173"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 174,
+      "text": "1.视频校对：在上述剪辑工作结束后，如果视频时长较短，可在剪辑软件中完整播放视频，逐一对画面、音频、转场等内容进行仔细校对。若视频时长较长，也可通过查看时间轴，依次检查各轨道素材、剪辑点等是否准确无误。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 175,
+      "text": "2.渲染：完成校对后，打开导出页面。进入该页面后，按照附录中提供的导出参数进行设置，如分辨率、帧率、编码格式等，开始渲染。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 176,
+      "text": "3.在渲染过程中，建议将Windows或Mac的睡眠模式关闭，防止因长时间不操作，电脑进入睡眠状态而中断导出。若使用的是笔记本电脑，可在电脑底部垫上瓶盖或其他小物品，加强电脑的散热效果，提升导出速度，确保导出顺利完成。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 178,
+      "text": "  （七）素材备份与归档",
+      "level": 3,
+      "anchor": "doc-p-178"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 179,
+      "text": "剪辑完成后，硬盘内仍留有海量的相机原始素材，视频原始素材码率高，文件体积庞大，处理起来十分棘手。因此，我们必须通过适当的方式处理，以节省硬盘空间，减轻负担。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 180,
+      "text": "但贸然的直接删除原始素材，可能会导致一些问题。所以，我们可以制作一条码率与原素材相媲美，但不进行任何素材加工处理的“视频母带”代替原素材。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 181,
+      "text": "在正式版视频导出完成后，在时间轴删除所有字幕、片头片尾，在调色界面将所有调色选项归零（包含还原Lut），将音频增益调整为0，关闭音频降噪，并按附录提供的参数导出即可。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 183,
+      "text": "成片的上传与发布",
+      "prefix": "（八） ",
+      "level": 3,
+      "anchor": "doc-p-183"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 184,
+      "text": "成片制作完成后，将成片集中在一个文件夹，方便查找和存档。请及时将成片拷给丁源老师。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 185,
+      "text": "若为分节目/班级导出，则直接将文件名改为节目名称即可，方便查找。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 186,
+      "text": "例：神的随波逐流-群星演译社"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 187,
+      "text": "如果是一整条较长的视频，建议在名称后添加录制参数，一般以分辨率、帧率、码率、编码的顺序命名，以下划线分割。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 188,
+      "text": "例：中澳友好音乐会_4K_30fps_12000kbps_H.265.mp4"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 189,
+      "text": "上述工作完成后，打开哔哩哔哩创作中心（https://members.bilibili.com），登录账号@淮北一中摄影社（该账号的使用权归当届社长所有）。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 190,
+      "text": "进入视频上传页面，上传封面图，填写标题。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 191,
+      "text": "例：淮北一中2025年元旦文艺汇演-全程回顾"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 192,
+      "text": "分区视情况选择，一般选择“生活-日常”分区。简介内容可填写拍摄日期、设备、制作人员名单等，视情况自行决定，也可添加简短的话。"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 193,
+      "text": "编辑完成后点击发布，耐心等待上传和发布即可。上传前建议将视频文件转移到内置硬盘，防止因外置硬盘接口松动导致上传出现问题。审核时间不固定，一般为1-2小时左右。"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 196,
+      "text": "附：导出参数",
+      "level": 2,
+      "anchor": "doc-p-196"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 197,
+      "text": "高画质版",
+      "level": 3,
+      "anchor": "doc-p-197"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 198,
+      "text": "格式：mp4"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 199,
+      "text": "分辨率：原始/最大【注：如制作特殊画幅可自行调整】"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 200,
+      "text": "帧率：30p（29.97p）【注：若素材使用PAL录制，也可将帧率调整至25p】"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 201,
+      "text": "码率：20000kbps"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 202,
+      "text": "编码：H.265（HEVC）"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 203,
+      "text": "色域：Rec.709 SDR（默认）"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 204,
+      "text": "流畅版",
+      "level": 3,
+      "anchor": "doc-p-204"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 205,
+      "text": "格式：mp4"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 206,
+      "text": "分辨率：1920x1080"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 207,
+      "text": "帧率：30p（29.97p）"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 208,
+      "text": "码率：6000kbps"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 209,
+      "text": "编码：H.264"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 210,
+      "text": "色域：Rec.709 SDR（默认）"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 212,
+      "text": "编者："
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 213,
+      "text": "八维空间摄影社 2024届 社长"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 214,
+      "text": " 2023级12班 蒋凯阳"
+    },
+    {
+      "type": "heading",
+      "sourceIndex": 215,
+      "text": "修订日期：",
+      "level": 3,
+      "anchor": "doc-p-215"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 216,
+      "text": "2024.12.09 Ver1.0"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 217,
+      "text": "2024.12.12 Ver1.2"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 218,
+      "text": "2024.12.19 Ver1.5"
+    },
+    {
+      "type": "paragraph",
+      "sourceIndex": 219,
+      "text": "2025.04.25 Ver2.0"
+    }
+  ]
+}

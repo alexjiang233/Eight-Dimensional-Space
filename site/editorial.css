@@ -1,0 +1,117 @@
+.hero-editorial {
+  height: calc(100svh - 90px);
+  min-height: 600px;
+  background: #202820;
+  color: #fffdf6;
+  isolation: isolate;
+  overflow: hidden;
+}
+  .hero-editorial .hero-still {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  object-position: 56% center;
+}
+.hero-editorial::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, #070d0b8c, #070d0b00 85%),
+    linear-gradient(0deg, #070d0b9c, transparent 65%);
+}
+.hero-identity {
+  position: absolute;
+  left: var(--edge);
+  bottom: 24%;
+}
+.skin-editorial .compare-section {
+  background: #172219;
+  color: #f1f3e9;
+}
+.skin-editorial .compare-section .section-head p {
+  color: #bbc5b5;
+}
+.skin-editorial .compare-choices button {
+  background: #29362a;
+  color: #f1f3e9;
+}
+.skin-editorial .compare-choices button[aria-pressed='true'] {
+  background: #3c4d38;
+  border-color: #e1edcf;
+}
+.skin-editorial .compare-section figcaption {
+  color: #bbc5b5;
+}
+.skin-editorial .timeline {
+  background: #e1e6dc;
+}
+.skin-editorial .notes-preview {
+  background: #e5e8e1;
+}
+.skin-editorial .notes-preview .note-link {
+  background: #f3f4f0;
+}
+.skin-editorial .page-home .works-section {
+  padding-bottom: 80px;
+}
+.skin-editorial .people-section .section-head h2 {
+  max-width: 15em;
+}
+.skin-editorial .work-image .type-label {
+  background: #f3f4f0e8;
+}
+.skin-editorial .event-intro {
+  background: #e7ebe3;
+}
+.skin-editorial .camera-section {
+  background: #e7ebe3;
+}
+.skin-editorial .gallery-section {
+  padding-bottom: 65px;
+}
+.skin-editorial .crew-directory {
+  background: #e7ebe3;
+}
+.skin-editorial .person-intro {
+  background: #e7ebe3;
+}
+.skin-editorial .note-intro {
+  max-width: none;
+  background: #e7ebe3;
+}
+.skin-editorial .page-notes .reading-nav a {
+  padding-left: 15px;
+  border-left: 2px solid #c3cbbd;
+}
+.skin-editorial .page-notes .reading-nav a:hover {
+  border-color: var(--accent);
+}
+@media (max-width: 700px) {
+  .hero-editorial {
+    height: calc(100svh - 78px);
+    min-height: 655px;
+  }
+.hero-editorial .hero-still {
+    object-position: 61% center;
+  }
+  .hero-editorial::after {
+    background: linear-gradient(0deg, #070d0bc4, #070d0b18 85%);
+  }
+  .hero-identity {
+    bottom: 23%;
+    left: 22px;
+    right: 22px;
+  }
+  .hero-editorial .hero-bottom {
+    font-size: 11px;
+  }
+  .skin-editorial .page-home .works-section {
+    padding-bottom: 44px;
+  }
+  .skin-editorial .gallery-section {
+    padding-bottom: 44px;
+  }
+}
+
