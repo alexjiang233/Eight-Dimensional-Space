@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>两套试作 · 尺寸检查</title>
+    <title>八维空间 · 尺寸检查</title>
     <style>
       body {
         margin: 0;
@@ -56,11 +56,6 @@
           <option>1024</option>
         </select></label
       ><label
-        >版本<select id="skin">
-          <option value="editorial">编排版</option>
-          <option value="industrial">工业版</option>
-        </select></label
-      ><label
         >页面<select id="page">
           <option value="">首页</option>
           <option value="events/military-2026/">军训详情</option>
@@ -83,22 +78,19 @@
         // deployment base ("" locally, "/Eight-Dimensional-Space" on project Pages).
         base = location.pathname.replace(/responsive\.html$/, ''),
         widths = ['320', '390', '768', '1024'],
-        skins = ['editorial', 'industrial'],
         pages = ['', 'events/military-2026/', 'works/', 'people/', 'notes/military-review/', 'works/campus-photos/', 'about/', 'notes/broadcast-guide/', 'notes/full-review-guide/', 'works/military-photos/'];
       const w = document.querySelector('#width'),
-        s = document.querySelector('#skin'),
         p = document.querySelector('#page'),
         frame = document.querySelector('iframe');
       w.value = widths.includes(params.get('width')) ? params.get('width') : '390';
-      s.value = skins.includes(params.get('skin')) ? params.get('skin') : 'editorial';
       p.value = pages.includes(params.get('page')) ? params.get('page') : '';
       function update() {
         frame.style.width = w.value + 'px';
-        frame.src = base + s.value + '/' + p.value;
+        frame.src = base + 'editorial/' + p.value;
         document.querySelector('#direct').href = frame.src;
         const u = new URL(location.href);
         u.searchParams.set('width', w.value);
-        u.searchParams.set('skin', s.value);
+        u.searchParams.delete('skin');
         u.searchParams.set('page', p.value);
         history.replaceState(null, '', u);
       }
@@ -113,7 +105,7 @@
       frame.addEventListener('load', () =>
         frame.contentWindow.postMessage('fieldwork-measure', location.origin),
       );
-      [w, s, p].forEach((e) => e.addEventListener('change', update));
+      [w, p].forEach((e) => e.addEventListener('change', update));
       update();
     </script>
   </body>

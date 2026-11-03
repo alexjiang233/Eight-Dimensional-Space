@@ -2,8 +2,8 @@ import { renderEventRecord } from './event-record.mjs';
 import { renderDocument } from './document.mjs';
 import { renderFooter } from './footer.mjs';
 import { collectionPages } from './collection.mjs';
-// Static design study. The same content graph drives both treatments and every route.
-export const skins = ['editorial', 'industrial'];
+// One editorial site, driven by the shared content graph.
+export const skins = ['editorial'];
 export const escape = (value) =>
   String(value ?? '').replace(
     /[&<>"']/g,
@@ -150,18 +150,6 @@ export function createSite(data, { base = '/' } = {}) {
     const duration = media?.durationLabel ? ` · ${e(media.durationLabel)}` : '';
     return `<article class="work-entry" data-kind="${work.kind}"><a class="work-image" href="${workTarget(work, skin)}">${img(work.coverId, 'loading="lazy"')}<span class="type-label">${kinds[work.kind]}</span></a><div class="work-description"><h3><a href="${workTarget(work, skin)}">${e(work.title)}</a></h3><p>${e(work.subtitle)}</p><span>${e(work.yearLabel || work.year)}${duration}</span></div></article>`;
   };
-  const timeline = (skin) => {
-    const events = [...data.events].sort((a, b) => a.year - b.year);
-    const current = events.at(-1);
-    return `<section class="timeline section" id="years"><div class="section-head"><h2>历年现场</h2><p>舞台上的画面，工作台旁的合影。</p></div><div class="year-layout"><div class="year-controls"><div class="year-buttons">${events
-      .map((ev) => {
-        const m = get('media', ev.groupId || ev.coverId);
-        return `<button type="button" data-year="${ev.year}" aria-pressed="${ev.id === current.id}" data-src="${e(withBase(m.src))}" data-width="${m.width}" data-height="${m.height}" data-alt="${e(m.alt)}" data-caption="${e(m.caption)}" data-title="${e(ev.title)}" data-href="${url(skin, 'events', ev.id)}" data-source-label="${ev.groupId ? '直播团队合影' : '宣传片静帧 · 00:52.5'}">${ev.year}</button>`;
-      })
-      .join(
-        '',
-      )}</div><h3 data-year-title>${e(current.title)}</h3><p data-year-source>${current.groupId ? '直播团队合影' : '活动资料'}</p><a class="text-link" data-year-link href="${url(skin, 'events', current.id)}">进入这次活动</a><p class="caption-note">2025 为宣传片中的汇演画面，2026 为复盘中的团队合影；按实际来源分别标注。</p></div><figure class="year-picture"><a href="${e(withBase(get('media', current.groupId || current.coverId).src))}" data-image data-gallery="years" data-caption="${e(get('media', current.groupId || current.coverId).caption)}" data-year-image-link>${img(current.groupId || current.coverId, 'loading="lazy" data-year-image')}</a><figcaption data-year-caption>${e(get('media', current.groupId || current.coverId).caption)}</figcaption></figure></div></section>`;
-  };
   const compare = (event, skin) => {
     const choices = (event.viewpoints || []).map((v) => [v.mediaId, v.label]);
     if (!choices.length) return '';
@@ -184,28 +172,15 @@ export function createSite(data, { base = '/' } = {}) {
     event.noteIds.length
       ? `<section class="notes-preview section"><div><h2>经验留给下一次</h2><p>彩排、通话、画面链路与现场协作。</p></div><a class="note-link" href="${url(skin, 'notes', event.noteIds[0])}"><span>制作复盘</span><strong>${e(get('notes', event.noteIds[0]).title)}</strong><span>阅读索引</span></a></section>`
       : '';
-  const featuredSection = (skin) =>
-    `<section class="featured section" id="featured"><div class="featured-copy"><p class="date-line">${e(featured.date)} · ${e(featured.place)}</p><h2>${(featured.titleLines || [featured.title]).map(e).join('<br>')}</h2><p class="lead-copy">${e(featured.summary)}</p>${facts(featured)}<div class="action-row"><a class="button" href="${url(skin, 'events', featured.id)}">进入活动专题</a>${sourceLink(featured.sourceId, '原文与回放')}</div></div><div class="featured-images">${figure(featured.coverId, 'featured-main', 'featured')}${featured.secondaryCoverId ? figure(featured.secondaryCoverId, 'featured-small', 'featured') : ''}</div></section>`;
   const filmButton = (skin) => `<a class="watch-link" href="${url(skin, 'works', 'promo-2026')}" data-film><span class="play-shape" aria-hidden="true">▷</span>观看宣传片<span>在线播放 · 1分55秒</span></a>`;
   function home(skin) {
     const stillMedia = get('media', data.site.heroStillId);
     const still = `<img class="hero-still" src="${e(withBase(stillMedia.src))}" width="${stillMedia.width}" height="${stillMedia.height}" alt="${e(stillMedia.alt)}" loading="eager" fetchpriority="high">`;
     const identity = `<h1><span>八维空间</span><span class="club-name">摄影社</span></h1><p class="brand-english" lang="en">Eight-Dimensional-Space</p>${filmButton(skin)}`;
-    const hero =
-      skin === 'editorial'
-        ? `<section class="hero hero-editorial">${still}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#selection">看作品与活动</a></div></section>`
-        : `<section class="hero hero-industrial"><div class="industrial-heading"><div>${identity}</div><p>照片、视频与直播<br>淮北一中摄影社</p></div><div class="monitor-wall"><div class="program-monitor">${still}<div class="program-label"><span>宣传片开场静帧</span><span>完整影片在线播放</span></div><i class="monitor-bracket b1" aria-hidden="true"></i><i class="monitor-bracket b2" aria-hidden="true"></i></div><aside class="monitor-side"><a href="${url(skin, 'events', featured.id)}">${img(featured.coverId)}<span>${e(featured.title)}<span>${e(featured.date || featured.year)}</span></span></a><a href="${url(skin, 'people')}">${img(featured.groupId || featured.coverId)}<span>本场制作团队<span>公开署名</span></span></a></aside></div></section>`;
-    if (skin === 'editorial') return collection.home(hero, skin);
-    return (
-      hero +
-      featuredSection(skin) +
-      compare(featured, skin) +
-      `<section class="works-section section" id="works"><div class="section-head"><h2>作品与记录</h2><a class="text-link" href="${url(skin, 'works')}">全部作品</a></div><div class="work-list">${data.works.map((w) => workEntry(w, skin)).join('')}</div></section>` +
-      timeline(skin) +
-      `<section class="people-section section" id="people"><div class="section-head"><h2>一起完成这场直播的人</h2><a class="text-link" href="${url(skin, 'people')}">查看参与者</a></div>${roster(featured, skin)}<p class="source-caption">${e(featured.creditsNote || '参与记录按实际来源列出。')}</p></section>` +
-      notesPreview(skin, featured)
-    );
+    const hero = `<section class="hero hero-editorial">${still}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#selection">看作品与活动</a></div></section>`;
+    return collection.home(hero, skin);
   }
+
   function eventPage(event, skin) {
     if (event.storyId) return renderEventRecord(event, get('stories', event.storyId), skin, { e, url, figure, get, sourceLink, embedPlayer });
     return `<section class="event-intro section"><div class="event-title"><p class="date-line">${e(event.date || event.year)}${event.place ? ` · ${e(event.place)}` : ''}</p><h1>${e(event.title)}</h1><p class="lead-copy">${e(event.summary)}</p>${facts(event)}<div class="action-row">${event.id === 'military-2026' ? `<a class="button" href="${url(skin, 'works', 'military-replay')}">观看回放</a><a href="#process">看制作现场</a>` : `<a class="button" href="${url(skin, 'works', 'promo-2026')}">观看所在宣传片</a>`}</div></div>${figure(event.coverId, 'event-cover', 'hero')}</section>${event.id === 'military-2026' ? `<div class="event-nav"><a href="#process">制作现场</a><a href="#cameras">四个机位</a><a href="#photos">现场配图</a><a href="#crew">参与者</a><a href="${url(skin, 'notes', 'military-review')}">制作复盘</a></div>${compare(event, skin)}<section class="camera-section section" id="cameras"><div class="section-head"><h2>四个机位，各有位置</h2><p>设备信息按复盘正文保留。</p></div><div class="camera-list">${(event.cameras || []).map((c) => `<article>${c.imageId ? figure(c.imageId, '', 'cameras') : `<div class="camera-equipment"><span>机位资料</span><strong>${e(c.label)}</strong><span>${e(c.equipment)}</span></div>`}<h3>${e(c.label)}</h3><p>${e(c.equipment)}</p></article>`).join('')}</div></section>` : ''}${gallery(event)}${event.contributions.length ? `<section class="people-section section" id="crew"><div class="section-head"><h2>本场参与者</h2><span>公开回放署名</span></div>${event.groupId ? figure(event.groupId, 'crew-photo', 'crew') : ''}${roster(event, skin)}<p class="source-caption">${e(event.creditsNote || '参与记录按实际来源列出。')} 名单不用于推断照片中的人物位置。</p></section>` : ''}${notesPreview(skin, event)}<section class="source-section section"><h2>来源与记录</h2><p>${e(get('sources', event.sourceId).title)}</p>${event.timeNote ? `<details><summary>活动时段的来源说明</summary><p>${e(event.timeLabel)}；${e(event.timeNote)}</p></details>` : ''}${sourceLink(event.sourceId)}</section>`;
@@ -254,8 +229,6 @@ export function createSite(data, { base = '/' } = {}) {
     return `<section class="note-intro section"><p class="date-line">${e(note.kind)}${note.publishedAt ? ` / ${e(note.publishedAt)}` : ''}</p><h1>${e(note.title)}</h1><p class="lead-copy">${e(note.subtitle)}</p>${note.authorLabel ? `<p>${e(note.authorLabel)}</p>` : ''}<p class="note-disclaimer">${note.editorialSummary ? `依据《${e(source.title)}》整理的内容提要。` : '复盘阅读提要；完整内容见原文。'}</p><div class="action-row">${source.url ? sourceLink(note.sourceId, '阅读原文') : ''}${note.eventId ? `<a href="${url(skin, 'events', note.eventId)}">活动记录</a>` : ''}</div></section><div class="reading-layout section"><nav class="reading-nav" aria-label="阅读章节">${note.sections.map((section, i) => `<a href="#chapter-${i}">${e(section.title)}</a>`).join('')}</nav><article class="reading-article">${note.sections.map((section, i) => `<section id="chapter-${i}"><h2>${e(section.title)}</h2><p>${e(section.text)}</p>${section.imageId ? figure(section.imageId, '', 'note') : ''}</section>`).join('')}<a class="text-link" href="${url(skin,'notes')}">返回资料目录</a></article></div>`;
   }
   function layout(skin, page, title, content) {
-    const other = skin === 'editorial' ? 'industrial' : 'editorial';
-    const self = withBase(page.path.replace(`/${skin}/`, `/${other}/`));
     const nav = [
       ['works', '作品'],
       ['events', '活动'],
@@ -263,7 +236,7 @@ export function createSite(data, { base = '/' } = {}) {
       ['notes', '资料'],
       ['about', '关于'],
     ];
-    return `<!doctype html><html lang="zh-CN" class="skin-${skin}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="view-transition" content="same-origin"><title>${e(title)} · 八维空间｜${skin === 'industrial' ? '工业试作' : '编排试作'}</title><link rel="stylesheet" href="${withBase('/app.css')}"><link rel="stylesheet" href="${withBase(`/${skin}.css`)}"><script type="module" src="${withBase('/app.js')}"></script><noscript><style>.site-nav{display:flex!important;flex-wrap:wrap}.compare-choices,.year-buttons,.filter-bar button{display:none!important}</style></noscript></head><body class="page-${page.type}"><a class="skip" href="#main">跳到正文</a><header class="site-header"><a class="brand" href="${url(skin)}"><span>八维空间</span><small>淮北一中摄影社</small></a><nav class="site-nav" id="site-nav" aria-label="主导航">${nav.map(([key, label]) => `<a href="${url(skin, key)}" ${page.type === key ? 'aria-current="page"' : ''}>${label}</a>`).join('')}</nav><a class="skin-link" data-skin-switch href="${self}">${other === 'industrial' ? '工业版' : '编排版'}</a><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>菜单</button></header><main id="main">${content}</main>${renderFooter(data, skin, { url, e })}<dialog class="image-dialog" aria-label="查看完整图片"><header><p data-image-caption></p><button type="button" data-close-dialog>关闭 ×</button></header><img class="large-image" alt=""><details class="image-metadata" hidden><summary>拍摄信息</summary><dl data-image-exif></dl></details><footer><button type="button" data-image-prev>上一幅</button><span data-image-count></span><button type="button" data-image-next>下一幅</button></footer></dialog><dialog class="film-dialog" aria-labelledby="film-title"><header><h2 id="film-title">摄影社宣传片</h2><button type="button" data-close-dialog>关闭 ×</button></header><div class="embed-player film-frame" data-src="${e(embedSrc(promoEmbed))}" data-title="${e(promoEmbed.title)}"></div><p class="embed-source">${sourceLink(promoWork.sourceId, "在哔哩哔哩打开")}</p></dialog><dialog class="filter-dialog" aria-labelledby="filter-title"><header><h2 id="filter-title">筛选作品</h2><button type="button" data-close-dialog>关闭 ×</button></header><form><fieldset><legend>作品类型</legend>${[
+    return `<!doctype html><html lang="zh-CN" class="skin-${skin}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="view-transition" content="same-origin"><title>${e(title)} · 八维空间</title><link rel="stylesheet" href="${withBase('/app.css')}"><link rel="stylesheet" href="${withBase(`/${skin}.css`)}"><script type="module" src="${withBase('/app.js')}"></script><noscript><style>.site-nav{display:flex!important;flex-wrap:wrap}.compare-choices,.year-buttons,.filter-bar button{display:none!important}</style></noscript></head><body class="page-${page.type}"><a class="skip" href="#main">跳到正文</a><header class="site-header"><a class="brand" href="${url(skin)}"><span>八维空间</span><small>淮北一中摄影社</small></a><nav class="site-nav" id="site-nav" aria-label="主导航">${nav.map(([key, label]) => `<a href="${url(skin, key)}" ${page.type === key ? 'aria-current="page"' : ''}>${label}</a>`).join('')}</nav><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>菜单</button></header><main id="main">${content}</main>${renderFooter(data, skin, { url, e })}<dialog class="image-dialog" aria-label="查看完整图片"><header><p data-image-caption></p><button type="button" data-close-dialog>关闭 ×</button></header><img class="large-image" alt=""><details class="image-metadata" hidden><summary>拍摄信息</summary><dl data-image-exif></dl></details><footer><button type="button" data-image-prev>上一幅</button><span data-image-count></span><button type="button" data-image-next>下一幅</button></footer></dialog><dialog class="film-dialog" aria-labelledby="film-title"><header><h2 id="film-title">摄影社宣传片</h2><button type="button" data-close-dialog>关闭 ×</button></header><div class="embed-player film-frame" data-src="${e(embedSrc(promoEmbed))}" data-title="${e(promoEmbed.title)}"></div><p class="embed-source">${sourceLink(promoWork.sourceId, "在哔哩哔哩打开")}</p></dialog><dialog class="filter-dialog" aria-labelledby="filter-title"><header><h2 id="filter-title">筛选作品</h2><button type="button" data-close-dialog>关闭 ×</button></header><form><fieldset><legend>作品类型</legend>${[
       ['all', '全部'],
       ['photos', '照片'],
       ['film', '影片'],

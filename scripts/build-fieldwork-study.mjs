@@ -47,14 +47,13 @@ for (const [url, html] of pages) {
 for (const name of [
   "app.css",
   "editorial.css",
-  "industrial.css",
   "app.js",
   "responsive.html",
 ])
   await copyFile(join(source, name), join(output, name));
 await writeFile(
   join(output, "index.html"),
-  `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${mount}/editorial/"><title>八维空间</title><a href="${mount}/editorial/">编排版</a> · <a href="${mount}/industrial/">工业版</a></html>`,
+  `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${mount}/editorial/"><title>八维空间</title><a href="${mount}/editorial/">进入八维空间</a></html>`,
 );
 await writeFile(
   join(output, "route-manifest.json"),

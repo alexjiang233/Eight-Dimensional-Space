@@ -20,7 +20,7 @@ test('published source facts stay separate from missing photo credits and confli
   assert.match(catalog.works.find((w) => w.kind === 'replay').notice, /声音丢失/);
 });
 
-test('adding one event and contribution generates its page, list entry and existing member history in both skins', () => {
+test('adding one event and contribution generates its page, list entry and existing member history in the active site', () => {
   const data = structuredClone(catalog);
   data.events.push({
     id: 'fixture-only',
@@ -41,7 +41,7 @@ test('adding one event and contribution generates its page, list entry and exist
     contributions: [{ memberId: 'person-jky', role: '测试职责', source: '隔离测试' }],
   });
   const pages = createSite(data);
-  for (const skin of ['editorial', 'industrial']) {
+  for (const skin of ['editorial']) {
     assert.match(pages.get(`/${skin}/events/fixture-only/`), /仅用于测试的活动/);
     assert.ok(pages.get(`/${skin}/events/`).includes(`/${skin}/events/fixture-only/`));
     assert.ok(pages.get(`/${skin}/people/person-jky/`).includes(`/${skin}/events/fixture-only/`));
@@ -100,7 +100,7 @@ test('all same-origin page links and fragment targets resolve in the generated s
 test('guide pages contain every imported paragraph and table, including unfinished original sections', () => {
   const pages = createSite(catalog);
   for (const doc of catalog.documents) {
-    for (const skin of ['editorial', 'industrial']) {
+    for (const skin of ['editorial']) {
       const note = catalog.notes.find(note => note.documentId === doc.id);
       const html = pages.get(`/${skin}/notes/${note.id}/`);
       assert.ok(html.includes(escape(doc.dateLabel)));
@@ -142,7 +142,7 @@ test('video playback is an online bilibili embed and no local video files remain
     assert.ok(!/\/promo\/(film|preview)\.mp4/.test(html), path);
     assert.ok(!html.includes('data-preview-toggle'), path);
   }
-  for (const skin of ['editorial', 'industrial']) {
+  for (const skin of ['editorial']) {
     const event = pages.get(`/${skin}/events/military-2026/`);
     assert.ok(event.includes('player.bilibili.com/player.html?bvid=BV1pWhP6wE67'));
     const replay = pages.get(`/${skin}/works/military-replay/`);
@@ -170,15 +170,15 @@ test('a GitHub Pages sub-path base prefixes every emitted URL without changing l
   assert.ok(event.includes('src="/Eight-Dimensional-Space/media/'));
   assert.ok(event.includes('player.bilibili.com'));
   assert.ok(event.includes('href="/Eight-Dimensional-Space/editorial/notes/military-review/"'));
-  const people = pages.get('/industrial/people/');
-  assert.ok(people.includes('href="/Eight-Dimensional-Space/industrial/people/'));
+  const people = pages.get('/editorial/people/');
+  assert.ok(people.includes('href="/Eight-Dimensional-Space/editorial/people/'));
 });
 
 test('military event is a substantive connected record, with facts and unresolved problems rather than a repeated gallery', () => {
   const pages = createSite(catalog);
   const story = catalog.stories.find(item => item.id === 'military-2026');
   assert.equal(story.costs.reduce((total, item) => total + item.amount, 0), 1500);
-  for (const skin of ['editorial', 'industrial']) {
+  for (const skin of ['editorial']) {
     const html = pages.get(`/${skin}/events/military-2026/`);
     for (const id of ['watch','preparation','positions','execution','review','crew']) assert.ok(html.includes(`id="${id}"`));
     for (const detail of ['少算了一根','实时语音字幕','原因尚未确定','没有制作横版海报','1500元']) assert.ok(html.includes(detail));
@@ -217,5 +217,15 @@ test('font and responsive QA URLs resolve inside both root and project mounts', 
       document: { querySelector: element }, window: { addEventListener() {} }, history: { replaceState() {} },
     });
     assert.equal(element('iframe').src, mount + 'editorial/events/military-2026/');
+  }
+});
+
+
+test('only the editorial site is generated, without theme switching or alternate routes', () => {
+  const pages = createSite(catalog);
+  assert.equal(pages.size, 6 + catalog.events.length + catalog.works.length + catalog.members.length + catalog.notes.length);
+  for (const [path, html] of pages) {
+    assert.ok(path.startsWith('/editorial/'));
+    assert.ok(!/industrial|工业版|工业试作|skin-link|data-skin-switch|monitor-wall/.test(html), path);
   }
 });
