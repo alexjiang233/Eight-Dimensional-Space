@@ -82,19 +82,40 @@ export interface Event {
   viewpoints?: { mediaId: Id; label: string }[];
   cameras?: { label: string; equipment: string; imageId: Id | null }[];
 }
+export interface WorkCredit {
+  role: string;
+  name: string;
+  memberId: Id | null;
+  sourceId: Id;
+  sourceDescription: string;
+}
+export interface WorkPart {
+  page: number;
+  part: string;
+  duration: number;
+  durationLabel: string;
+}
 export interface Work {
   id: Id;
   title: string;
   subtitle: string;
   kind: 'film' | 'photos' | 'replay';
+  formatLabel?: string;
+  displayDescription?: string;
+  publicationLabel?: string;
+  updatedAt?: string;
   year: number | null;
   yearLabel?: string;
+  publishedAt?: string | null;
+  sourceAccount?: 'club' | 'personal';
   mediaId: Id | null;
   coverId: Id;
   eventId: Id | null;
   galleryIds?: Id[];
   authorIds: Id[];
   creditMemberIds: Id[];
+  credits?: WorkCredit[];
+  parts?: WorkPart[];
   sourceId: Id;
   externalUrl?: string;
   notice?: string;

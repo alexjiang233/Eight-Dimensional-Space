@@ -245,3 +245,92 @@ test('the root serves a real home page with no theme prefix, redirect or alterna
     assert.ok(!/industrial|工业版|工业试作|skin-link|data-skin-switch|monitor-wall|\/editorial\//.test(html), path);
   }
 });
+
+test('bilibili import uses video ownership, excludes unrelated personal uploads and keeps existing works unique', () => {
+  const imported = catalog.works.filter((work) => work.id.startsWith('bili-'));
+  assert.equal(imported.length, 59);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'club').length, 41);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'personal').length, 18);
+  for (const bvid of ['BV11AmZBpEWU', 'BV1XsSUY9E7b', 'BV1gs6JBuEav', 'BV18vNH64EnS', 'BV193dWBtEuN', 'BV15bfuBhErh', 'BV1GubDznET8', 'BV1b142197GN']) {
+    assert.ok(!imported.some((work) => work.id.endsWith(bvid.toLowerCase())), bvid);
+    assert.ok(!catalog.media.some((media) => media.bvid === bvid), bvid);
+  }
+  for (const bvid of ['BV1pWhP6wE67', 'BV1xwKr6yE9G']) {
+    assert.equal(imported.filter((work) => catalog.media.find((m) => m.id === work.mediaId)?.bvid === bvid).length, 0, bvid);
+  }
+  for (const work of imported.filter((item) => item.sourceAccount === 'personal')) {
+    assert.deepEqual(work.authorIds, ['person-jky'], work.id);
+    assert.ok(work.credits.every((credit) => credit.role === '拍摄' && credit.memberId === 'person-jky'), work.id);
+    assert.ok(work.publishedAt, work.id);
+  }
+  const clubWork = imported.find((work) => work.id.endsWith('bv1xz8u6jebc'));
+  assert.equal(clubWork.sourceAccount, 'club');
+  assert.deepEqual(clubWork.authorIds, []);
+  assert.equal(clubWork.eventId, 'military-2026');
+});
+
+test('the compilation exposes only its club-promo second part', () => {
+  const work = catalog.works.find((item) => item.id === 'bili-personal-bv1bcqrbweqj');
+  const media = catalog.media.find((item) => item.id === work.mediaId);
+  assert.equal(media.page, 2);
+  assert.equal(media.durationLabel, '59:27');
+  assert.deepEqual(work.parts.map((part) => part.page), [2]);
+  assert.deepEqual(work.parts.map((part) => part.part), ['社团宣传片-2026.07']);
+  assert.ok(!work.title.includes('飞机标本'));
+  const html = createSite(catalog).get('/works/bili-personal-bv1bcqrbweqj/');
+  assert.ok(html.includes('bvid=BV1bcqrBWEQj&amp;page=2'));
+  assert.ok(!html.includes('bvid=BV1bcqrBWEQj&amp;page=1'));
+  assert.ok(html.includes('仅接入合集第2P'));
+  assert.ok(!html.includes('<span>P1</span>'));
+  assert.ok(html.includes('data-embed-part="2"'));
+  assert.ok(html.includes('https://www.bilibili.com/video/BV1bcqrBWEQj/?p=2'));
+  assert.ok(!html.includes('飞机标本'));
+});
+
+test('multi-line descriptions keep every cross-line credit and teachers do not become members', () => {
+  const sports = catalog.works.find((item) => item.id === 'bili-club-bv1uoy8ypete');
+  const roleNames = (role) => sports.credits.filter((credit) => credit.role === role).map((credit) => credit.name);
+  assert.deepEqual(roleNames('拍摄'), ['张牧荑', '徐诺', '耿云帆', '纪宇彤']);
+  assert.deepEqual(roleNames('航拍'), ['王子博', '郭铭珺']);
+  assert.deepEqual(roleNames('稳定器'), ['郭歌', '范文', '李欣逾', '荣佳凝']);
+  assert.ok(sports.credits.every((credit) => credit.sourceDescription && credit.sourceDescription.includes(credit.name)));
+  const teacher = sports.credits.find((credit) => credit.name === '丁源老师');
+  assert.ok(teacher);
+  assert.equal(teacher.memberId, null);
+  assert.ok(!catalog.members.some((member) => member.name === '丁源老师'));
+  const newYear = catalog.works.find((item) => item.id === 'bili-club-bv1zd6vyvemj');
+  assert.equal(newYear.credits.filter((credit) => credit.role === '拍摄').length, 8);
+  assert.ok(newYear.credits.every((credit) => credit.sourceDescription.includes('拍摄组成员')));
+});
+
+test('work pages show real cover, upload date, expandable original description, parts and visible credits', () => {
+  const pages = createSite(catalog);
+  const html = pages.get('/works/bili-club-bv1uoy8ypete/');
+  for (const text of ['B站封面', '/media/bili-BV1uoy8YpETE.jpg', '投稿日期', '2024-10-20', 'B站原简介', '制作署名', '张牧荑', '稳定器', '在哔哩哔哩打开']) {
+    assert.ok(html.includes(text), text);
+  }
+  assert.ok(html.includes('player.bilibili.com/player.html?bvid=BV1uoy8YpETE&amp;page=1'));
+  const replay = pages.get('/works/military-replay/');
+  for (const name of ['蒋凯阳', '杜文博', '李牧耕', '苏明君', '郑钰涵', '王浩宇']) assert.ok(replay.includes(name), name);
+  assert.ok(replay.includes('制作署名'));
+  const teaser = pages.get('/works/bili-club-bv1xz8u6jebc/');
+  assert.ok(!teaser.includes('<h2>制作署名</h2>'), 'event crew does not imply credits on its teaser');
+  const person = pages.get('/people/person-lrh/');
+  assert.ok(person.includes('/works/bili-club-bv1zd6vyvemj/'));
+  assert.ok(person.includes('/works/bili-club-bv1uoy8ypete/') === false);
+});
+
+test('the work directory filters every imported film and replay without pushing the catalogue onto the home page', () => {
+  const pages = createSite(catalog);
+  const directory = pages.get('/works/');
+  for (const kind of ['film', 'replay', 'photos']) {
+    const count = catalog.works.filter((work) => work.kind === kind).length;
+    assert.equal((directory.match(new RegExp(`data-kind="${kind}"`, 'g')) || []).length, count, kind);
+    assert.ok(directory.includes(`data-filter="${kind}"`));
+  }
+  assert.ok(catalog.works.filter((work) => work.kind === 'replay' && work.id.startsWith('bili-')).length > 10);
+  const home = pages.get('/');
+  assert.ok(home.includes('2026 社团宣传片'));
+  assert.ok(!home.includes('我们把校运会拍成了CCTV5'));
+  assert.ok(!home.includes('初雪校园'));
+});

@@ -76,6 +76,14 @@ export function validateCatalog(data) {
     ref('sources', work.sourceId);
     for (const id of [...work.authorIds, ...work.creditMemberIds]) ref('members', id);
     for (const id of work.galleryIds || []) ref('media', id);
+    for (const credit of work.credits || []) {
+      ref('sources', credit.sourceId);
+      ref('members', credit.memberId);
+    }
+    for (const part of work.parts || []) {
+      if (!Number.isInteger(part.page) || part.page < 1 || !part.part)
+        throw new Error(`Invalid part in work: ${work.id}`);
+    }
   }
   for (const note of data.notes) {
     ref('documents', note.documentId);
@@ -138,6 +146,51 @@ export function createSite(data, { base = '/' } = {}) {
     const media = work.mediaId ? get('media', work.mediaId) : null;
     return `<div class="media-strip"><span>${e(kinds[work.kind])}</span><strong>${e(work.title)}</strong><span>${e(work.yearLabel || work.year)}</span>${media?.durationLabel ? `<span>${e(media.durationLabel)}</span>` : ''}${work.eventId ? `<a href="${url(skin, 'events', work.eventId)}">活动专题</a>` : ''}</div>`;
   };
+  // Bilibili upload dates are publication dates, never event dates.
+  const workFacts = (work, media) => {
+    const items = [
+      [work.publicationLabel || '投稿日期', work.publishedAt],
+      ['本段更新', work.updatedAt],
+      ['时长', media?.durationLabel],
+      ['分P', work.parts?.length ? `${work.parts.length} 段` : null],
+      ['来源', work.sourceAccount === 'personal' ? '个人频道' : work.sourceAccount === 'club' ? '社团投稿' : null],
+    ].filter(([, value]) => value);
+    return items.length
+      ? `<dl class="work-facts">${items.map(([label, value]) => `<div><dt>${e(label)}</dt><dd>${e(value)}</dd></div>`).join('')}</dl>`
+      : '';
+  };
+  const workCover = (work) =>
+    `<figure class="work-cover-small">${img(work.coverId, 'loading="lazy"')}<figcaption>B站封面 · ${e(work.formatLabel || '视频')}</figcaption></figure>`;
+  const originalDescription = (work) => {
+    if (!work.description) return '';
+    if (!work.id.startsWith('bili-')) return `<p class="work-summary">${e(work.description)}</p>`;
+    const paragraphs = (work.displayDescription || work.description)
+      .split(/\n{2,}/)
+      .map((part) => `<p>${e(part).replace(/\n/g, '<br>')}</p>`)
+      .join('');
+    return `<details class="work-original"><summary>${work.displayDescription ? 'B站简介节选' : 'B站原简介'}</summary><div class="work-raw-description">${paragraphs}</div></details>`;
+  };
+  const workParts = (work, media) => {
+    if (!work.parts?.length) return '';
+    const list = `<ol class="part-list">${work.parts.map((part) => `<li><span>P${part.page}</span><a data-embed-part="${part.page}" href="https://www.bilibili.com/video/${e(media.bvid)}/?p=${part.page}" target="_blank" rel="noreferrer"><strong>${e(part.part)}</strong></a><span>${e(part.durationLabel)}</span></li>`).join('')}</ol>`;
+    return `<section class="section work-parts"><div class="section-head"><h2>分P</h2><span>${work.parts.length} 段 · 播放器默认第 ${media?.page || 1}P</span></div>${work.parts.length > 8 ? `<details class="part-list-details"><summary>展开全部 ${work.parts.length} 个分P</summary>${list}</details>` : list}</section>`;
+  };
+  const workCredits = (work, skin) => {
+    const credits = Array.isArray(work.credits) ? work.credits : [];
+    if (!credits.length) return '';
+    const groups = new Map();
+    for (const credit of credits) {
+      if (!groups.has(credit.role)) groups.set(credit.role, new Map());
+      groups.get(credit.role).set(credit.name, credit);
+    }
+    const sources = [...new Set(credits.map((credit) => credit.sourceDescription).filter(Boolean))];
+    return `<section class="section work-credits"><div class="section-head"><h2>制作署名</h2></div><div class="credit-groups">${[...groups]
+      .map(
+        ([role, names]) =>
+          `<div><h3>${e(role)}</h3><p>${[...names.values()].map((credit) => credit.memberId ? `<a href="${url(skin, 'people', credit.memberId)}">${e(credit.name)}</a>` : `<span>${e(credit.name)}</span>`).join('、')}</p></div>`,
+      )
+      .join('')}</div>${sources.length ? `<details class="credit-source"><summary>署名依据</summary>${sources.map((line) => `<p>${e(line)}</p>`).join('')}</details>` : ''}</section>`;
+  };
   const roster = (event, skin) =>
     `<div class="roster">${event.contributions
       .map((c) => {
@@ -152,7 +205,10 @@ export function createSite(data, { base = '/' } = {}) {
   const workEntry = (work, skin) => {
     const media = work.mediaId ? get('media', work.mediaId) : null;
     const duration = media?.durationLabel ? ` · ${e(media.durationLabel)}` : '';
-    return `<article class="work-entry" data-kind="${work.kind}"><a class="work-image" href="${workTarget(work, skin)}">${img(work.coverId, 'loading="lazy"')}<span class="type-label">${kinds[work.kind]}</span></a><div class="work-description"><h3><a href="${workTarget(work, skin)}">${e(work.title)}</a></h3><p>${e(work.subtitle)}</p><span>${e(work.yearLabel || work.year)}${duration}</span></div></article>`;
+    const stamp = work.sourceAccount
+      ? `投稿 ${e(work.publishedAt || work.year)}`
+      : e(work.yearLabel || work.year);
+    return `<article class="work-entry" data-kind="${work.kind}"><a class="work-image" href="${workTarget(work, skin)}">${img(work.coverId, 'loading="lazy"')}<span class="type-label">${kinds[work.kind]}</span></a><div class="work-description"><h3><a href="${workTarget(work, skin)}">${e(work.title)}</a></h3><p>${e(work.subtitle)}</p><span>${stamp}${duration}</span></div></article>`;
   };
   const compare = (event, skin) => {
     const choices = (event.viewpoints || []).map((v) => [v.mediaId, v.label]);
@@ -213,10 +269,22 @@ export function createSite(data, { base = '/' } = {}) {
     const view = online ? embedPlayer(media) : figure(work.coverId, 'work-cover', 'work');
     const playbackNote = online && work.notice ? `<p class="replay-notice">${e(work.notice)}</p>` : '';
     const playbackLink = online ? `<p class="embed-source">${sourceLink(work.sourceId, '在哔哩哔哩打开')}</p>` : '';
-    return `<section class="work-intro section"><h1>${e(work.title)}</h1><p>${e(work.subtitle)}</p></section><section class="work-view section">${view}${playbackNote}${infoStrip(work, skin)}<p class="work-summary">${e(work.description)}</p>${playbackLink}${work.eventId ? `<a class="text-link" href="${url(skin, 'events', work.eventId)}">进入活动专题</a>` : ''}</section>${work.kind === 'photos' ? gallery(get('events', work.eventId)) : ''}${work.creditMemberIds.length ? `<section class="section"><div class="section-head"><h2>制作署名</h2></div>${roster(get('events', work.eventId), skin)}</section>` : ''}`;
+    const meta = online
+      ? `<div class="work-source-meta">${workCover(work)}<div>${workFacts(work, media)}${originalDescription(work)}</div></div>`
+      : `${infoStrip(work, skin)}${originalDescription(work)}`;
+    return `<section class="work-intro section"><h1>${e(work.title)}</h1><p>${e(work.subtitle)}</p></section><section class="work-view section">${view}${playbackNote}${meta}${playbackLink}${work.eventId ? `<a class="text-link" href="${url(skin, 'events', work.eventId)}">进入活动专题</a>` : ''}</section>${workParts(work, media)}${workCredits(work, skin)}`;
   }
   function peoplePage(skin) {
-    return collection.people(skin, roster, featured);
+    const shown = new Set([
+      ...(data.appointments || []).map((a) => a.memberId),
+      ...featured.contributions.map((c) => c.memberId),
+    ]);
+    const others = data.members.filter((m) => !shown.has(m.id));
+    const archive = others.length ? `<section class="section"><div class="section-head"><h2>参与制作</h2></div><div class="roster">${others.map((member) => {
+      const roles = [...new Set(data.works.flatMap((work) => (work.credits || []).filter((c) => c.memberId === member.id).map((c) => c.role)))];
+      return `<a href="${url(skin, 'people', member.id)}"><span class="person-name">${e(member.name)}</span><span>${e(roles.slice(0, 3).join(' / '))}</span></a>`;
+    }).join('')}</div></section>` : '';
+    return collection.people(skin, roster, featured) + archive;
   }
   function personPage(member, skin) {
     const events = data.events.filter(ev => ev.contributions.some(c => c.memberId === member.id));

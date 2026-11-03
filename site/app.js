@@ -4,6 +4,25 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 const filmDialog = $('.film-dialog');
 const imageDialog = $('.image-dialog');
 const filterDialog = $('.filter-dialog');
+// Keep real Bilibili links as a no-JS fallback; ordinary clicks select the part
+// in this page's player, without starting playback automatically.
+$$('[data-embed-part]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const player = $('.work-view .embed-player iframe');
+    if (!player) return;
+    event.preventDefault();
+    const src = new URL(player.src);
+    src.searchParams.set('page', link.dataset.embedPart);
+    src.searchParams.set('autoplay', '0');
+    player.src = src.href;
+    $$('[data-embed-part]').forEach((item) => {
+      if (item === link) item.setAttribute('aria-current', 'true');
+      else item.removeAttribute('aria-current');
+    });
+    player.scrollIntoView({ block: 'center', behavior: reduce.matches ? 'instant' : 'smooth' });
+  });
+});
 let imageLinks = [];
 let imageIndex = 0;
 
