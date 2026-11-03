@@ -187,11 +187,7 @@ if ($('.filter-bar')) {
     if (kind === 'all') u.searchParams.delete('type');
     else u.searchParams.set('type', kind);
     history.replaceState(null, '', u);
-    $$('[data-skin-switch]').forEach((link) => {
-      const target = new URL(link.href);
-      target.search = u.search;
-      link.href = target.href;
-    });
+
   }
   const param = new URLSearchParams(location.search).get('type');
   applyFilter(['photos', 'film', 'replay'].includes(param) ? param : 'all');
