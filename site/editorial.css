@@ -1,7 +1,7 @@
 .hero-editorial {
   height: calc(100svh - 90px);
   min-height: 600px;
-  background: #202820;
+  background: #171b16;
   color: #fffdf6;
   isolation: isolate;
   overflow: hidden;
@@ -46,13 +46,13 @@
   color: #bbc5b5;
 }
 .skin-editorial .timeline {
-  background: #e1e6dc;
+  background: #e9eadf;
 }
 .skin-editorial .notes-preview {
-  background: #e5e8e1;
+  background: #e9eadf;
 }
 .skin-editorial .notes-preview .note-link {
-  background: #f3f4f0;
+  background: #f4f4ee;
 }
 .skin-editorial .page-home .works-section {
   padding-bottom: 80px;
@@ -64,23 +64,23 @@
   background: #f3f4f0e8;
 }
 .skin-editorial .event-intro {
-  background: #e7ebe3;
+  background: #e9eadf;
 }
 .skin-editorial .camera-section {
-  background: #e7ebe3;
+  background: #e9eadf;
 }
 .skin-editorial .gallery-section {
   padding-bottom: 65px;
 }
 .skin-editorial .crew-directory {
-  background: #e7ebe3;
+  background: #e9eadf;
 }
 .skin-editorial .person-intro {
-  background: #e7ebe3;
+  background: #e9eadf;
 }
 .skin-editorial .note-intro {
   max-width: none;
-  background: #e7ebe3;
+  background: #e9eadf;
 }
 .skin-editorial .page-notes .reading-nav a {
   padding-left: 15px;

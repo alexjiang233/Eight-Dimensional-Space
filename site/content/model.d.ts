@@ -55,14 +55,21 @@ export interface Contribution {
   note?: string;
   detail?: string;
 }
+export interface EventSeries {
+  id: Id;
+  title: string;
+  summary: string;
+}
 export interface Event {
   id: Id;
   storyId?: Id;
+  seriesId?: Id | null;
   title: string;
   fullTitle: string;
   titleLines?: string[];
   year: number;
   date: string | null;
+  dates?: string[];
   place: string | null;
   timeLabel?: string | null;
   timeNote?: string;
@@ -116,7 +123,7 @@ export interface Work {
   creditMemberIds: Id[];
   credits?: WorkCredit[];
   parts?: WorkPart[];
-  videos?: { mediaId: Id; label: string; durationLabel?: string }[];
+  videos?: { mediaId: Id; label: string; durationLabel?: string; parts?: WorkPart[] }[];
   sourceId: Id;
   externalUrl?: string;
   notice?: string;
@@ -133,6 +140,8 @@ export interface Note {
   publishedAt: string | null;
   editorialSummary?: boolean;
   documentId?: Id;
+  /** Unlisted notes keep their page but leave the notes library index (their entry lives on an event page). */
+  unlisted?: boolean;
   sections: { title: string; text: string; imageId: Id | null }[];
 }
 export interface SourceDocument {
@@ -184,6 +193,7 @@ export interface Catalog {
   appointments?: { memberId: Id; cohortLabel: string; role: string; sourceId: Id }[];
   media: (Photo | Film | Embed)[];
   members: Member[];
+  series: EventSeries[];
   events: Event[];
   works: Work[];
   notes: Note[];

@@ -4,6 +4,7 @@ import { loadCatalog } from './content-loader.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createSite, validateCatalog, escape } from './render.mjs';
+import { planBilibiliImport, appendImportedContent } from './bilibili-import-policy.mjs';
 const catalog = await loadCatalog();
 
 test('published source facts stay separate from missing photo credits and conflicting roles', () => {
@@ -45,7 +46,6 @@ test('adding one event and contribution generates its page, list entry and exist
     assert.match(pages.get(`/events/fixture-only/`), /仅用于测试的活动/);
     assert.ok(pages.get(`/events/`).includes(`/events/fixture-only/`));
     assert.ok(pages.get(`/people/person-jky/`).includes(`/events/fixture-only/`));
-    assert.ok(pages.get(`/`).includes(`/events/fixture-only/`));
   }
   assert.ok(!catalog.events.some((ev) => ev.id === 'fixture-only'));
 });
@@ -121,20 +121,19 @@ test('guide pages contain every imported paragraph and table, including unfinish
   assert.ok(catalog.documents.find(doc => doc.id === 'full-review-guide').blocks.some(block => block.type === 'table'));
 });
 
-test('footer keeps compact work/member navigation and links have no arrows', () => {
+test('footer stays compact with section entries only', () => {
   const pages = createSite(catalog);
   for (const [path, html] of pages) {
     const footer = html.match(/<footer class="site-footer full-footer">([\s\S]*?)<\/footer>/)[1];
+    // No per-item listings: events, works, notes and members link to their index.
     for (const target of pages.keys()) {
-      if (/^\/(works|people)\/[^/]+\/$/.test(target)) {
-        assert.ok(!footer.includes(`href="${target}"`), `${path}: footer must not list individual works or members`);
-        continue;
+      if (/^\/(works|people|events|notes)\/[^/]+\/$/.test(target)) {
+        assert.ok(!footer.includes(`href="${target}"`), `${path}: footer must not list individual pages (${target})`);
       }
+    }
+    for (const target of ['/', '/about/', '/works/', '/events/', '/people/', '/notes/']) {
       assert.ok(footer.includes(`href="${target}"`), `${path}: footer missing ${target}`);
     }
-    const groups = [...footer.matchAll(/<section><h2>[\s\S]*?<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g)];
-    assert.equal((groups[1][1].match(/<li>/g) || []).length, 4);
-    assert.equal((groups[3][1].match(/<li>/g) || []).length, 2);
     for (const link of html.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)) {
       assert.ok(!/[↗↘↙↖→←↑↓➜➝➔➞⇒]/u.test(link[1].replace(/<[^>]*>/g, '')), `${path}: navigation arrow`);
     }
@@ -239,7 +238,7 @@ test('the root serves a real home page with no theme prefix, redirect or alterna
   const pages = createSite(catalog);
   assert.ok(pages.get('/').includes('class="hero hero-editorial"'));
   assert.ok(!/http-equiv="refresh"|进入八维空间/.test(pages.get('/')));
-  assert.equal(pages.size, 6 + catalog.events.length + catalog.works.length + catalog.members.length + catalog.notes.length);
+  assert.equal(pages.size, 6 + catalog.events.length + catalog.works.length + new Set(catalog.appointments.map(a => a.memberId)).size + catalog.notes.length);
   for (const [path, html] of pages) {
     assert.ok(!path.startsWith('/editorial/'));
     assert.ok(!/industrial|工业版|工业试作|skin-link|data-skin-switch|monitor-wall|\/editorial\//.test(html), path);
@@ -248,9 +247,9 @@ test('the root serves a real home page with no theme prefix, redirect or alterna
 
 test('bilibili import uses video ownership, excludes unrelated personal uploads and keeps existing works unique', () => {
   const imported = catalog.works.filter((work) => work.id.startsWith('bili-'));
-  assert.equal(imported.length, 38);
-  assert.equal(imported.filter((work) => work.sourceAccount === 'club').length, 27);
-  assert.equal(imported.filter((work) => work.sourceAccount === 'personal').length, 11);
+  assert.equal(imported.length, 26);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'club').length, 18);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'personal').length, 8);
   for (const bvid of ['BV11AmZBpEWU', 'BV1XsSUY9E7b', 'BV1gs6JBuEav', 'BV18vNH64EnS', 'BV193dWBtEuN', 'BV15bfuBhErh', 'BV1GubDznET8', 'BV1b142197GN']) {
     assert.ok(!imported.some((work) => work.id.endsWith(bvid.toLowerCase())), bvid);
     assert.ok(!catalog.media.some((media) => media.bvid === bvid), bvid);
@@ -314,10 +313,77 @@ test('sports meeting videos merge into one work per year with real event pages',
   assert.ok(event2024.includes('/works/bili-club-bv1uoy8ypete/'));
   assert.ok(!event2024.includes('现场配图'));
   assert.ok(!event2024.includes('0 幅'));
-  const home = pages.get('/');
-  assert.ok(home.includes('收录视频 · 在线播放'));
+  const eventsIndex = pages.get('/events/');
+  assert.ok(eventsIndex.includes('id="series-sports"'));
   const person = pages.get('/people/person-wxn/');
   assert.ok(person.includes('/works/sports-2025-videos/'));
+});
+
+test('recurring activities group into series with merged recordings and year switchers', () => {
+  const pages = createSite(catalog);
+  // Nine series cover the recurring activities; standalone records stay out.
+  assert.equal(catalog.series.length, 9);
+  const seriesEvents = catalog.events.filter((ev) => ev.seriesId);
+  assert.equal(seriesEvents.length, 23);
+  for (const s of catalog.series) assert.ok(seriesEvents.some((ev) => ev.seriesId === s.id), s.id);
+  // Merged recordings: chorus per festival, plaza 2025, football league, debate.
+  const merged = [
+    ['chorus-2024-videos', 'chorus-2024', 2],
+    ['chorus-2025-videos', 'chorus-2025', 2],
+    ['plaza-2025-videos', 'plaza-2025', 2],
+    ['football-2025-videos', 'football-2025', 4],
+    ['debate-videos', 'debate-2026', 2],
+  ];
+  for (const [id, eventId, count] of merged) {
+    const work = catalog.works.find((w) => w.id === id);
+    assert.ok(work, id);
+    assert.equal(work.eventId, eventId);
+    assert.equal(work.videos.length, count);
+    const html = pages.get(`/works/${id}/`);
+    assert.ok(html.includes('收录视频'), id);
+    for (const v of work.videos) {
+      const media = catalog.media.find((m) => m.id === v.mediaId);
+      assert.ok(html.includes(`bvid=${media.bvid}&`), `${id}/${media.bvid}`);
+    }
+  }
+  // Single-video works attach to their new event pages.
+  for (const [workId, eventId] of [
+    ['bili-club-bv1aqtue6erh', 'sinoaus-2024'],
+    ['bili-club-bv1tpak62eqg', 'sinoaus-2026'],
+    ['bili-club-bv1k9iiyuewn', 'random-dance-2024'],
+    ['bili-club-bv1p4omy2eux', 'random-dance-2025'],
+    ['bili-club-bv1osgu6yexd', 'random-dance-2026'],
+    ['bili-club-bv127421f7kq', 'classroom-drama-2024'],
+    ['bili-club-bv1cogtzwet1', 'classroom-drama-2025'],
+    ['bili-club-bv1zurdbbe42', 'classroom-drama-2026'],
+    ['bili-club-bv1ge4m1r7gj', 'music-fest-2024'],
+    ['bili-club-bv1wnqwbuevt', 'music-fest-2026'],
+    ['bili-club-bv1pjrrb8emf', 'plaza-2026'],
+  ]) {
+    assert.equal(catalog.works.find((w) => w.id === workId).eventId, eventId, workId);
+    assert.ok(pages.has(`/events/${eventId}/`), eventId);
+  }
+  // Dissolved standalones are gone; their players live in merged pages.
+  for (const id of ['bili-club-bv1bt421w7yy', 'bili-club-bv1yx4y1a7bx', 'bili-club-bv1xnbyb3eu1', 'bili-club-bv1hkbtbhela', 'bili-club-bv1ivxyy4evj', 'bili-club-bv1eel2zdeti', 'bili-club-bv1exebzleby', 'bili-personal-bv1z4lxz9ewy', 'bili-personal-bv1rvekzjed9', 'bili-personal-bv1yfeqzxe7z', 'bili-club-bv1lnm2bgetb', 'bili-club-bv1njqpb8ems']) {
+    assert.ok(!catalog.works.some((w) => w.id === id), id);
+    assert.ok(!pages.has(`/works/${id}/`), id);
+  }
+  // The events index reads as series blocks with year switchers, plus standalone records.
+  const index = pages.get('/events/');
+  for (const s of catalog.series) assert.ok(index.includes(`id="series-${s.id}"`), s.id);
+  assert.ok(index.includes('data-series-year'));
+  assert.ok(index.includes('单场记录'));
+  // Event pages carry same-series year navigation with the current year marked.
+  const gala2025 = pages.get('/events/gala-2025/');
+  assert.ok(gala2025.includes('event-series-years'));
+  assert.ok(gala2025.includes('is-current'));
+  assert.ok(gala2025.includes('/events/gala-2024/') && gala2025.includes('/events/gala-2026/'));
+  // Merged chorus keeps both shows; football keeps personal-channel notes.
+  const chorus = pages.get('/works/chorus-2025-videos/');
+  assert.ok(chorus.includes('高一场') && chorus.includes('高二场'));
+  const football = pages.get('/works/football-2025-videos/');
+  assert.ok(football.includes('个人频道'));
+  assert.ok(football.includes('12班-15班'));
 });
 
 test('annual signature events merge per year with real event pages', () => {
@@ -398,10 +464,12 @@ test('multi-line descriptions keep every cross-line credit and teachers do not b
   assert.equal(teacher26.memberId, null);
 });
 
-test('work pages show real cover, upload date, expandable original description, parts and visible credits', () => {
+test('work pages show the player, upload facts, expandable original description, parts and visible credits', () => {
   const pages = createSite(catalog);
   const html = pages.get('/works/bili-club-bv1uoy8ypete/');
-  for (const text of ['B站封面', '/media/bili-BV1uoy8YpETE.jpg', '投稿日期', '2024-10-20', 'B站原简介', '制作署名', '张牧荑', '稳定器', '在哔哩哔哩打开']) {
+  // The redundant small cover is gone — the player is the image.
+  assert.ok(!html.includes('work-cover-small'));
+  for (const text of ['投稿日期', '2024-10-20', 'B站原简介', '制作署名', '张牧荑', '稳定器', '在哔哩哔哩打开']) {
     assert.ok(html.includes(text), text);
   }
   assert.ok(html.includes('player.bilibili.com/player.html?bvid=BV1uoy8YpETE&amp;page=1'));
@@ -410,9 +478,37 @@ test('work pages show real cover, upload date, expandable original description, 
   assert.ok(replay.includes('制作署名'));
   const teaser = pages.get('/works/bili-club-bv1xz8u6jebc/');
   assert.ok(!teaser.includes('<h2>制作署名</h2>'), 'event crew does not imply credits on its teaser');
-  const person = pages.get('/people/person-lrh/');
-  assert.ok(person.includes('/works/gala-2025-videos/'));
-  assert.ok(person.includes('/works/bili-club-bv1uoy8ypete/') === false);
+  // Only management members keep personal pages; others are plain names.
+  const gala = pages.get('/works/gala-2025-videos/');
+  assert.ok(gala.includes('郭歌'));
+  assert.ok(!gala.includes('href="/people/person-gg/"'));
+  assert.ok(!pages.has('/people/person-gg/'));
+  // The user-confirmed roster: 李若浩/郭铭珺/郑钰涵/彭锦添 joined the management.
+  for (const id of ['person-lrh', 'person-gmj', 'person-zyh', 'person-pjt']) assert.ok(pages.has(`/people/${id}/`), id);
+  assert.ok(gala.includes('href="/people/person-lrh/"'));
+});
+
+test('the management roster matches the club-confirmed list with roles and graduation years', () => {
+  const pages = createSite(catalog);
+  assert.equal(catalog.appointments.length, 9);
+  const byCohort = catalog.appointments.reduce((acc, a) => ({ ...acc, [a.cohortLabel]: (acc[a.cohortLabel] || 0) + 1 }), {});
+  assert.deepEqual(byCohort, { '2023级': 1, '2024级': 2, '2025级': 2, '2026级': 4 });
+  // Presidents: 蒋凯阳/王小诺/杜文博; every other member is 副社长.
+  const presidents = new Set(['person-jky', 'person-wxn', 'person-dwb']);
+  for (const a of catalog.appointments) {
+    assert.equal(a.role, presidents.has(a.memberId) ? '社长' : '副社长', a.memberId);
+  }
+  const people = pages.get('/people/');
+  // The 2023 cohort is openly incomplete; photos slots are reserved.
+  assert.ok(people.includes('2023级仅列当前仍活跃的成员'));
+  // Cohort = year they took office (2024级 → 2026年毕业, office year + 2).
+  for (const year of ['2025年毕业', '2026年毕业', '2027年毕业', '2028年毕业']) assert.ok(people.includes(year), year);
+  assert.ok(!people.includes('2029年毕业'), 'graduation must follow office-year + 2, not + 3');
+  assert.ok(!people.includes('届毕业'));
+  const zyh = pages.get('/people/person-zyh/');
+  assert.ok(zyh.includes('2026级 / 副社长 · 管理层'));
+  const wxn = pages.get('/people/person-wxn/');
+  assert.ok(wxn.includes('2025级 / 社长'));
 });
 
 test('the work directory filters every imported film and replay without pushing the catalogue onto the home page', () => {
@@ -423,11 +519,117 @@ test('the work directory filters every imported film and replay without pushing 
     assert.equal((directory.match(new RegExp(`data-kind="${kind}"`, 'g')) || []).length, count, kind);
     assert.ok(directory.includes(`data-filter="${kind}"`));
   }
+  // The directory is grouped by year markers.
+  assert.ok(directory.includes('works-year-group'));
+  for (const year of ['2026', '2025', '2024']) assert.ok(directory.includes(`<p class="works-year">${year}</p>`), year);
   assert.ok(catalog.works.filter((work) => work.kind === 'replay' && work.id.startsWith('bili-')).length > 10);
   const home = pages.get('/');
-  assert.ok(home.includes('2026 社团宣传片'));
-  // The archive row may show an event cover whose alt names its video; what must
-  // stay off the home page is the catalogue itself, i.e. work-page links.
+  // The homepage reads as three acts with the manifesto, not a directory:
+  // full-bleed live moment, quiet asymmetric pair, group-photo finale.
+  for (const line of ['拍下每一次热闹，', '记住每一张脸。']) assert.ok(home.includes(line), line);
+  for (const title of ['军训总结大会', '镜头前后，都有我们的身影。', '收工前，总有一张合影。']) assert.ok(home.includes(title), title);
+  assert.ok(home.includes('act-stage'));
+  assert.ok(home.includes('act-quiet'));
+  assert.ok(home.includes('act-finale'));
+  assert.ok(home.includes('home-trail'));
+  assert.ok(home.includes('观看宣传片'));
+  assert.ok(!home.includes('slate-no'));
+  assert.ok(!home.includes('doorway'));
+  assert.ok(!home.includes('brand-english'));
+  assert.ok(!home.includes('Eight-Dimensional-Space'));
+  assert.ok(!home.includes('credits-roll'));
   assert.ok(!home.includes('/works/bili-club-bv1uoy8ypete/'));
   assert.ok(!home.includes('初雪校园'));
+  // Management renders as the end-credits roll on the people page.
+  const people = pages.get('/people/');
+  assert.ok(people.includes('credits-roll'));
+  assert.ok(people.includes('roll-year'));
+  assert.ok(!people.includes('management-grid'));
+  // The featured-event team section, the participation archive and the name
+  // wall are gone; the people page is intro plus the management roll.
+  assert.ok(!people.includes('本场制作团队'));
+  assert.ok(!people.includes('参与制作'));
+  assert.ok(!people.includes('name-wall'));
+  // The 传承 tagline lives here; the rejected 做事有章法 line never returns.
+  assert.ok(people.includes('一年一年，快门不停。'));
+  assert.ok(!people.includes('做事有章法'));
+  assert.ok(people.includes('李若浩'));
+  for (const m of catalog.members) {
+    const hasPage = catalog.appointments.some(a => a.memberId === m.id);
+    assert.equal(pages.has(`/people/${m.id}/`), hasPage, m.id);
+  }
+});
+
+test('the notes library keeps general guides only; the military review lives on its event page', () => {
+  const pages = createSite(catalog);
+  // The director-talk note is deleted outright.
+  assert.ok(!catalog.notes.some(n => n.id === 'camera-communication'));
+  assert.ok(!pages.has('/notes/camera-communication/'));
+  assert.ok(![...pages.values()].some(html => html.includes('导播话术与沟通')));
+  // The military review keeps its page and its event entry, but leaves the listing.
+  const review = catalog.notes.find(n => n.id === 'military-review');
+  assert.ok(review.unlisted);
+  assert.ok(pages.has('/notes/military-review/'));
+  const notesIndex = pages.get('/notes/');
+  assert.ok(!notesIndex.includes('军训直播复盘'));
+  for (const n of catalog.notes.filter(n => !n.unlisted)) {
+    assert.ok(notesIndex.includes(`href="/notes/${n.id}/"`), n.id);
+  }
+  const event = pages.get('/events/military-2026/');
+  assert.ok(event.includes('/notes/military-review/'));
+});
+
+test('repeat import preserves edited collections and retired uploads; new personal uploads require review', async () => {
+  const policy = JSON.parse(await readFile(new URL('./content/bilibili-import-policy.json', import.meta.url), 'utf8'));
+  const currentUploads = catalog.media.filter((m) => m.kind === 'embed').map((m) => ({ bvid: m.bvid, owner: { mid: policy.clubMid } }));
+  const plan = planBilibiliImport(catalog, [...currentUploads, { bvid: 'BV1bcqrBWEQj' }, { bvid: 'BV1234567890', owner: { mid: policy.personalMid } }], policy);
+  assert.deepEqual(plan.pending, []);
+  assert.equal(plan.skipped.find((v) => v.bvid === 'BV1bcqrBWEQj').reason, policy.excluded.BV1bcqrBWEQj);
+  assert.deepEqual(appendImportedContent(catalog, { works: [], media: [], sources: [] }), catalog);
+  const fresh = { bvid: 'BV1234567891', owner: { mid: policy.clubMid } };
+  assert.equal(planBilibiliImport(catalog, [fresh, fresh], policy).pending.length, 1);
+  const corrupt = structuredClone(catalog);
+  corrupt.works = corrupt.works.filter((w) => w.id !== 'psychodrama-2026-videos');
+  assert.throws(() => planBilibiliImport(corrupt, [], policy), /policy\/catalog disagree/);
+});
+
+test('merged video sources retain their own parts, players and original fallback links', () => {
+  const work = catalog.works.find((w) => w.id === 'psychodrama-2026-videos');
+  assert.deepEqual(work.videos.map((v) => v.parts.length), [13, 8]);
+  const html = createSite(catalog).get('/works/psychodrama-2026-videos/');
+  const blocks = html.split('<div class="work-video-item">').slice(1);
+  assert.equal(blocks.length, 2);
+  assert.equal((blocks[0].match(/data-embed-part=/g) || []).length, 13);
+  assert.equal((blocks[1].match(/data-embed-part=/g) || []).length, 8);
+  assert.ok(blocks[1].includes('https://www.bilibili.com/video/BV1fUEV6QEan/?p=2'));
+  assert.ok(blocks[1].includes('https://www.bilibili.com/video/BV1fUEV6QEan/'));
+  const facts = html.match(/<dl class="work-facts">([\s\S]*?)<\/dl>/)[1];
+  assert.ok(!facts.includes('<dt>时长</dt>'), 'one source duration must not describe a merged collection');
+  const bad = structuredClone(catalog);
+  const parts = bad.works.find((w) => w.id === work.id).videos[1].parts;
+  parts.push({ ...parts[0] });
+  assert.throws(() => validateCatalog(bad), /Invalid part/);
+});
+
+test('series years have real fallback links, including the 2026 sports opening', () => {
+  const pages = createSite(catalog);
+  const html = pages.get('/events/');
+  assert.match(html, /href="\/events\/gala-2024\/" data-series-year/);
+  assert.match(html, /href="\/events\/sports-2026\/" data-series-year/);
+  assert.ok(!html.includes('.series-years button{display:none'));
+  const event = catalog.events.find((ev) => ev.id === 'sports-2026');
+  assert.equal(event.seriesId, 'sports');
+  assert.equal(event.date, null);
+  assert.ok(pages.get('/events/sports-2026/').includes('BV1jEap63Enq') || pages.get('/events/sports-2026/').includes(event.workIds[0]));
+});
+
+test('multi-session dates and management confirmation retain their own factual sources', () => {
+  const pages = createSite(catalog);
+  for (const [id, dates] of [['plaza-2025', ['2025-03-21', '2025-04-28']], ['debate-2026', ['2025-12-12', '2026-04-15']], ['psychodrama-2026', ['2026-04-22', '2026-04-23']]]) {
+    const event = catalog.events.find((ev) => ev.id === id);
+    assert.deepEqual(event.dates, dates);
+    assert.ok(pages.get(`/events/${id}/`).includes(dates.join('、')));
+  }
+  assert.ok(catalog.appointments.every((a) => a.sourceId === 'source-club-management-confirmation'));
+  assert.equal(catalog.sources.find((s) => s.id === 'source-club-management-confirmation').publishedAt, '2026-11-04');
 });

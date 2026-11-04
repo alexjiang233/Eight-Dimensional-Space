@@ -11,12 +11,13 @@ export const escape = (value) =>
   );
 const e = escape;
   const kinds = { film: '影片', replay: '直播回放', photos: '照片' };
+const eventDateLabel = (event) => event.dates?.length ? event.dates.join('、') : event.date || event.year;
   // Directory order: newest upload first; works without a publication date
   // fall back to their year. Stable for equal keys.
   const byRecency = (a, b) => String(b.publishedAt || b.year || 0).localeCompare(String(a.publishedAt || a.year || 0));
 
 export function validateCatalog(data) {
-  const collections = ['sources', 'media', 'members', 'events', 'works', 'notes', 'documents', 'stories'];
+  const collections = ['sources', 'media', 'members', 'events', 'series', 'works', 'notes', 'documents', 'stories'];
   const indexes = {};
   for (const name of collections) {
     indexes[name] = new Map();
@@ -48,7 +49,10 @@ export function validateCatalog(data) {
     ref('sources', asset.sourceId);
   }
   for (const event of data.events) {
+    if (event.dates && (!event.dates.length || event.dates.some((date) => !/^\d{4}-\d{2}-\d{2}$/.test(date))))
+      throw new Error(`Invalid event dates: ${event.id}`);
     ref('stories', event.storyId);
+    ref('series', event.seriesId);
     ref('media', event.coverId);
     ref('media', event.groupId);
     ref('sources', event.sourceId);
@@ -88,9 +92,13 @@ export function validateCatalog(data) {
       ref('sources', credit.sourceId);
       ref('members', credit.memberId);
     }
-    for (const part of work.parts || []) {
-      if (!Number.isInteger(part.page) || part.page < 1 || !part.part)
-        throw new Error(`Invalid part in work: ${work.id}`);
+    for (const parts of [work.parts || [], ...(work.videos || []).map((v) => v.parts || [])]) {
+      const pages = new Set();
+      for (const part of parts) {
+        if (!Number.isInteger(part.page) || part.page < 1 || !part.part || pages.has(part.page))
+          throw new Error(`Invalid part in work: ${work.id}`);
+        pages.add(part.page);
+      }
     }
   }
   for (const note of data.notes) {
@@ -129,6 +137,9 @@ export function createSite(data, { base = '/' } = {}) {
   const route = (skin, kind = '', id = '') =>
     `/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`;
   const featured = get('events', data.site.featuredEventId);
+  // Personal pages belong to the management roster (宣传片片尾署名) only;
+  // everyone else stays a plain name inside crew lists and credits.
+  const pageMembers = new Set((data.appointments || []).map((a) => a.memberId));
   const promoWork = get('works', data.site.promoWorkId);
   const promoEmbed = promoWork.mediaId ? get('media', promoWork.mediaId) : null;
   const embedSrc = (m) =>
@@ -157,9 +168,9 @@ export function createSite(data, { base = '/' } = {}) {
   // Bilibili upload dates are publication dates, never event dates.
   const workFacts = (work, media) => {
     const items = [
-      [work.publicationLabel || '投稿日期', work.publishedAt],
+      [work.publicationLabel || '投稿日期', work.videos?.length > 1 ? null : work.publishedAt],
       ['本段更新', work.updatedAt],
-      ['时长', media?.durationLabel],
+      ['时长', work.videos?.length > 1 ? null : media?.durationLabel],
       ['分P', work.parts?.length ? `${work.parts.length} 段` : null],
       ['收录视频', work.videos?.length > 1 ? `${work.videos.length} 支` : null],
       ['来源', work.sourceAccount === 'personal' ? '个人频道' : work.sourceAccount === 'club' ? '社团投稿' : work.sourceAccount === 'mixed' ? '社团与个人频道' : null],
@@ -168,8 +179,6 @@ export function createSite(data, { base = '/' } = {}) {
       ? `<dl class="work-facts">${items.map(([label, value]) => `<div><dt>${e(label)}</dt><dd>${e(value)}</dd></div>`).join('')}</dl>`
       : '';
   };
-  const workCover = (work) =>
-    `<figure class="work-cover-small">${img(work.coverId, 'loading="lazy"')}<figcaption>B站封面 · ${e(work.formatLabel || '视频')}</figcaption></figure>`;
   const originalDescription = (work) => {
     if (!work.description) return '';
     if (!work.id.startsWith('bili-')) return `<p class="work-summary">${e(work.description)}</p>`;
@@ -196,7 +205,7 @@ export function createSite(data, { base = '/' } = {}) {
     return `<section class="section work-credits"><div class="section-head"><h2>制作署名</h2></div><div class="credit-groups">${[...groups]
       .map(
         ([role, names]) =>
-          `<div><h3>${e(role)}</h3><p>${[...names.values()].map((credit) => credit.memberId ? `<a href="${url(skin, 'people', credit.memberId)}">${e(credit.name)}</a>` : `<span>${e(credit.name)}</span>`).join('、')}</p></div>`,
+          `<div><h3>${e(role)}</h3><p>${[...names.values()].map((credit) => credit.memberId && pageMembers.has(credit.memberId) ? `<a href="${url(skin, 'people', credit.memberId)}">${e(credit.name)}</a>` : `<span>${e(credit.name)}</span>`).join('、')}</p></div>`,
       )
       .join('')}</div>${sources.length ? `<details class="credit-source"><summary>署名依据</summary>${sources.map((line) => `<p>${e(line)}</p>`).join('')}</details>` : ''}</section>`;
   };
@@ -204,7 +213,10 @@ export function createSite(data, { base = '/' } = {}) {
     `<div class="roster">${event.contributions
       .map((c) => {
         const m = get('members', c.memberId);
-        return `<a href="${url(skin, 'people', m.id)}"><span class="person-name">${e(m.name)}</span><span>${e(c.role)}</span></a>`;
+        const name = pageMembers.has(m.id)
+          ? `<a class="person-name" href="${url(skin, 'people', m.id)}">${e(m.name)}</a>`
+          : `<span class="person-name">${e(m.name)}</span>`;
+        return `<div class="roster-item">${name}<span class="roster-role">${e(c.role)}</span></div>`;
       })
       .join('')}</div>`;
   const workTarget = (work, skin) =>
@@ -216,10 +228,11 @@ export function createSite(data, { base = '/' } = {}) {
     const videos = (work.videos || []).map((v) => ({ ...v, media: get('media', v.mediaId) }));
     if (videos.length < 2) return null;
     return `<div class="work-videos">${videos
-      .map(
-        (v) =>
-          `<div class="work-video-item">${embedPlayer(v.media)}<p class="video-item-label">${e(v.label)}${v.durationLabel ? ` · ${e(v.durationLabel)}` : ''}</p></div>`,
-      )
+      .map((v) => {
+        const source = get('sources', v.media.sourceId);
+        const publication = source.publishedAt ? ` · 投稿 ${e(source.publishedAt)}` : '';
+        return `<div class="work-video-item">${embedPlayer(v.media)}<p class="video-item-label">${e(v.label)}${v.durationLabel ? ` · ${e(v.durationLabel)}` : ''}${publication}</p><p class="embed-source">${sourceLink(v.media.sourceId, '在哔哩哔哩打开')}</p>${workParts(v, v.media)}</div>`;
+      })
       .join('')}</div>`;
   };
   const eventWorks = (event, skin) =>
@@ -235,7 +248,7 @@ export function createSite(data, { base = '/' } = {}) {
   };
   const workEntry = (work, skin) => {
     const media = work.mediaId ? get('media', work.mediaId) : null;
-    const duration = media?.durationLabel ? ` · ${e(media.durationLabel)}` : '';
+    const duration = media?.durationLabel && !(work.videos?.length > 1) ? ` · ${e(media.durationLabel)}` : '';
     const count = work.videos?.length > 1 ? ` · 共${work.videos.length}支` : '';
     const stamp = work.sourceAccount
       ? `投稿 ${e(work.publishedAt || work.year)}`
@@ -270,16 +283,75 @@ export function createSite(data, { base = '/' } = {}) {
     const still = `<img class="hero-still" src="${e(withBase(stillMedia.src))}" width="${stillMedia.width}" height="${stillMedia.height}" alt="${e(stillMedia.alt)}" loading="eager" fetchpriority="high">`;
     const loopMedia = get('media', data.site.heroVideoId);
     const video = `<video class="hero-video" data-hero-video data-src="${e(withBase(loopMedia.src))}" poster="${e(withBase(stillMedia.src))}" width="${loopMedia.width}" height="${loopMedia.height}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>`;
-    const identity = `<h1><span>八维空间</span><span class="club-name">摄影社</span></h1><p class="brand-english" lang="en">Eight-Dimensional-Space</p>${filmButton(skin)}`;
-    const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#selection">看作品与活动</a><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
+    const identity = `<h1><span>八维空间</span><span class="club-name">摄影社</span></h1>${filmButton(skin)}`;
+    const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#manifest">看作品与活动</a><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
     return collection.home(hero, skin);
   }
 
+  // Same-series year navigation: the backbone of "一年一年延续".
+  const seriesNavigation = (event, skin) => {
+    const s = get('series', event.seriesId);
+    const siblings = data.events.filter((ev) => ev.seriesId === event.seriesId).sort((a, b) => b.year - a.year);
+    return `<div class="event-series"><a class="event-series-name" href="${url(skin, 'events')}#series-${e(s.id)}">${e(s.title)}</a><nav class="event-series-years" aria-label="同系列其他年份">${siblings.map((ev) => `<a href="${url(skin, 'events', ev.id)}"${ev.id === event.id ? ' class="is-current" aria-current="page"' : ''}>${ev.year}</a>`).join('')}</nav></div>`;
+  };
+
   function eventPage(event, skin) {
     if (event.storyId) return renderEventRecord(event, get('stories', event.storyId), skin, { e, url, figure, get, sourceLink, embedPlayer });
-    return `<section class="event-intro section"><div class="event-title"><p class="date-line">${e(event.date || event.year)}${event.place ? ` · ${e(event.place)}` : ''}</p><h1>${e(event.title)}</h1><p class="lead-copy">${e(event.summary)}</p>${facts(event)}<div class="action-row">${event.id === 'military-2026' ? `<a class="button" href="${url(skin, 'works', 'military-replay')}">观看回放</a><a href="#process">看制作现场</a>` : eventMainAction(event, skin)}</div></div>${figure(event.coverId, 'event-cover', 'hero')}</section>${eventWorks(event, skin)}${event.id === 'military-2026' ? `<div class="event-nav"><a href="#process">制作现场</a><a href="#cameras">四个机位</a><a href="#photos">现场配图</a><a href="#crew">参与者</a><a href="${url(skin, 'notes', 'military-review')}">制作复盘</a></div>${compare(event, skin)}<section class="camera-section section" id="cameras"><div class="section-head"><h2>四个机位，各有位置</h2><p>设备信息按复盘正文保留。</p></div><div class="camera-list">${(event.cameras || []).map((c) => `<article>${c.imageId ? figure(c.imageId, '', 'cameras') : `<div class="camera-equipment"><span>机位资料</span><strong>${e(c.label)}</strong><span>${e(c.equipment)}</span></div>`}<h3>${e(c.label)}</h3><p>${e(c.equipment)}</p></article>`).join('')}</div></section>` : ''}${event.galleryIds.length ? gallery(event) : ''}${event.contributions.length ? `<section class="people-section section" id="crew"><div class="section-head"><h2>本场参与者</h2><span>公开回放署名</span></div>${event.groupId ? figure(event.groupId, 'crew-photo', 'crew') : ''}${roster(event, skin)}<p class="source-caption">${e(event.creditsNote || '参与记录按实际来源列出。')} 名单不用于推断照片中的人物位置。</p></section>` : ''}${notesPreview(skin, event)}<section class="source-section section"><h2>来源与记录</h2><p>${e(get('sources', event.sourceId).title)}</p>${event.timeNote ? `<details><summary>活动时段的来源说明</summary><p>${e(event.timeLabel)}；${e(event.timeNote)}</p></details>` : ''}${sourceLink(event.sourceId)}</section>`;
+    const seriesNav = event.seriesId ? seriesNavigation(event, skin) : '';
+    return `<section class="event-intro section"><div class="event-title">${seriesNav}<p class="date-line">${e(eventDateLabel(event))}${event.place ? ` · ${e(event.place)}` : ''}</p><h1>${e(event.title)}</h1><p class="lead-copy">${e(event.summary)}</p>${facts(event)}<div class="action-row">${event.id === 'military-2026' ? `<a class="button" href="${url(skin, 'works', 'military-replay')}">观看回放</a><a href="#process">看制作现场</a>` : eventMainAction(event, skin)}</div></div>${figure(event.coverId, 'event-cover', 'hero')}</section>${eventWorks(event, skin)}${event.id === 'military-2026' ? `<div class="event-nav"><a href="#process">制作现场</a><a href="#cameras">四个机位</a><a href="#photos">现场配图</a><a href="#crew">参与者</a><a href="${url(skin, 'notes', 'military-review')}">制作复盘</a></div>${compare(event, skin)}<section class="camera-section section" id="cameras"><div class="section-head"><h2>四个机位，各有位置</h2><p>设备信息按复盘正文保留。</p></div><div class="camera-list">${(event.cameras || []).map((c) => `<article>${c.imageId ? figure(c.imageId, '', 'cameras') : `<div class="camera-equipment"><span>机位资料</span><strong>${e(c.label)}</strong><span>${e(c.equipment)}</span></div>`}<h3>${e(c.label)}</h3><p>${e(c.equipment)}</p></article>`).join('')}</div></section>` : ''}${event.galleryIds.length ? gallery(event) : ''}${event.contributions.length ? `<section class="people-section section" id="crew"><div class="section-head"><h2>本场参与者</h2><span>公开回放署名</span></div>${event.groupId ? figure(event.groupId, 'crew-photo', 'crew') : ''}${roster(event, skin)}<p class="source-caption">${e(event.creditsNote || '参与记录按实际来源列出。')} 名单不用于推断照片中的人物位置。</p></section>` : ''}${notesPreview(skin, event)}<section class="source-section section"><h2>来源与记录</h2><p>${e(get('sources', event.sourceId).title)}</p>${event.timeNote ? `<details><summary>活动时段的来源说明</summary><p>${e(event.timeLabel)}；${e(event.timeNote)}</p></details>` : ''}${sourceLink(event.sourceId)}</section>`;
+  }
+  // The events index reads as recurring series. A name index at the top jumps
+  // straight to any series; each series is a compact row with a year switcher
+  // (the swipe the user liked) over its cover and current-event title.
+  function eventsIndexPage(skin) {
+    const toc = data.series
+      .filter((s) => data.events.some((ev) => ev.seriesId === s.id))
+      .map((s) => `<a href="#series-${e(s.id)}">${e(s.title)}</a>`)
+      .join('');
+    const seriesBlocks = data.series
+      .map((s) => {
+        const events = data.events.filter((ev) => ev.seriesId === s.id).sort((a, b) => b.year - a.year);
+        if (!events.length) return '';
+        const current = events[0];
+        const cover = get('media', current.coverId);
+        const yearButtons = events
+          .map((ev) => {
+            const m = get('media', ev.coverId);
+            return `<a href="${url(skin, 'events', ev.id)}" data-series-year data-year="${ev.year}" data-title="${e(ev.title)}" data-date="${e(eventDateLabel(ev))}" data-href="${url(skin, 'events', ev.id)}" data-src="${e(withBase(m.src))}" data-alt="${e(m.alt || m.caption)}" data-width="${m.width}" data-height="${m.height}" aria-current="${ev.id === current.id}">${ev.year}</a>`;
+          })
+          .join('');
+        return `<section class="series-block" id="series-${e(s.id)}" data-reveal>
+          <header class="series-head">
+            <h2>${e(s.title)}</h2>
+            <div class="series-years" role="group" aria-label="按年份切换">${yearButtons}</div>
+            <p class="series-summary">${e(s.summary)}</p>
+          </header>
+          <a class="series-card" data-series-card href="${url(skin, 'events', current.id)}">
+            <span class="series-thumb"><img data-series-image src="${e(withBase(cover.src))}" width="${cover.width}" height="${cover.height}" alt="${e(cover.alt || cover.caption)}" loading="lazy"></span>
+            <span class="series-card-copy"><strong data-series-title>${e(current.title)}</strong><span data-series-date>${e(eventDateLabel(current))}</span></span>
+            <span class="series-card-cta">查看记录</span>
+          </a>
+        </section>`;
+      })
+      .join('');
+    const loners = data.events.filter((ev) => !ev.seriesId).sort((a, b) => b.year - a.year);
+    const lonerBlocks = loners
+      .map((ev) => `<a class="record-entry" data-reveal href="${url(skin, 'events', ev.id)}">${img(ev.coverId, 'loading="lazy"')}<div><p>${e(eventDateLabel(ev))}</p><h3>${e(ev.title)}</h3><p>${e(ev.summary)}</p></div></a>`)
+      .join('');
+    return `<section class="page-intro section"><h1>活动</h1><p class="page-tagline">把现场交给我们</p></section><nav class="series-toc" aria-label="系列目录">${toc}</nav><div class="series-index">${seriesBlocks}</div>${lonerBlocks ? `<section class="section lone-events"><div class="section-head"><h2>单场记录</h2></div><div class="record-list">${lonerBlocks}</div></section>` : ''}`;
   }
   function worksPage(skin) {
+    // The directory groups by year: the year marker is how the archive reads.
+    // .work-entry classes stay stable so the filter keeps working.
+    const byYear = new Map();
+    for (const w of [...data.works].sort(byRecency)) {
+      const key = String(w.yearLabel || w.year || '其他');
+      if (!byYear.has(key)) byYear.set(key, []);
+      byYear.get(key).push(w);
+    }
+    const groups = [...byYear]
+      .map(([year, works]) => `<div class="works-year-group" data-year="${e(year)}"><p class="works-year">${e(year)}</p><div class="work-list directory">${works.map((w) => workEntry(w, skin)).join('')}</div></div>`)
+      .join('');
     return `<section class="page-intro section"><h1>作品与记录</h1><p>照片、影片，以及完整直播的回放入口。</p></section><section class="works-directory section"><div class="filter-bar" role="group" aria-label="按作品类型筛选">${[
       ['all', '全部'],
       ['photos', '照片'],
@@ -292,7 +364,7 @@ export function createSite(data, { base = '/' } = {}) {
       )
       .join(
         '',
-      )}<button type="button" class="mobile-filter" data-open-filter>筛选作品</button><span data-result-count>${data.works.length} 项作品</span></div><div class="work-list directory">${[...data.works].sort(byRecency).map((w) => workEntry(w, skin)).join('')}</div><p class="empty-results" hidden>当前分类没有作品。</p></section>`;
+      )}<button type="button" class="mobile-filter" data-open-filter>筛选作品</button><span data-result-count>${data.works.length} 项作品</span></div><div class="works-year-groups">${groups}</div><p class="empty-results" hidden>当前分类没有作品。</p></section>`;
   }
   function workPage(work, skin) {
     if (work.kind === 'photos' && work.galleryIds) return collection.photos(work, skin);
@@ -301,23 +373,14 @@ export function createSite(data, { base = '/' } = {}) {
     const videoList = workVideoList(work);
     const view = online ? (videoList ?? embedPlayer(media)) : figure(work.coverId, 'work-cover', 'work');
     const playbackNote = online && work.notice ? `<p class="replay-notice">${e(work.notice)}</p>` : '';
-    const playbackLink = online ? `<p class="embed-source">${sourceLink(work.sourceId, '在哔哩哔哩打开')}</p>` : '';
+    const playbackLink = online && !videoList ? `<p class="embed-source">${sourceLink(work.sourceId, '在哔哩哔哩打开')}</p>` : '';
     const meta = online
-      ? `<div class="work-source-meta">${workCover(work)}<div>${workFacts(work, media)}${originalDescription(work)}</div></div>`
+      ? `<div class="work-source-meta">${workFacts(work, media)}${originalDescription(work)}</div>`
       : `${infoStrip(work, skin)}${originalDescription(work)}`;
     return `<section class="work-intro section"><h1>${e(work.title)}</h1><p>${e(work.subtitle)}</p></section><section class="work-view section">${view}${playbackNote}${meta}${playbackLink}${work.eventId ? `<a class="text-link" href="${url(skin, 'events', work.eventId)}">进入活动专题</a>` : ''}</section>${workParts(work, media)}${workCredits(work, skin)}`;
   }
   function peoplePage(skin) {
-    const shown = new Set([
-      ...(data.appointments || []).map((a) => a.memberId),
-      ...featured.contributions.map((c) => c.memberId),
-    ]);
-    const others = data.members.filter((m) => !shown.has(m.id));
-    const archive = others.length ? `<section class="section"><div class="section-head"><h2>参与制作</h2></div><div class="roster">${others.map((member) => {
-      const roles = [...new Set(data.works.flatMap((work) => (work.credits || []).filter((c) => c.memberId === member.id).map((c) => c.role)))];
-      return `<a href="${url(skin, 'people', member.id)}"><span class="person-name">${e(member.name)}</span><span>${e(roles.slice(0, 3).join(' / '))}</span></a>`;
-    }).join('')}</div></section>` : '';
-    return collection.people(skin, roster, featured) + archive;
+    return collection.people(skin);
   }
   function personPage(member, skin) {
     const events = data.events.filter(ev => ev.contributions.some(c => c.memberId === member.id));
@@ -325,9 +388,9 @@ export function createSite(data, { base = '/' } = {}) {
     const appointments = (data.appointments || []).filter(a => a.memberId === member.id);
     const history = events.map(ev => {
       const c = ev.contributions.find(c => c.memberId === member.id);
-      return `<article><p>${e(ev.date || ev.year)}</p><h3><a href="${url(skin, 'events', ev.id)}">${e(ev.title)}</a></h3><p>${e(c.role)} · ${e(c.source)}</p>${c.detail ? `<p>${e(c.detail)}</p>` : ''}${c.note ? `<details><summary>职责来源说明</summary><p>${e(c.note)}</p></details>` : ''}</article>`;
+      return `<article><p>${e(eventDateLabel(ev))}</p><h3><a href="${url(skin, 'events', ev.id)}">${e(ev.title)}</a></h3><p>${e(c.role)} · ${e(c.source)}</p>${c.detail ? `<p>${e(c.detail)}</p>` : ''}${c.note ? `<details><summary>职责来源说明</summary><p>${e(c.note)}</p></details>` : ''}</article>`;
     }).join('');
-    return `<section class="person-intro section"><div><p class="date-line">成员</p><h1>${e(member.name)}</h1>${appointments.map(a => `<p>${e(a.cohortLabel)} / ${e(a.role)} · 宣传片署名</p>`).join('')}<div class="specialties">${member.specialties.map(s => `<span>${e(s)}</span>`).join('')}</div></div>${events.length ? figure(featured.groupId, 'person-context', 'person') + '<p class="source-caption">军训团队合影</p>' : ''}</section>${history ? `<section class="section"><div class="section-head"><h2>参与过的现场</h2></div><div class="event-list">${history}</div></section>` : ''}${works.length ? `<section class="section"><div class="section-head"><h2>相关制作</h2></div><div class="work-list">${works.map(w => workEntry(w, skin)).join('')}</div></section>` : ''}`;
+    return `<section class="person-intro section"><div><p class="date-line">成员</p><h1>${e(member.name)}</h1>${appointments.map(a => `<p>${e(a.cohortLabel)}${a.role ? ` / ${e(a.role)}` : ''} · 管理层</p>`).join('')}<div class="specialties">${member.specialties.map(s => `<span>${e(s)}</span>`).join('')}</div></div>${events.length ? figure(featured.groupId, 'person-context', 'person') + '<p class="source-caption">军训团队合影</p>' : ''}</section>${history ? `<section class="section"><div class="section-head"><h2>参与过的现场</h2></div><div class="event-list">${history}</div></section>` : ''}${works.length ? `<section class="section"><div class="section-head"><h2>相关制作</h2></div><div class="work-list">${works.map(w => workEntry(w, skin)).join('')}</div></section>` : ''}`;
   }
 
   function notePage(note, skin) {
@@ -365,20 +428,7 @@ export function createSite(data, { base = '/' } = {}) {
     add(route(skin), 'home', '首页', home(skin));
     add(route(skin, 'about'), 'about', '关于社团', collection.about(skin));
     add(route(skin, 'works'), 'works', '作品与记录', worksPage(skin));
-    add(
-      route(skin, 'events'),
-      'events',
-      '活动',
-      `<section class="page-intro section"><h1>活动现场</h1><p>运动会、汇演与拍摄现场。</p></section><section class="section event-directory">${[
-        ...data.events,
-      ]
-        .sort((a, b) => b.year - a.year)
-        .map(
-          (ev) =>
-            `<article><a href="${url(skin, 'events', ev.id)}">${img(ev.coverId, 'loading="lazy"')}</a><div><p>${e(ev.date || ev.year)}</p><h2><a href="${url(skin, 'events', ev.id)}">${e(ev.title)}</a></h2><p>${e(ev.summary)}</p></div></article>`,
-        )
-        .join('')}</section>`,
-    );
+    add(route(skin, 'events'), 'events', '活动', eventsIndexPage(skin));
     add(route(skin, 'people'), 'people', '在现场的人', peoplePage(skin));
     add(
       route(skin, 'notes'),
@@ -390,7 +440,7 @@ export function createSite(data, { base = '/' } = {}) {
       add(route(skin, 'events', ev.id), 'events', ev.title, eventPage(ev, skin));
     for (const w of data.works) add(route(skin, 'works', w.id), 'works', w.title, workPage(w, skin));
     for (const m of data.members)
-      add(route(skin, 'people', m.id), 'people', m.name, personPage(m, skin));
+      if (pageMembers.has(m.id)) add(route(skin, 'people', m.id), 'people', m.name, personPage(m, skin));
     for (const n of data.notes) add(route(skin, 'notes', n.id), 'notes', n.title, notePage(n, skin));
   }
   return pages;

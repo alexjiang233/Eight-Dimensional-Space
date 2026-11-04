@@ -47,13 +47,6 @@
       "publishedAt": "2026-01-18"
     },
     {
-      "id": "source-camera-communication",
-      "title": "导播话术规范与沟通技巧",
-      "url": null,
-      "authorLabel": null,
-      "publishedAt": null
-    },
-    {
       "id": "source-bilibili-military",
       "title": "【直播回放】淮北一中2026年军训总结大会",
       "url": "https://www.bilibili.com/video/BV1pWhP6wE67/",
@@ -465,6 +458,13 @@
       "url": "https://www.bilibili.com/video/BV1ox421r7rp/",
       "authorLabel": "撞上树桩的猪_",
       "publishedAt": "2024-03-20"
+    },
+    {
+      "id": "source-club-management-confirmation",
+      "title": "管理层名单与任职信息（社团确认）",
+      "url": null,
+      "authorLabel": "八维空间摄影社",
+      "publishedAt": "2026-11-04"
     }
   ],
   "media": [
@@ -2954,7 +2954,8 @@
       "sourceId": "source-bili-bv1zd6vyvemj",
       "summary": "第37届校园文化艺术节元旦文艺汇演的全程回顾与预告，拍摄组8人。",
       "contributions": [],
-      "timeNote": "活动于2024年12月30日举行；B站投稿日期为2024-12-28（预告）与2024-12-30（全程回顾），不作活动日期。"
+      "timeNote": "活动于2024年12月30日举行；B站投稿日期为2024-12-28（预告）与2024-12-30（全程回顾），不作活动日期。",
+      "seriesId": "gala"
     },
     {
       "id": "sports-2025",
@@ -2976,7 +2977,8 @@
       "summary": "第三十三届体育节暨第四十八届秋季体育运动会的全程回顾、预告与短片，共3支视频。",
       "contributions": [],
       "timeLabel": "开幕式 9.29 上午 8:00–9:30",
-      "timeNote": "活动日期与开幕式时段来自全程回顾视频简介；B站投稿日期为2025-09-30，不作活动日期。"
+      "timeNote": "活动日期与开幕式时段来自全程回顾视频简介；B站投稿日期为2025-09-30，不作活动日期。",
+      "seriesId": "sports"
     },
     {
       "id": "sports-2024",
@@ -2998,7 +3000,8 @@
       "noteIds": [],
       "sourceId": "source-bili-bv1uoy8ypete",
       "summary": "社团为2024年校运会制作的创意短片，含完整制作名单。",
-      "contributions": []
+      "contributions": [],
+      "seriesId": "sports"
     },
     {
       "id": "gala-2026",
@@ -3020,7 +3023,12 @@
       "noteIds": [],
       "sourceId": "source-bili-bv1sbvebpefa",
       "summary": "2026年元旦文艺汇演两场直播回放，附预告与记忆短片。",
-      "contributions": []
+      "contributions": [],
+      "seriesId": "gala",
+      "dates": [
+        "2025-12-30",
+        "2025-12-31"
+      ]
     },
     {
       "id": "gala-2024",
@@ -3042,7 +3050,8 @@
       "noteIds": [],
       "sourceId": "source-bili-bv1nm421j7ps",
       "summary": "2024年元旦文艺汇演上午场与下午场全程回顾。",
-      "contributions": []
+      "contributions": [],
+      "seriesId": "gala"
     },
     {
       "id": "psychodrama-2026",
@@ -3064,7 +3073,12 @@
       "noteIds": [],
       "sourceId": "source-bili-bv1qdev6neqz",
       "summary": "第十二届校园心理剧大赛两场全程回顾。",
-      "contributions": []
+      "contributions": [],
+      "seriesId": "psychodrama",
+      "dates": [
+        "2026-04-22",
+        "2026-04-23"
+      ]
     },
     {
       "id": "psychodrama-2025",
@@ -3086,7 +3100,12 @@
       "noteIds": [],
       "sourceId": "source-bili-bv1trd5yqekh",
       "summary": "第十一届校园心理剧大赛上下半场全程回顾。",
-      "contributions": []
+      "contributions": [],
+      "seriesId": "psychodrama",
+      "dates": [
+        "2025-04-09",
+        "2025-04-10"
+      ]
     },
     {
       "id": "psychodrama-2024",
@@ -3108,6 +3127,409 @@
       "noteIds": [],
       "sourceId": "source-bili-bv1bt42177pd",
       "summary": "第十届校园心理剧大赛上下半场全程回顾。",
+      "contributions": [],
+      "seriesId": "psychodrama",
+      "dates": [
+        "2024-04-10",
+        "2024-04-11"
+      ]
+    },
+    {
+      "id": "sinoaus-2024",
+      "title": "2024年中澳友好音乐会",
+      "fullTitle": "2024年中澳友好音乐会",
+      "seriesId": "sinoaus-concert",
+      "year": 2024,
+      "date": "2024-09-19",
+      "place": null,
+      "timeLabel": "2024.09.19 19:00",
+      "timeNote": "拍摄时间来自视频简介（2024.09.19 19:00）；B站投稿日期为2024-09-22，不作活动日期。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1aqtue6erh",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1aqtue6erh"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1aqtue6erh",
+      "summary": "2024年中澳友好音乐会全程回顾，三机位拍摄。",
+      "contributions": []
+    },
+    {
+      "id": "sinoaus-2026",
+      "title": "2026年中澳“团圆之夜”友好音乐会",
+      "fullTitle": "2026年中澳“团圆之夜”友好音乐会",
+      "seriesId": "sinoaus-concert",
+      "year": 2026,
+      "date": "2026-09-23",
+      "place": null,
+      "timeLabel": "2026.09.23 19:20 · 高二场",
+      "timeNote": "时间来自视频简介；B站投稿日期为2026-09-24，不作活动日期。学校录播系统拍摄，中段收音缺失。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1tpak62eqg",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1tpak62eqg"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1tpak62eqg",
+      "summary": "2026年中澳“团圆之夜”友好音乐会（高二场）全程回放。",
+      "contributions": []
+    },
+    {
+      "id": "random-dance-2024",
+      "title": "YG舞社随舞活动",
+      "fullTitle": "YG舞社随舞活动",
+      "seriesId": "random-dance",
+      "year": 2024,
+      "date": "2024-12-05",
+      "place": null,
+      "timeLabel": "2024.12.05 18:00 · 缤纷广场",
+      "timeNote": "活动时间与地点来自视频简介；主办：YG舞社。B站投稿日期为2024-12-06，不作活动日期。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1k9iiyuewn",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1k9iiyuewn"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1k9iiyuewn",
+      "summary": "YG舞社随机舞蹈活动全程录像。",
+      "contributions": []
+    },
+    {
+      "id": "random-dance-2025",
+      "title": "群星演绎社随机宅舞",
+      "fullTitle": "群星演绎社随机宅舞",
+      "seriesId": "random-dance",
+      "year": 2025,
+      "date": "2025-04-16",
+      "place": null,
+      "timeLabel": "2025.04.16 17:50–18:40",
+      "timeNote": "时间来自视频简介；主办：群星演绎社。B站投稿日期为2025-04-16。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1p4omy2eux",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1p4omy2eux"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1p4omy2eux",
+      "summary": "群星演绎社随机宅舞全程录像。",
+      "contributions": []
+    },
+    {
+      "id": "random-dance-2026",
+      "title": "SSR&YG舞社随机舞蹈",
+      "fullTitle": "SSR&YG舞社随机舞蹈",
+      "seriesId": "random-dance",
+      "year": 2026,
+      "date": "2026-05-27",
+      "place": null,
+      "timeLabel": "2026.05.27 18:05",
+      "timeNote": "时间来自视频简介；主办：SSR&YG舞社。B站投稿日期为2026-05-27。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1osgu6yexd",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1osgu6yexd"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1osgu6yexd",
+      "summary": "SSR&YG舞社随机舞蹈活动全程回顾。",
+      "contributions": []
+    },
+    {
+      "id": "chorus-2024",
+      "title": "第36届艺术节·合唱比赛",
+      "fullTitle": "第36届艺术节·合唱比赛",
+      "seriesId": "chorus",
+      "year": 2024,
+      "date": "2023-12-25",
+      "place": null,
+      "timeLabel": "高一高二两场 · 2023.12.25",
+      "timeNote": "两场同日举行，日期来自视频简介；B站投稿日期为2024-04-14/21，不作活动日期。高一场简介首行误作“高二场”，按原文保留。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1yx4y1a7bx",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "chorus-2024-videos"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1yx4y1a7bx",
+      "summary": "第36届校园文化艺术节合唱比赛高一场与高二场全程回顾。",
+      "contributions": []
+    },
+    {
+      "id": "chorus-2025",
+      "title": "第38届艺术节·合唱比赛",
+      "fullTitle": "第38届艺术节·合唱比赛",
+      "seriesId": "chorus",
+      "year": 2025,
+      "date": "2025-12-23",
+      "place": null,
+      "timeLabel": "高二场 12.23 / 高一场 12.25",
+      "timeNote": "场次日期与时间来自视频简介（15:30 场）；B站投稿日期为2025-12-23/27，不作活动日期。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1hkbtbhela",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "chorus-2025-videos"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1hkbtbhela",
+      "summary": "第38届校园文化艺术节合唱比赛高一场与高二场全程回顾。",
+      "contributions": []
+    },
+    {
+      "id": "classroom-drama-2024",
+      "title": "2024届课本剧大赛公演",
+      "fullTitle": "2024届课本剧大赛公演",
+      "seriesId": "classroom-drama",
+      "year": 2024,
+      "date": "2024-05-19",
+      "place": null,
+      "timeLabel": "2024.05.19 15:00",
+      "timeNote": "拍摄时间来自视频简介；B站投稿日期为2024-05-19。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv127421f7kq",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv127421f7kq"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv127421f7kq",
+      "summary": "2024届课本剧大赛公演直播回放。",
+      "contributions": []
+    },
+    {
+      "id": "classroom-drama-2025",
+      "title": "2025届课本剧大赛展演",
+      "fullTitle": "2025届课本剧大赛展演",
+      "seriesId": "classroom-drama",
+      "year": 2025,
+      "date": "2025-04-30",
+      "place": null,
+      "timeLabel": "2025.04.30 14:30",
+      "timeNote": "时间来自视频简介；B站投稿日期为2025-04-30。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1cogtzwet1",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1cogtzwet1"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1cogtzwet1",
+      "summary": "2025届课本剧大赛展演全程回顾。",
+      "contributions": []
+    },
+    {
+      "id": "classroom-drama-2026",
+      "title": "2026届课本剧大赛展演",
+      "fullTitle": "2026届课本剧大赛展演",
+      "seriesId": "classroom-drama",
+      "year": 2026,
+      "date": "2026-05-09",
+      "place": null,
+      "timeLabel": "2026.05.09 14:30",
+      "timeNote": "时间来自视频简介；B站投稿日期为2026-05-10。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1zurdbbe42",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1zurdbbe42"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1zurdbbe42",
+      "summary": "2026届课本剧大赛展演全程回顾。",
+      "contributions": []
+    },
+    {
+      "id": "plaza-2025",
+      "title": "2025年广场音乐节",
+      "fullTitle": "2025年广场音乐节",
+      "seriesId": "plaza-concert",
+      "year": 2025,
+      "date": "2025-03-21",
+      "place": null,
+      "timeLabel": "高一场 3.21 / 高二场 4.28",
+      "timeNote": "高一场2025-03-21、高二场2025-04-28，均为17:15场，日期来自对应视频简介；不以投稿日期替代活动日期。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1ivxyy4evj",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "plaza-2025-videos"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1ivxyy4evj",
+      "summary": "2025年广场音乐节高一场与高二场全程回顾。",
+      "contributions": [],
+      "dates": [
+        "2025-03-21",
+        "2025-04-28"
+      ]
+    },
+    {
+      "id": "plaza-2026",
+      "title": "2026年学科节·广场音乐会",
+      "fullTitle": "2026年学科节·广场音乐会",
+      "seriesId": "plaza-concert",
+      "year": 2026,
+      "date": "2026-05-09",
+      "place": null,
+      "timeLabel": "2026.05.09 15:40",
+      "timeNote": "时间来自视频简介，因设备失误仅录制约半小时；B站投稿日期为2026-05-10。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1pjrrb8emf",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1pjrrb8emf"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1pjrrb8emf",
+      "summary": "2026年学科节广场音乐会记录（节选）。",
+      "contributions": []
+    },
+    {
+      "id": "music-fest-2024",
+      "title": "2024年校园音乐节",
+      "fullTitle": "2024年校园音乐节",
+      "seriesId": "music-festival",
+      "year": 2024,
+      "date": "2024-07-10",
+      "place": null,
+      "timeLabel": "2024.07.10 17:00 直播",
+      "timeNote": "直播时间来自视频简介；B站投稿日期为2024-07-12，不作活动日期。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1ge4m1r7gj",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1ge4m1r7gj"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1ge4m1r7gj",
+      "summary": "2024年校园音乐节直播回放。",
+      "contributions": []
+    },
+    {
+      "id": "music-fest-2026",
+      "title": "2026年音乐节",
+      "fullTitle": "2026年音乐节",
+      "seriesId": "music-festival",
+      "year": 2026,
+      "date": "2026-04-10",
+      "place": null,
+      "timeLabel": "2026.04.10 17点场 直播",
+      "timeNote": "场次时间来自视频标题；B站投稿日期为2026-04-10。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1wnqwbuevt",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1wnqwbuevt"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1wnqwbuevt",
+      "summary": "2026年音乐节直播回放（04月10日17点场）。",
+      "contributions": []
+    },
+    {
+      "id": "football-2025",
+      "title": "2025届足球联赛",
+      "fullTitle": "2025届足球联赛",
+      "seriesId": null,
+      "year": 2025,
+      "date": "2025-05-16",
+      "place": null,
+      "timeLabel": "决赛 2025.05.16 17:20 实况转播",
+      "timeNote": "决赛时间来自视频简介；小组赛各场日期以视频简介与投稿日期为准（2025.04–05）。决赛为社团首次足球实况转播。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1exebzleby",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "football-2025-videos"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1exebzleby",
+      "summary": "2025届足球联赛多场记录，决赛为首次实况转播。",
+      "contributions": []
+    },
+    {
+      "id": "debate-2026",
+      "title": "WG动漫社趣味辩论赛",
+      "fullTitle": "WG动漫社趣味辩论赛",
+      "seriesId": null,
+      "year": 2026,
+      "date": "2025-12-12",
+      "place": null,
+      "timeLabel": "第一场 2025.12.12 / 第二场 2026.04.15",
+      "timeNote": "两场日期来自视频简介；B站投稿日期为2025-12-12与2026-04-16。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1lnm2bgetb",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "debate-videos"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1lnm2bgetb",
+      "summary": "WG动漫社趣味辩论赛两场全程回顾。",
+      "contributions": [],
+      "dates": [
+        "2025-12-12",
+        "2026-04-15"
+      ]
+    },
+    {
+      "id": "sports-2026",
+      "seriesId": "sports",
+      "title": "2026年秋季运动会开幕式",
+      "fullTitle": "淮北一中2026年秋季运动会开幕式",
+      "year": 2026,
+      "date": null,
+      "place": null,
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1jeap63enq",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1jeap63enq"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1jeap63enq",
+      "summary": "运动会开幕式录像。",
+      "timeNote": "活动年份依据视频标题；具体举行日期尚未独立确认，不以B站投稿日期代替。",
       "contributions": []
     }
   ],
@@ -3310,7 +3732,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1jeap63enq",
       "coverId": "cover-bili-bv1jeap63enq",
-      "eventId": null,
+      "eventId": "sports-2026",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
@@ -3329,7 +3751,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1tpak62eqg",
       "coverId": "cover-bili-bv1tpak62eqg",
-      "eventId": null,
+      "eventId": "sinoaus-2026",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
@@ -3367,7 +3789,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1osgu6yexd",
       "coverId": "cover-bili-bv1osgu6yexd",
-      "eventId": null,
+      "eventId": "random-dance-2026",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
@@ -3386,7 +3808,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1zurdbbe42",
       "coverId": "cover-bili-bv1zurdbbe42",
-      "eventId": null,
+      "eventId": "classroom-drama-2026",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
@@ -3425,32 +3847,13 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1pjrrb8emf",
       "coverId": "cover-bili-bv1pjrrb8emf",
-      "eventId": null,
+      "eventId": "plaza-2026",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
       "sourceId": "source-bili-bv1pjrrb8emf",
       "externalUrl": "https://www.bilibili.com/video/BV1pJRRB8EMF/",
       "description": "因为一些失误，只录了半个小时，十分抱歉。\n时间：2026.05.09  15:40\n设备：索尼A7M3+SIGMA 14-24mm f/2.8 DG DN"
-    },
-    {
-      "id": "bili-club-bv1njqpb8ems",
-      "title": "淮北一中WG动漫社趣味辩论赛第二场-全程回顾",
-      "subtitle": "全程回顾 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程回顾",
-      "year": 2026,
-      "publishedAt": "2026-04-16",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1njqpb8ems",
-      "coverId": "cover-bili-bv1njqpb8ems",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "sourceId": "source-bili-bv1njqpb8ems",
-      "externalUrl": "https://www.bilibili.com/video/BV1nJQpB8EmS/",
-      "description": "辩题：\n正方：拥有可怜之处的可恨之人值得可怜\n反方：拥有可怜之处的可恨之人不值得可怜\n正方获胜\n时间：2026.04.15\n\n设备：Sony a7r IV + SIGMA 14-24mm f/2.8 DG DN"
     },
     {
       "id": "bili-club-bv1wnqwbuevt",
@@ -3463,236 +3866,13 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1wnqwbuevt",
       "coverId": "cover-bili-bv1wnqwbuevt",
-      "eventId": null,
+      "eventId": "music-fest-2026",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
       "sourceId": "source-bili-bv1wnqwbuevt",
       "externalUrl": "https://www.bilibili.com/video/BV1wnQwBuEVt/",
       "description": ""
-    },
-    {
-      "id": "bili-club-bv1xnbyb3eu1",
-      "title": "淮北一中第38届校园文化艺术节-合唱比赛 高一场",
-      "subtitle": "全程录像 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程录像",
-      "year": 2025,
-      "publishedAt": "2025-12-27",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1xnbyb3eu1",
-      "coverId": "cover-bili-bv1xnbyb3eu1",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "parts": [
-        {
-          "page": 1,
-          "part": "1-12号班级",
-          "duration": 3797,
-          "durationLabel": "1:03:17"
-        },
-        {
-          "page": 2,
-          "part": "13-24号班级",
-          "duration": 3774,
-          "durationLabel": "1:02:54"
-        }
-      ],
-      "sourceId": "source-bili-bv1xnbyb3eu1",
-      "externalUrl": "https://www.bilibili.com/video/BV1XNByB3EU1/",
-      "description": "时间：2025.12.25  15:30"
-    },
-    {
-      "id": "bili-club-bv1hkbtbhela",
-      "title": "淮北一中第38届校园文化艺术节-合唱比赛 高二场",
-      "subtitle": "全程录像 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程录像",
-      "year": 2025,
-      "publishedAt": "2025-12-23",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1hkbtbhela",
-      "coverId": "cover-bili-bv1hkbtbhela",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "parts": [
-        {
-          "page": 1,
-          "part": "开幕+高二（13）班-《明天会更好》",
-          "duration": 501,
-          "durationLabel": "8:21"
-        },
-        {
-          "page": 2,
-          "part": "高二（10）班-《明天会更好》",
-          "duration": 278,
-          "durationLabel": "4:38"
-        },
-        {
-          "page": 3,
-          "part": "高二（17）班-《我和我的祖国》",
-          "duration": 290,
-          "durationLabel": "4:50"
-        },
-        {
-          "page": 4,
-          "part": "高二（11）班-《我爱你中国》",
-          "duration": 343,
-          "durationLabel": "5:43"
-        },
-        {
-          "page": 5,
-          "part": "高二（14）班-《如愿》",
-          "duration": 324,
-          "durationLabel": "5:24"
-        },
-        {
-          "page": 6,
-          "part": "高二（20）班-《走向复兴》",
-          "duration": 186,
-          "durationLabel": "3:06"
-        },
-        {
-          "page": 7,
-          "part": "高二（16）班-《少年中国说》",
-          "duration": 219,
-          "durationLabel": "3:39"
-        },
-        {
-          "page": 8,
-          "part": "高二（6）班-《明天会更好》",
-          "duration": 272,
-          "durationLabel": "4:32"
-        },
-        {
-          "page": 9,
-          "part": "高二（4）班-《红旗飘飘》",
-          "duration": 300,
-          "durationLabel": "5:00"
-        },
-        {
-          "page": 10,
-          "part": "高二（24）班-《阳光路上》",
-          "duration": 292,
-          "durationLabel": "4:52"
-        },
-        {
-          "page": 11,
-          "part": "高二（1）班-《如愿》",
-          "duration": 279,
-          "durationLabel": "4:39"
-        },
-        {
-          "page": 12,
-          "part": "高二（19）班-《龙的传人》",
-          "duration": 238,
-          "durationLabel": "3:58"
-        },
-        {
-          "page": 13,
-          "part": "高二（8）班-《我爱你中国》",
-          "duration": 336,
-          "durationLabel": "5:36"
-        },
-        {
-          "page": 14,
-          "part": "高二（3）班-《歌唱祖国》",
-          "duration": 219,
-          "durationLabel": "3:39"
-        },
-        {
-          "page": 15,
-          "part": "高二（5）班-《少年中国说》",
-          "duration": 230,
-          "durationLabel": "3:50"
-        },
-        {
-          "page": 16,
-          "part": "高二（2）班-《我爱你中国》",
-          "duration": 344,
-          "durationLabel": "5:44"
-        },
-        {
-          "page": 17,
-          "part": "高二（23）班-《保卫黄河》",
-          "duration": 138,
-          "durationLabel": "2:18"
-        },
-        {
-          "page": 18,
-          "part": "高二（12）班-《明天会更好》",
-          "duration": 249,
-          "durationLabel": "4:09"
-        },
-        {
-          "page": 19,
-          "part": "高二（22）班-《我爱你中国》",
-          "duration": 317,
-          "durationLabel": "5:17"
-        },
-        {
-          "page": 20,
-          "part": "高二（18）班-《我爱你中国》",
-          "duration": 315,
-          "durationLabel": "5:15"
-        },
-        {
-          "page": 21,
-          "part": "高二（7）班-《我们都是追梦人》",
-          "duration": 244,
-          "durationLabel": "4:04"
-        },
-        {
-          "page": 22,
-          "part": "高二（9）班-《歌唱祖国》",
-          "duration": 236,
-          "durationLabel": "3:56"
-        },
-        {
-          "page": 23,
-          "part": "高二（15）班-《我们都是追梦人》",
-          "duration": 249,
-          "durationLabel": "4:09"
-        },
-        {
-          "page": 24,
-          "part": "高二（21）班-《龙的传人》",
-          "duration": 214,
-          "durationLabel": "3:34"
-        },
-        {
-          "page": 25,
-          "part": "结尾",
-          "duration": 87,
-          "durationLabel": "1:27"
-        }
-      ],
-      "sourceId": "source-bili-bv1hkbtbhela",
-      "externalUrl": "https://www.bilibili.com/video/BV1HkBTBHELA/",
-      "description": "时间：2025.12.23  15:30\n\n设备：尼康Z30+Z DX 16-50mm f/3.5-6.3"
-    },
-    {
-      "id": "bili-club-bv1lnm2bgetb",
-      "title": "淮北一中WG动漫社趣味辩论赛",
-      "subtitle": "全程录像 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程录像",
-      "year": 2025,
-      "publishedAt": "2025-12-12",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1lnm2bgetb",
-      "coverId": "cover-bili-bv1lnm2bgetb",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "sourceId": "source-bili-bv1lnm2bgetb",
-      "externalUrl": "https://www.bilibili.com/video/BV1Lnm2BGETb/",
-      "description": "时间：2025.12.12 17:50\n辩题：\n正方：角色的魅力，更在于其理想化的光辉\n反方：角色的魅力，更在于其人性化的瑕疵\n\n非常有趣的辩论赛！感谢各位辩手的精彩表现！\n\n比赛结果：\n正方：171分  反方：176分\n反方胜利"
     },
     {
       "id": "bili-club-bv1o6auzwejt",
@@ -3714,25 +3894,6 @@
       "description": "祝贺获得星级称号的社团！\n\n设备：DJI OSMO Action4\n时间：2025.09.04 18:00"
     },
     {
-      "id": "bili-club-bv1exebzleby",
-      "title": "淮北一中2025届足球联赛 决赛 12班-15班",
-      "subtitle": "比赛录像 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "比赛录像",
-      "year": 2025,
-      "publishedAt": "2025-05-17",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1exebzleby",
-      "coverId": "cover-bili-bv1exebzleby",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "sourceId": "source-bili-bv1exebzleby",
-      "externalUrl": "https://www.bilibili.com/video/BV1EXEbzLEBy/",
-      "description": "比赛结果：15班 4:3 12班\n拍摄效果还有优化空间，有待改进\n但对于第一次实况转播来说 已经很不错了 评价都很高\n\n拍摄设备：DJI mavic3 Pro\n时间：2025.05.16 17:20"
-    },
-    {
       "id": "bili-club-bv1cogtzwet1",
       "title": "淮北一中2025届课本剧大赛展演 全程回顾",
       "subtitle": "全程回顾 · 社团投稿",
@@ -3743,7 +3904,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1cogtzwet1",
       "coverId": "cover-bili-bv1cogtzwet1",
-      "eventId": null,
+      "eventId": "classroom-drama-2025",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
@@ -3784,105 +3945,6 @@
       "description": "设备：Nikon Z6 / Canon R10\n时间：2025.04.30 14:30"
     },
     {
-      "id": "bili-club-bv1eel2zdeti",
-      "title": "淮北一中2025年广场音乐节-高二场 全程回顾",
-      "subtitle": "全程回顾 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程回顾",
-      "year": 2025,
-      "publishedAt": "2025-04-28",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1eel2zdeti",
-      "coverId": "cover-bili-bv1eel2zdeti",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "parts": [
-        {
-          "page": 1,
-          "part": "开场",
-          "duration": 330,
-          "durationLabel": "5:30"
-        },
-        {
-          "page": 2,
-          "part": "YG舞社-舞蹈串烧",
-          "duration": 184,
-          "durationLabel": "3:04"
-        },
-        {
-          "page": 3,
-          "part": "LoveBoy88-高一15、11班 李则润 田广润 李明泽 赵华辰",
-          "duration": 233,
-          "durationLabel": "3:53"
-        },
-        {
-          "page": 4,
-          "part": "雨爱-高一8班 张馨瑜",
-          "duration": 275,
-          "durationLabel": "4:35"
-        },
-        {
-          "page": 5,
-          "part": "红豆-高二12班 魏凡朔",
-          "duration": 261,
-          "durationLabel": "4:21"
-        },
-        {
-          "page": 6,
-          "part": "喂-高一20班 祝一畅",
-          "duration": 288,
-          "durationLabel": "4:48"
-        },
-        {
-          "page": 7,
-          "part": "小小虫",
-          "duration": 269,
-          "durationLabel": "4:29"
-        },
-        {
-          "page": 8,
-          "part": "未闻花名-高一10班 代龙生",
-          "duration": 337,
-          "durationLabel": "5:37"
-        },
-        {
-          "page": 9,
-          "part": "爱错-高一8班 段树人",
-          "duration": 253,
-          "durationLabel": "4:13"
-        },
-        {
-          "page": 10,
-          "part": "传武-高二10班 肖昱君",
-          "duration": 355,
-          "durationLabel": "5:55"
-        },
-        {
-          "page": 11,
-          "part": "东风志-高一21班 李梓源",
-          "duration": 307,
-          "durationLabel": "5:07"
-        },
-        {
-          "page": 12,
-          "part": "玫瑰少年-高二23班 陈子墨、高二19班 李子怡",
-          "duration": 283,
-          "durationLabel": "4:43"
-        },
-        {
-          "page": 13,
-          "part": "SSR舞社-舞蹈串烧",
-          "duration": 543,
-          "durationLabel": "9:03"
-        }
-      ],
-      "sourceId": "source-bili-bv1eel2zdeti",
-      "externalUrl": "https://www.bilibili.com/video/BV1EEL2zDETi/",
-      "description": "刚开始设备突然过热了，导致前面几个节目效果很不好；\n到最后人废了（已累瘫），真举不动；还有导致个人对这次的效果不太满意。\n特意优化了收音，应该有一定改善，虽然还有打磨空间。\n玩的开心！\n\n设备：Nikon Z6 、Z 24-200mm f/4-6.3 、DJI RS2\n时间：2025.04.28 17:15"
-    },
-    {
       "id": "bili-club-bv1p4omy2eux",
       "title": "淮北一中群星演绎社-随机宅舞 2025.04",
       "subtitle": "全程录像 · 社团投稿",
@@ -3893,112 +3955,13 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1p4omy2eux",
       "coverId": "cover-bili-bv1p4omy2eux",
-      "eventId": null,
+      "eventId": "random-dance-2025",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
       "sourceId": "source-bili-bv1p4omy2eux",
       "externalUrl": "https://www.bilibili.com/video/BV1P4oMY2Eux/",
       "description": "设备：Sony a7r IV + SIGMA 14-24mm f/2.8 DG DN\n时间：2025.04.16 17:50-18:40"
-    },
-    {
-      "id": "bili-club-bv1ivxyy4evj",
-      "title": "淮北一中2025年广场音乐节-高一场 全程回顾",
-      "subtitle": "全程回顾 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程回顾",
-      "year": 2025,
-      "publishedAt": "2025-03-22",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1ivxyy4evj",
-      "coverId": "cover-bili-bv1ivxyy4evj",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "parts": [
-        {
-          "page": 1,
-          "part": "不能说的秘密-kuki乐队",
-          "duration": 149,
-          "durationLabel": "2:29"
-        },
-        {
-          "page": 2,
-          "part": "Fly Me To The Moon-高一5班 裴晨彤",
-          "duration": 312,
-          "durationLabel": "5:12"
-        },
-        {
-          "page": 3,
-          "part": "Boom Boom Bass-高一10、15班 肖可恩 张海源",
-          "duration": 184,
-          "durationLabel": "3:04"
-        },
-        {
-          "page": 4,
-          "part": "小镇姑娘-高一5班 赵晟森",
-          "duration": 259,
-          "durationLabel": "4:19"
-        },
-        {
-          "page": 5,
-          "part": "枫叶做的风铃-高一5班 庄亦菲",
-          "duration": 242,
-          "durationLabel": "4:02"
-        },
-        {
-          "page": 6,
-          "part": "放空-高二11班 赵国乐 田莹钰",
-          "duration": 160,
-          "durationLabel": "2:40"
-        },
-        {
-          "page": 7,
-          "part": "等你下课-高一8班  张馨瑜",
-          "duration": 231,
-          "durationLabel": "3:51"
-        },
-        {
-          "page": 8,
-          "part": "Girls Better Than My Money(Remix)-高一20、23班 葛紫嫣 王瀚钧",
-          "duration": 182,
-          "durationLabel": "3:02"
-        },
-        {
-          "page": 9,
-          "part": "才二十三-高一11班 张红喆",
-          "duration": 219,
-          "durationLabel": "3:39"
-        },
-        {
-          "page": 10,
-          "part": "特别的人-高一5、6班 汝奕辰 李孜文",
-          "duration": 263,
-          "durationLabel": "4:23"
-        },
-        {
-          "page": 11,
-          "part": "海阔天空-高一5班  赵悟石",
-          "duration": 325,
-          "durationLabel": "5:25"
-        },
-        {
-          "page": 12,
-          "part": "稻香-高一8班 谢雨泽",
-          "duration": 246,
-          "durationLabel": "4:06"
-        },
-        {
-          "page": 13,
-          "part": "舞蹈串烧-YG舞社",
-          "duration": 215,
-          "durationLabel": "3:35"
-        }
-      ],
-      "sourceId": "source-bili-bv1ivxyy4evj",
-      "externalUrl": "https://www.bilibili.com/video/BV1iVXyY4EvJ/",
-      "description": "时间：2025.03.21 17:15\n设备：Nikon Z6+Z 24-200mm f/4-6.3 VR"
     },
     {
       "id": "bili-club-bv1k9iiyuewn",
@@ -4011,7 +3974,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1k9iiyuewn",
       "coverId": "cover-bili-bv1k9iiyuewn",
-      "eventId": null,
+      "eventId": "random-dance-2024",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
@@ -4209,7 +4172,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1aqtue6erh",
       "coverId": "cover-bili-bv1aqtue6erh",
-      "eventId": null,
+      "eventId": "sinoaus-2024",
       "authorIds": [],
       "creditMemberIds": [
         "person-jky",
@@ -4275,7 +4238,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1ge4m1r7gj",
       "coverId": "cover-bili-bv1ge4m1r7gj",
-      "eventId": null,
+      "eventId": "music-fest-2024",
       "authorIds": [],
       "creditMemberIds": [],
       "credits": [],
@@ -4332,7 +4295,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv127421f7kq",
       "coverId": "cover-bili-bv127421f7kq",
-      "eventId": null,
+      "eventId": "classroom-drama-2024",
       "authorIds": [],
       "creditMemberIds": [
         "person-jky"
@@ -4429,198 +4392,6 @@
       "sourceId": "source-bili-bv127421f7kq",
       "externalUrl": "https://www.bilibili.com/video/BV127421f7Kq/",
       "description": "淮北一中2024届课本剧大赛公演-直播回放\r\n拍摄者：2023级12 班 蒋凯阳\r\n录制设备：Nikon Z6\r\n拍摄时间：2024.05.19 15:00"
-    },
-    {
-      "id": "bili-club-bv1bt421w7yy",
-      "title": "淮北一中第36届艺术节-合唱比赛 高一场",
-      "subtitle": "全程录像 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程录像",
-      "year": 2024,
-      "publishedAt": "2024-04-21",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1bt421w7yy",
-      "coverId": "cover-bili-bv1bt421w7yy",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "parts": [
-        {
-          "page": 1,
-          "part": "高一合唱-1_bilibili",
-          "duration": 210,
-          "durationLabel": "3:30"
-        },
-        {
-          "page": 2,
-          "part": "高一合唱-2_bilibili",
-          "duration": 265,
-          "durationLabel": "4:25"
-        },
-        {
-          "page": 3,
-          "part": "高一合唱-3_bilibili",
-          "duration": 3468,
-          "durationLabel": "57:48"
-        },
-        {
-          "page": 4,
-          "part": "高一合唱-4_bilibili",
-          "duration": 2091,
-          "durationLabel": "34:51"
-        }
-      ],
-      "sourceId": "source-bili-bv1bt421w7yy",
-      "externalUrl": "https://www.bilibili.com/video/BV1Bt421w7Yy/",
-      "description": "淮北一中第36届校园文化艺术节-合唱比赛 高二场\r\n时间：2023.12.25\r\n设备：富士XT5"
-    },
-    {
-      "id": "bili-club-bv1yx4y1a7bx",
-      "title": "淮北一中第36届艺术节-合唱比赛 高二场",
-      "subtitle": "全程录像 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程录像",
-      "year": 2024,
-      "publishedAt": "2024-04-14",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1yx4y1a7bx",
-      "coverId": "cover-bili-bv1yx4y1a7bx",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [],
-      "credits": [],
-      "parts": [
-        {
-          "page": 1,
-          "part": "高二 1 班 平凡之路_bilibili",
-          "duration": 321,
-          "durationLabel": "5:21"
-        },
-        {
-          "page": 2,
-          "part": "高二 3 班 我爱你中国_bilibili",
-          "duration": 263,
-          "durationLabel": "4:23"
-        },
-        {
-          "page": 3,
-          "part": "高二 4班 祖国不会忘记_bilibili",
-          "duration": 262,
-          "durationLabel": "4:22"
-        },
-        {
-          "page": 4,
-          "part": "高二 5 班 不忘初心_bilibili",
-          "duration": 253,
-          "durationLabel": "4:13"
-        },
-        {
-          "page": 5,
-          "part": "高二 6 班 少年中国说_bilibili",
-          "duration": 192,
-          "durationLabel": "3:12"
-        },
-        {
-          "page": 6,
-          "part": "高二 8 班 稻香_bilibili",
-          "duration": 228,
-          "durationLabel": "3:48"
-        },
-        {
-          "page": 7,
-          "part": "高二9 祖国不会忘记_bilibili",
-          "duration": 94,
-          "durationLabel": "1:34"
-        },
-        {
-          "page": 8,
-          "part": "高二 10 班 夜空中最亮的星_bilibili",
-          "duration": 259,
-          "durationLabel": "4:19"
-        },
-        {
-          "page": 9,
-          "part": "高二 11 班 不忘初心_bilibili",
-          "duration": 271,
-          "durationLabel": "4:31"
-        },
-        {
-          "page": 10,
-          "part": "高二 12 班 紫荆花盛开_bilibili",
-          "duration": 200,
-          "durationLabel": "3:20"
-        },
-        {
-          "page": 11,
-          "part": "高二 13 有我_bilibili",
-          "duration": 273,
-          "durationLabel": "4:33"
-        },
-        {
-          "page": 12,
-          "part": "高二 14 班 奇迹再现_bilibili",
-          "duration": 231,
-          "durationLabel": "3:51"
-        },
-        {
-          "page": 13,
-          "part": "高二 15 班 奔跑_bilibili",
-          "duration": 190,
-          "durationLabel": "3:10"
-        },
-        {
-          "page": 14,
-          "part": "高二16 国家_bilibili",
-          "duration": 258,
-          "durationLabel": "4:18"
-        },
-        {
-          "page": 15,
-          "part": "高二 17 班 一起向未来_bilibili",
-          "duration": 217,
-          "durationLabel": "3:37"
-        },
-        {
-          "page": 16,
-          "part": "高二 18 保卫黄河_bilibili",
-          "duration": 99,
-          "durationLabel": "1:39"
-        },
-        {
-          "page": 17,
-          "part": "高二 19 班 倔强_bilibili",
-          "duration": 264,
-          "durationLabel": "4:24"
-        },
-        {
-          "page": 18,
-          "part": "高二 20 班 你从未离去_bilibili",
-          "duration": 221,
-          "durationLabel": "3:41"
-        },
-        {
-          "page": 19,
-          "part": "高二 21 班 万疆_bilibili",
-          "duration": 248,
-          "durationLabel": "4:08"
-        },
-        {
-          "page": 20,
-          "part": "高二 22 如愿_bilibili",
-          "duration": 286,
-          "durationLabel": "4:46"
-        },
-        {
-          "page": 21,
-          "part": "我乘着风飞过来_bilibili",
-          "duration": 237,
-          "durationLabel": "3:57"
-        }
-      ],
-      "sourceId": "source-bili-bv1yx4y1a7bx",
-      "externalUrl": "https://www.bilibili.com/video/BV1yx4y1a7BX/",
-      "description": "淮北一中第36届校园文化艺术节-合唱比赛 高二场\r\n时间：2023.12.25\r\n设备：富士XT5"
     },
     {
       "id": "bili-personal-bv1re8a6qejb",
@@ -4821,99 +4592,6 @@
       "sourceId": "source-bili-bv1o3y4zveaj",
       "externalUrl": "https://www.bilibili.com/video/BV1o3Y4zvEaJ/",
       "description": "真热啊——\n我在看台做了一个小时 衣服都湿透了\n不过拿个遥控器 在他们面前游荡是真爽哈哈哈哈\n\n不过御3Pro的噪点不应该这么多啊 看着好别扭"
-    },
-    {
-      "id": "bili-personal-bv1rvekzjed9",
-      "title": "足球赛 18班-2班",
-      "subtitle": "比赛录像 · 个人频道",
-      "kind": "replay",
-      "formatLabel": "比赛录像",
-      "year": 2025,
-      "publishedAt": "2025-05-15",
-      "sourceAccount": "personal",
-      "mediaId": "embed-bili-bv1rvekzjed9",
-      "coverId": "cover-bili-bv1rvekzjed9",
-      "eventId": null,
-      "authorIds": [
-        "person-jky"
-      ],
-      "creditMemberIds": [
-        "person-jky"
-      ],
-      "credits": [
-        {
-          "role": "拍摄",
-          "name": "蒋凯阳",
-          "memberId": "person-jky",
-          "sourceId": "source-bili-bv1rvekzjed9",
-          "sourceDescription": ""
-        }
-      ],
-      "sourceId": "source-bili-bv1rvekzjed9",
-      "externalUrl": "https://www.bilibili.com/video/BV1rVEkzJED9/",
-      "description": ""
-    },
-    {
-      "id": "bili-personal-bv1yfeqzxe7z",
-      "title": "足球赛 12班-文联",
-      "subtitle": "比赛录像 · 个人频道",
-      "kind": "replay",
-      "formatLabel": "比赛录像",
-      "year": 2025,
-      "publishedAt": "2025-05-15",
-      "sourceAccount": "personal",
-      "mediaId": "embed-bili-bv1yfeqzxe7z",
-      "coverId": "cover-bili-bv1yfeqzxe7z",
-      "eventId": null,
-      "authorIds": [
-        "person-jky"
-      ],
-      "creditMemberIds": [
-        "person-jky"
-      ],
-      "credits": [
-        {
-          "role": "拍摄",
-          "name": "蒋凯阳",
-          "memberId": "person-jky",
-          "sourceId": "source-bili-bv1yfeqzxe7z",
-          "sourceDescription": ""
-        }
-      ],
-      "sourceId": "source-bili-bv1yfeqzxe7z",
-      "externalUrl": "https://www.bilibili.com/video/BV1YFEqzXE7Z/",
-      "description": ""
-    },
-    {
-      "id": "bili-personal-bv1z4lxz9ewy",
-      "title": "淮北一中2025届足球联赛 12班-6班",
-      "subtitle": "比赛录像 · 个人频道",
-      "kind": "replay",
-      "formatLabel": "比赛录像",
-      "year": 2025,
-      "publishedAt": "2025-04-23",
-      "sourceAccount": "personal",
-      "mediaId": "embed-bili-bv1z4lxz9ewy",
-      "coverId": "cover-bili-bv1z4lxz9ewy",
-      "eventId": null,
-      "authorIds": [
-        "person-jky"
-      ],
-      "creditMemberIds": [
-        "person-jky"
-      ],
-      "credits": [
-        {
-          "role": "拍摄",
-          "name": "蒋凯阳",
-          "memberId": "person-jky",
-          "sourceId": "source-bili-bv1z4lxz9ewy",
-          "sourceDescription": ""
-        }
-      ],
-      "sourceId": "source-bili-bv1z4lxz9ewy",
-      "externalUrl": "https://www.bilibili.com/video/BV1Z4Lxz9Ewy/",
-      "description": "决赛会有实况转播\n2025.04.23"
     },
     {
       "id": "bili-personal-bv1tjz2yfexr",
@@ -5148,11 +4826,141 @@
       "videos": [
         {
           "mediaId": "embed-bili-bv1qdev6neqz",
-          "label": "第一场 · 2026.04.22 · 2:00:37"
+          "label": "第一场 · 2026.04.22 · 2:00:37",
+          "parts": [
+            {
+              "page": 1,
+              "part": "上半场领导讲话",
+              "duration": 353,
+              "durationLabel": "5:53"
+            },
+            {
+              "page": 2,
+              "part": "《思绪纷飞何时了》-高二21班",
+              "duration": 554,
+              "durationLabel": "9:14"
+            },
+            {
+              "page": 3,
+              "part": "《裂缝中的阳光》-高二8班",
+              "duration": 530,
+              "durationLabel": "8:50"
+            },
+            {
+              "page": 4,
+              "part": "《“心”突围》-高二12班",
+              "duration": 601,
+              "durationLabel": "10:01"
+            },
+            {
+              "page": 5,
+              "part": "《同途》-高二13班 (1)",
+              "duration": 332,
+              "durationLabel": "5:32"
+            },
+            {
+              "page": 6,
+              "part": "《同途》-高二13班 (2)",
+              "duration": 380,
+              "durationLabel": "6:20"
+            },
+            {
+              "page": 7,
+              "part": "《绝杀》-高二11班",
+              "duration": 369,
+              "durationLabel": "6:09"
+            },
+            {
+              "page": 8,
+              "part": "《在暴雨中睁眼》-高二19班",
+              "duration": 660,
+              "durationLabel": "11:00"
+            },
+            {
+              "page": 9,
+              "part": "《错位的关怀》-高二6班",
+              "duration": 631,
+              "durationLabel": "10:31"
+            },
+            {
+              "page": 10,
+              "part": "《追光》-高二10班",
+              "duration": 854,
+              "durationLabel": "14:14"
+            },
+            {
+              "page": 11,
+              "part": "《听见彼此的心》-高二3班",
+              "duration": 602,
+              "durationLabel": "10:02"
+            },
+            {
+              "page": 12,
+              "part": "《独弈吾生，不随众行》高二14班",
+              "duration": 719,
+              "durationLabel": "11:59"
+            },
+            {
+              "page": 13,
+              "part": "《等高线》-高二1班",
+              "duration": 652,
+              "durationLabel": "10:52"
+            }
+          ]
         },
         {
           "mediaId": "embed-bili-bv1fuev6qean",
-          "label": "第二场 · 2026.04.23 · 1:38:39"
+          "label": "第二场 · 2026.04.23 · 1:38:39",
+          "parts": [
+            {
+              "page": 1,
+              "part": "《明天见》-高二16班",
+              "duration": 793,
+              "durationLabel": "13:13"
+            },
+            {
+              "page": 2,
+              "part": "《心扉开出，光自涌来》-高二2班",
+              "duration": 1087,
+              "durationLabel": "18:07"
+            },
+            {
+              "page": 3,
+              "part": "《醒》-高二24班",
+              "duration": 570,
+              "durationLabel": "9:30"
+            },
+            {
+              "page": 4,
+              "part": "《别让分数，遮住你的光》-高二17班",
+              "duration": 634,
+              "durationLabel": "10:34"
+            },
+            {
+              "page": 5,
+              "part": "《永远热爱》-高二7班",
+              "duration": 919,
+              "durationLabel": "15:19"
+            },
+            {
+              "page": 6,
+              "part": "《真理的微光》-高二20班",
+              "duration": 515,
+              "durationLabel": "8:35"
+            },
+            {
+              "page": 7,
+              "part": "《伸出手》-高二18班",
+              "duration": 765,
+              "durationLabel": "12:45"
+            },
+            {
+              "page": 8,
+              "part": "《刻度之外》-高二22班",
+              "duration": 636,
+              "durationLabel": "10:36"
+            }
+          ]
         }
       ],
       "sourceId": "source-bili-bv1qdev6neqz",
@@ -5177,11 +4985,147 @@
       "videos": [
         {
           "mediaId": "embed-bili-bv1trd5yqekh",
-          "label": "上半场 · 2025.04.09 · 1:54:42"
+          "label": "上半场 · 2025.04.09 · 1:54:42",
+          "parts": [
+            {
+              "page": 1,
+              "part": "开场+领导致辞",
+              "duration": 231,
+              "durationLabel": "3:51"
+            },
+            {
+              "page": 2,
+              "part": "16班 爱的极乐世界",
+              "duration": 701,
+              "durationLabel": "11:41"
+            },
+            {
+              "page": 3,
+              "part": "18班 逐梦之路",
+              "duration": 964,
+              "durationLabel": "16:04"
+            },
+            {
+              "page": 4,
+              "part": "2班 重返巅峰2025",
+              "duration": 1214,
+              "durationLabel": "20:14"
+            },
+            {
+              "page": 5,
+              "part": "4班 成长记事",
+              "duration": 540,
+              "durationLabel": "9:00"
+            },
+            {
+              "page": 6,
+              "part": "14班 我杀死了我自己",
+              "duration": 432,
+              "durationLabel": "7:12"
+            },
+            {
+              "page": 7,
+              "part": "1班 认识你自己",
+              "duration": 535,
+              "durationLabel": "8:55"
+            },
+            {
+              "page": 8,
+              "part": "6班-阴雨初霁遇骄阳",
+              "duration": 684,
+              "durationLabel": "11:24"
+            },
+            {
+              "page": 9,
+              "part": "22班-翻过更高的山",
+              "duration": 404,
+              "durationLabel": "6:44"
+            },
+            {
+              "page": 10,
+              "part": "19班 花开不败",
+              "duration": 609,
+              "durationLabel": "10:09"
+            },
+            {
+              "page": 11,
+              "part": "12班 榕树",
+              "duration": 568,
+              "durationLabel": "9:28"
+            }
+          ]
         },
         {
           "mediaId": "embed-bili-bv1zcdlyxeqg",
-          "label": "下半场 · 2025.04.10 · 2:48:58"
+          "label": "下半场 · 2025.04.10 · 2:48:58",
+          "parts": [
+            {
+              "page": 1,
+              "part": "3班 追梦寻发记",
+              "duration": 667,
+              "durationLabel": "11:07"
+            },
+            {
+              "page": 2,
+              "part": "13班 重拾阳光",
+              "duration": 732,
+              "durationLabel": "12:12"
+            },
+            {
+              "page": 3,
+              "part": "23班",
+              "duration": 1220,
+              "durationLabel": "20:20"
+            },
+            {
+              "page": 4,
+              "part": "17班 键盘下的伤痕",
+              "duration": 662,
+              "durationLabel": "11:02"
+            },
+            {
+              "page": 5,
+              "part": "11班 和解",
+              "duration": 863,
+              "durationLabel": "14:23"
+            },
+            {
+              "page": 6,
+              "part": "8班 幕后的心声",
+              "duration": 1242,
+              "durationLabel": "20:42"
+            },
+            {
+              "page": 7,
+              "part": "15班 万般皆际遇",
+              "duration": 635,
+              "durationLabel": "10:35"
+            },
+            {
+              "page": 8,
+              "part": "5班 文科生的翅膀",
+              "duration": 790,
+              "durationLabel": "13:10"
+            },
+            {
+              "page": 9,
+              "part": "7班 那就做一尾鱼吧",
+              "duration": 1727,
+              "durationLabel": "28:47"
+            },
+            {
+              "page": 10,
+              "part": "9班 无非你我，把爱想得太简单",
+              "duration": 623,
+              "durationLabel": "10:23"
+            },
+            {
+              "page": 11,
+              "part": "10班 漩涡-修订 含字幕",
+              "duration": 977,
+              "durationLabel": "16:17"
+            }
+          ]
         }
       ],
       "sourceId": "source-bili-bv1trd5yqekh",
@@ -5206,11 +5150,51 @@
       "videos": [
         {
           "mediaId": "embed-bili-bv1bt42177pd",
-          "label": "上半场 · 2024.04.10 · 2:15:08"
+          "label": "上半场 · 2024.04.10 · 2:15:08",
+          "parts": [
+            {
+              "page": 1,
+              "part": "心理剧上半场-1",
+              "duration": 1657,
+              "durationLabel": "27:37"
+            },
+            {
+              "page": 2,
+              "part": "心理剧上半场-2",
+              "duration": 522,
+              "durationLabel": "8:42"
+            },
+            {
+              "page": 3,
+              "part": "心理剧上半场-3",
+              "duration": 3381,
+              "durationLabel": "56:21"
+            },
+            {
+              "page": 4,
+              "part": "心理剧上半场-4",
+              "duration": 2548,
+              "durationLabel": "42:28"
+            }
+          ]
         },
         {
           "mediaId": "embed-bili-bv1zm411m737",
-          "label": "下半场 · 2024.04.11 · 2:45:56"
+          "label": "下半场 · 2024.04.11 · 2:45:56",
+          "parts": [
+            {
+              "page": 1,
+              "part": "心理剧下半场-1-压制",
+              "duration": 7686,
+              "durationLabel": "2:08:06"
+            },
+            {
+              "page": 2,
+              "part": "心理剧下半场-2",
+              "duration": 2270,
+              "durationLabel": "37:50"
+            }
+          ]
         }
       ],
       "sourceId": "source-bili-bv1bt42177pd",
@@ -5422,7 +5406,117 @@
         },
         {
           "mediaId": "embed-bili-bv1zd6vyvemj",
-          "label": "全程回顾 · 2024.12.30 · 5:28:53"
+          "label": "全程回顾 · 2024.12.30 · 5:28:53",
+          "parts": [
+            {
+              "page": 1,
+              "part": "热爱",
+              "duration": 265,
+              "durationLabel": "4:25"
+            },
+            {
+              "page": 2,
+              "part": "最佳损友",
+              "duration": 278,
+              "durationLabel": "4:38"
+            },
+            {
+              "page": 3,
+              "part": "Young And Beautiful",
+              "duration": 270,
+              "durationLabel": "4:30"
+            },
+            {
+              "page": 4,
+              "part": "神的随波逐流",
+              "duration": 280,
+              "durationLabel": "4:40"
+            },
+            {
+              "page": 5,
+              "part": "开场+书记致辞",
+              "duration": 526,
+              "durationLabel": "8:46"
+            },
+            {
+              "page": 6,
+              "part": "弱水三千",
+              "duration": 306,
+              "durationLabel": "5:06"
+            },
+            {
+              "page": 7,
+              "part": "YG舞社-舞蹈串烧",
+              "duration": 379,
+              "durationLabel": "6:19"
+            },
+            {
+              "page": 8,
+              "part": "Dear God",
+              "duration": 464,
+              "durationLabel": "7:44"
+            },
+            {
+              "page": 9,
+              "part": "【单机位_未剪辑】汉服社走秀",
+              "duration": 591,
+              "durationLabel": "9:51"
+            },
+            {
+              "page": 10,
+              "part": "【单机位_未剪辑】演译社音乐剧",
+              "duration": 434,
+              "durationLabel": "7:14"
+            },
+            {
+              "page": 11,
+              "part": "【单机位_未剪辑】鲜花-kuki乐队",
+              "duration": 507,
+              "durationLabel": "8:27"
+            },
+            {
+              "page": 12,
+              "part": "【单机位】SSR舞社-舞蹈串烧",
+              "duration": 259,
+              "durationLabel": "4:19"
+            },
+            {
+              "page": 13,
+              "part": "主机位-1",
+              "duration": 3412,
+              "durationLabel": "56:52"
+            },
+            {
+              "page": 14,
+              "part": "主机位-2",
+              "duration": 1983,
+              "durationLabel": "33:03"
+            },
+            {
+              "page": 15,
+              "part": "副机位-5",
+              "duration": 3626,
+              "durationLabel": "1:00:26"
+            },
+            {
+              "page": 16,
+              "part": "主机位-3",
+              "duration": 1514,
+              "durationLabel": "25:14"
+            },
+            {
+              "page": 17,
+              "part": "主机位-4",
+              "duration": 827,
+              "durationLabel": "13:47"
+            },
+            {
+              "page": 18,
+              "part": "副机位-1",
+              "duration": 3812,
+              "durationLabel": "1:03:32"
+            }
+          ]
         }
       ],
       "sourceId": "source-bili-bv1zd6vyvemj",
@@ -5447,7 +5541,27 @@
       "videos": [
         {
           "mediaId": "embed-bili-bv1nm421j7ps",
-          "label": "上午场 · 2023.12.29 · 2:27:35"
+          "label": "上午场 · 2023.12.29 · 2:27:35",
+          "parts": [
+            {
+              "page": 1,
+              "part": "元旦汇演高二场-1_bilibili",
+              "duration": 491,
+              "durationLabel": "8:11"
+            },
+            {
+              "page": 2,
+              "part": "元旦汇演高二场-2_bilibili",
+              "duration": 1602,
+              "durationLabel": "26:42"
+            },
+            {
+              "page": 3,
+              "part": "元旦汇演高二场-3_bilibili",
+              "duration": 6762,
+              "durationLabel": "1:52:42"
+            }
+          ]
         },
         {
           "mediaId": "embed-bili-bv1nz421n7r5",
@@ -5500,6 +5614,649 @@
       "sourceId": "source-bili-bv1ox421r7rp",
       "externalUrl": "https://www.bilibili.com/video/BV1ox421r7rp/",
       "description": "拍摄日期：2024.03.20\n设备：DJI Mini 3 Pro\n注：已获得飞行许可。\n\n拍摄时间：2024.09.10 09:30\n拍摄者：高二（12）班 蒋凯阳\n拍摄设备：DJI Mini 3 Pro\n\n拍摄日期：2024.11.22\n拍摄设备：DJI Mavic3 Pro\n\n时间好紧 就跑一圈 好多都来不及拍"
+    },
+    {
+      "id": "chorus-2024-videos",
+      "title": "第36届艺术节·合唱比赛",
+      "subtitle": "全程回顾 · 高一高二两场",
+      "kind": "replay",
+      "formatLabel": "全程回顾",
+      "year": 2024,
+      "publishedAt": "2024-04-14",
+      "sourceAccount": "club",
+      "mediaId": "embed-bili-bv1yx4y1a7bx",
+      "coverId": "cover-bili-bv1yx4y1a7bx",
+      "eventId": "chorus-2024",
+      "authorIds": [],
+      "creditMemberIds": [],
+      "credits": [],
+      "videos": [
+        {
+          "mediaId": "embed-bili-bv1yx4y1a7bx",
+          "label": "高二场 · 2023.12.25 · 1:21:07",
+          "parts": [
+            {
+              "page": 1,
+              "part": "高二 1 班 平凡之路_bilibili",
+              "duration": 321,
+              "durationLabel": "5:21"
+            },
+            {
+              "page": 2,
+              "part": "高二 3 班 我爱你中国_bilibili",
+              "duration": 263,
+              "durationLabel": "4:23"
+            },
+            {
+              "page": 3,
+              "part": "高二 4班 祖国不会忘记_bilibili",
+              "duration": 262,
+              "durationLabel": "4:22"
+            },
+            {
+              "page": 4,
+              "part": "高二 5 班 不忘初心_bilibili",
+              "duration": 253,
+              "durationLabel": "4:13"
+            },
+            {
+              "page": 5,
+              "part": "高二 6 班 少年中国说_bilibili",
+              "duration": 192,
+              "durationLabel": "3:12"
+            },
+            {
+              "page": 6,
+              "part": "高二 8 班 稻香_bilibili",
+              "duration": 228,
+              "durationLabel": "3:48"
+            },
+            {
+              "page": 7,
+              "part": "高二9 祖国不会忘记_bilibili",
+              "duration": 94,
+              "durationLabel": "1:34"
+            },
+            {
+              "page": 8,
+              "part": "高二 10 班 夜空中最亮的星_bilibili",
+              "duration": 259,
+              "durationLabel": "4:19"
+            },
+            {
+              "page": 9,
+              "part": "高二 11 班 不忘初心_bilibili",
+              "duration": 271,
+              "durationLabel": "4:31"
+            },
+            {
+              "page": 10,
+              "part": "高二 12 班 紫荆花盛开_bilibili",
+              "duration": 200,
+              "durationLabel": "3:20"
+            },
+            {
+              "page": 11,
+              "part": "高二 13 有我_bilibili",
+              "duration": 273,
+              "durationLabel": "4:33"
+            },
+            {
+              "page": 12,
+              "part": "高二 14 班 奇迹再现_bilibili",
+              "duration": 231,
+              "durationLabel": "3:51"
+            },
+            {
+              "page": 13,
+              "part": "高二 15 班 奔跑_bilibili",
+              "duration": 190,
+              "durationLabel": "3:10"
+            },
+            {
+              "page": 14,
+              "part": "高二16 国家_bilibili",
+              "duration": 258,
+              "durationLabel": "4:18"
+            },
+            {
+              "page": 15,
+              "part": "高二 17 班 一起向未来_bilibili",
+              "duration": 217,
+              "durationLabel": "3:37"
+            },
+            {
+              "page": 16,
+              "part": "高二 18 保卫黄河_bilibili",
+              "duration": 99,
+              "durationLabel": "1:39"
+            },
+            {
+              "page": 17,
+              "part": "高二 19 班 倔强_bilibili",
+              "duration": 264,
+              "durationLabel": "4:24"
+            },
+            {
+              "page": 18,
+              "part": "高二 20 班 你从未离去_bilibili",
+              "duration": 221,
+              "durationLabel": "3:41"
+            },
+            {
+              "page": 19,
+              "part": "高二 21 班 万疆_bilibili",
+              "duration": 248,
+              "durationLabel": "4:08"
+            },
+            {
+              "page": 20,
+              "part": "高二 22 如愿_bilibili",
+              "duration": 286,
+              "durationLabel": "4:46"
+            },
+            {
+              "page": 21,
+              "part": "我乘着风飞过来_bilibili",
+              "duration": 237,
+              "durationLabel": "3:57"
+            }
+          ]
+        },
+        {
+          "mediaId": "embed-bili-bv1bt421w7yy",
+          "label": "高一场 · 2023.12.25 · 1:40:34",
+          "parts": [
+            {
+              "page": 1,
+              "part": "高一合唱-1_bilibili",
+              "duration": 210,
+              "durationLabel": "3:30"
+            },
+            {
+              "page": 2,
+              "part": "高一合唱-2_bilibili",
+              "duration": 265,
+              "durationLabel": "4:25"
+            },
+            {
+              "page": 3,
+              "part": "高一合唱-3_bilibili",
+              "duration": 3468,
+              "durationLabel": "57:48"
+            },
+            {
+              "page": 4,
+              "part": "高一合唱-4_bilibili",
+              "duration": 2091,
+              "durationLabel": "34:51"
+            }
+          ]
+        }
+      ],
+      "sourceId": "source-bili-bv1yx4y1a7bx",
+      "externalUrl": "https://www.bilibili.com/video/BV1yx4y1a7BX/",
+      "description": "淮北一中第36届校园文化艺术节-合唱比赛 高二场\r\n时间：2023.12.25\r\n设备：富士XT5\n\n淮北一中第36届校园文化艺术节-合唱比赛 高二场\r\n时间：2023.12.25\r\n设备：富士XT5"
+    },
+    {
+      "id": "chorus-2025-videos",
+      "title": "第38届艺术节·合唱比赛",
+      "subtitle": "全程回顾 · 高一高二两场",
+      "kind": "replay",
+      "formatLabel": "全程回顾",
+      "year": 2025,
+      "publishedAt": "2025-12-23",
+      "sourceAccount": "club",
+      "mediaId": "embed-bili-bv1hkbtbhela",
+      "coverId": "cover-bili-bv1hkbtbhela",
+      "eventId": "chorus-2025",
+      "authorIds": [],
+      "creditMemberIds": [],
+      "credits": [],
+      "videos": [
+        {
+          "mediaId": "embed-bili-bv1hkbtbhela",
+          "label": "高二场 · 2025.12.23 · 1:51:40",
+          "parts": [
+            {
+              "page": 1,
+              "part": "开幕+高二（13）班-《明天会更好》",
+              "duration": 501,
+              "durationLabel": "8:21"
+            },
+            {
+              "page": 2,
+              "part": "高二（10）班-《明天会更好》",
+              "duration": 278,
+              "durationLabel": "4:38"
+            },
+            {
+              "page": 3,
+              "part": "高二（17）班-《我和我的祖国》",
+              "duration": 290,
+              "durationLabel": "4:50"
+            },
+            {
+              "page": 4,
+              "part": "高二（11）班-《我爱你中国》",
+              "duration": 343,
+              "durationLabel": "5:43"
+            },
+            {
+              "page": 5,
+              "part": "高二（14）班-《如愿》",
+              "duration": 324,
+              "durationLabel": "5:24"
+            },
+            {
+              "page": 6,
+              "part": "高二（20）班-《走向复兴》",
+              "duration": 186,
+              "durationLabel": "3:06"
+            },
+            {
+              "page": 7,
+              "part": "高二（16）班-《少年中国说》",
+              "duration": 219,
+              "durationLabel": "3:39"
+            },
+            {
+              "page": 8,
+              "part": "高二（6）班-《明天会更好》",
+              "duration": 272,
+              "durationLabel": "4:32"
+            },
+            {
+              "page": 9,
+              "part": "高二（4）班-《红旗飘飘》",
+              "duration": 300,
+              "durationLabel": "5:00"
+            },
+            {
+              "page": 10,
+              "part": "高二（24）班-《阳光路上》",
+              "duration": 292,
+              "durationLabel": "4:52"
+            },
+            {
+              "page": 11,
+              "part": "高二（1）班-《如愿》",
+              "duration": 279,
+              "durationLabel": "4:39"
+            },
+            {
+              "page": 12,
+              "part": "高二（19）班-《龙的传人》",
+              "duration": 238,
+              "durationLabel": "3:58"
+            },
+            {
+              "page": 13,
+              "part": "高二（8）班-《我爱你中国》",
+              "duration": 336,
+              "durationLabel": "5:36"
+            },
+            {
+              "page": 14,
+              "part": "高二（3）班-《歌唱祖国》",
+              "duration": 219,
+              "durationLabel": "3:39"
+            },
+            {
+              "page": 15,
+              "part": "高二（5）班-《少年中国说》",
+              "duration": 230,
+              "durationLabel": "3:50"
+            },
+            {
+              "page": 16,
+              "part": "高二（2）班-《我爱你中国》",
+              "duration": 344,
+              "durationLabel": "5:44"
+            },
+            {
+              "page": 17,
+              "part": "高二（23）班-《保卫黄河》",
+              "duration": 138,
+              "durationLabel": "2:18"
+            },
+            {
+              "page": 18,
+              "part": "高二（12）班-《明天会更好》",
+              "duration": 249,
+              "durationLabel": "4:09"
+            },
+            {
+              "page": 19,
+              "part": "高二（22）班-《我爱你中国》",
+              "duration": 317,
+              "durationLabel": "5:17"
+            },
+            {
+              "page": 20,
+              "part": "高二（18）班-《我爱你中国》",
+              "duration": 315,
+              "durationLabel": "5:15"
+            },
+            {
+              "page": 21,
+              "part": "高二（7）班-《我们都是追梦人》",
+              "duration": 244,
+              "durationLabel": "4:04"
+            },
+            {
+              "page": 22,
+              "part": "高二（9）班-《歌唱祖国》",
+              "duration": 236,
+              "durationLabel": "3:56"
+            },
+            {
+              "page": 23,
+              "part": "高二（15）班-《我们都是追梦人》",
+              "duration": 249,
+              "durationLabel": "4:09"
+            },
+            {
+              "page": 24,
+              "part": "高二（21）班-《龙的传人》",
+              "duration": 214,
+              "durationLabel": "3:34"
+            },
+            {
+              "page": 25,
+              "part": "结尾",
+              "duration": 87,
+              "durationLabel": "1:27"
+            }
+          ]
+        },
+        {
+          "mediaId": "embed-bili-bv1xnbyb3eu1",
+          "label": "高一场 · 2025.12.25 · 2:06:11",
+          "parts": [
+            {
+              "page": 1,
+              "part": "1-12号班级",
+              "duration": 3797,
+              "durationLabel": "1:03:17"
+            },
+            {
+              "page": 2,
+              "part": "13-24号班级",
+              "duration": 3774,
+              "durationLabel": "1:02:54"
+            }
+          ]
+        }
+      ],
+      "sourceId": "source-bili-bv1hkbtbhela",
+      "externalUrl": "https://www.bilibili.com/video/BV1HkBTBHELA/",
+      "description": "时间：2025.12.23  15:30\n\n设备：尼康Z30+Z DX 16-50mm f/3.5-6.3\n\n时间：2025.12.25  15:30"
+    },
+    {
+      "id": "plaza-2025-videos",
+      "title": "2025年广场音乐节",
+      "subtitle": "全程回顾 · 高一高二两场",
+      "kind": "replay",
+      "formatLabel": "全程回顾",
+      "year": 2025,
+      "publishedAt": "2025-03-22",
+      "sourceAccount": "club",
+      "mediaId": "embed-bili-bv1ivxyy4evj",
+      "coverId": "cover-bili-bv1ivxyy4evj",
+      "eventId": "plaza-2025",
+      "authorIds": [],
+      "creditMemberIds": [],
+      "credits": [],
+      "videos": [
+        {
+          "mediaId": "embed-bili-bv1ivxyy4evj",
+          "label": "高一场 · 2025.03.21 · 49:47",
+          "parts": [
+            {
+              "page": 1,
+              "part": "不能说的秘密-kuki乐队",
+              "duration": 149,
+              "durationLabel": "2:29"
+            },
+            {
+              "page": 2,
+              "part": "Fly Me To The Moon-高一5班 裴晨彤",
+              "duration": 312,
+              "durationLabel": "5:12"
+            },
+            {
+              "page": 3,
+              "part": "Boom Boom Bass-高一10、15班 肖可恩 张海源",
+              "duration": 184,
+              "durationLabel": "3:04"
+            },
+            {
+              "page": 4,
+              "part": "小镇姑娘-高一5班 赵晟森",
+              "duration": 259,
+              "durationLabel": "4:19"
+            },
+            {
+              "page": 5,
+              "part": "枫叶做的风铃-高一5班 庄亦菲",
+              "duration": 242,
+              "durationLabel": "4:02"
+            },
+            {
+              "page": 6,
+              "part": "放空-高二11班 赵国乐 田莹钰",
+              "duration": 160,
+              "durationLabel": "2:40"
+            },
+            {
+              "page": 7,
+              "part": "等你下课-高一8班  张馨瑜",
+              "duration": 231,
+              "durationLabel": "3:51"
+            },
+            {
+              "page": 8,
+              "part": "Girls Better Than My Money(Remix)-高一20、23班 葛紫嫣 王瀚钧",
+              "duration": 182,
+              "durationLabel": "3:02"
+            },
+            {
+              "page": 9,
+              "part": "才二十三-高一11班 张红喆",
+              "duration": 219,
+              "durationLabel": "3:39"
+            },
+            {
+              "page": 10,
+              "part": "特别的人-高一5、6班 汝奕辰 李孜文",
+              "duration": 263,
+              "durationLabel": "4:23"
+            },
+            {
+              "page": 11,
+              "part": "海阔天空-高一5班  赵悟石",
+              "duration": 325,
+              "durationLabel": "5:25"
+            },
+            {
+              "page": 12,
+              "part": "稻香-高一8班 谢雨泽",
+              "duration": 246,
+              "durationLabel": "4:06"
+            },
+            {
+              "page": 13,
+              "part": "舞蹈串烧-YG舞社",
+              "duration": 215,
+              "durationLabel": "3:35"
+            }
+          ]
+        },
+        {
+          "mediaId": "embed-bili-bv1eel2zdeti",
+          "label": "高二场 · 2025.04.28 · 1:05:18",
+          "parts": [
+            {
+              "page": 1,
+              "part": "开场",
+              "duration": 330,
+              "durationLabel": "5:30"
+            },
+            {
+              "page": 2,
+              "part": "YG舞社-舞蹈串烧",
+              "duration": 184,
+              "durationLabel": "3:04"
+            },
+            {
+              "page": 3,
+              "part": "LoveBoy88-高一15、11班 李则润 田广润 李明泽 赵华辰",
+              "duration": 233,
+              "durationLabel": "3:53"
+            },
+            {
+              "page": 4,
+              "part": "雨爱-高一8班 张馨瑜",
+              "duration": 275,
+              "durationLabel": "4:35"
+            },
+            {
+              "page": 5,
+              "part": "红豆-高二12班 魏凡朔",
+              "duration": 261,
+              "durationLabel": "4:21"
+            },
+            {
+              "page": 6,
+              "part": "喂-高一20班 祝一畅",
+              "duration": 288,
+              "durationLabel": "4:48"
+            },
+            {
+              "page": 7,
+              "part": "小小虫",
+              "duration": 269,
+              "durationLabel": "4:29"
+            },
+            {
+              "page": 8,
+              "part": "未闻花名-高一10班 代龙生",
+              "duration": 337,
+              "durationLabel": "5:37"
+            },
+            {
+              "page": 9,
+              "part": "爱错-高一8班 段树人",
+              "duration": 253,
+              "durationLabel": "4:13"
+            },
+            {
+              "page": 10,
+              "part": "传武-高二10班 肖昱君",
+              "duration": 355,
+              "durationLabel": "5:55"
+            },
+            {
+              "page": 11,
+              "part": "东风志-高一21班 李梓源",
+              "duration": 307,
+              "durationLabel": "5:07"
+            },
+            {
+              "page": 12,
+              "part": "玫瑰少年-高二23班 陈子墨、高二19班 李子怡",
+              "duration": 283,
+              "durationLabel": "4:43"
+            },
+            {
+              "page": 13,
+              "part": "SSR舞社-舞蹈串烧",
+              "duration": 543,
+              "durationLabel": "9:03"
+            }
+          ]
+        }
+      ],
+      "sourceId": "source-bili-bv1ivxyy4evj",
+      "externalUrl": "https://www.bilibili.com/video/BV1iVXyY4EvJ/",
+      "description": "时间：2025.03.21 17:15\n设备：Nikon Z6+Z 24-200mm f/4-6.3 VR\n\n刚开始设备突然过热了，导致前面几个节目效果很不好；\n到最后人废了（已累瘫），真举不动；还有导致个人对这次的效果不太满意。\n特意优化了收音，应该有一定改善，虽然还有打磨空间。\n玩的开心！\n\n设备：Nikon Z6 、Z 24-200mm f/4-6.3 、DJI RS2\n时间：2025.04.28 17:15"
+    },
+    {
+      "id": "football-2025-videos",
+      "title": "2025届足球联赛",
+      "subtitle": "比赛记录 · 四场",
+      "kind": "replay",
+      "formatLabel": "实况记录",
+      "year": 2025,
+      "publishedAt": "2025-04-23",
+      "sourceAccount": "mixed",
+      "mediaId": "embed-bili-bv1exebzleby",
+      "coverId": "cover-bili-bv1exebzleby",
+      "eventId": "football-2025",
+      "authorIds": [],
+      "creditMemberIds": [
+        "person-jky"
+      ],
+      "credits": [
+        {
+          "role": "拍摄",
+          "name": "蒋凯阳",
+          "memberId": "person-jky",
+          "sourceId": "source-bili-bv1exebzleby",
+          "sourceDescription": "决赛（12班-15班）为社团投稿的实况转播；小组赛三场（12班-6班、18班-2班、12班-文联）为蒋凯阳个人频道投稿。"
+        }
+      ],
+      "videos": [
+        {
+          "mediaId": "embed-bili-bv1exebzleby",
+          "label": "决赛 · 12班-15班 · 2025.05.16 实况转播 · 50:06"
+        },
+        {
+          "mediaId": "embed-bili-bv1z4lxz9ewy",
+          "label": "小组赛 · 12班-6班 · 2025.04.23 · 34:38"
+        },
+        {
+          "mediaId": "embed-bili-bv1rvekzjed9",
+          "label": "小组赛 · 18班-2班 · 个人频道 · 42:33"
+        },
+        {
+          "mediaId": "embed-bili-bv1yfeqzxe7z",
+          "label": "小组赛 · 12班-文联 · 个人频道 · 46:49"
+        }
+      ],
+      "sourceId": "source-bili-bv1exebzleby",
+      "externalUrl": "https://www.bilibili.com/video/BV1EXEbzLEBy/",
+      "description": "比赛结果：15班 4:3 12班\n拍摄效果还有优化空间，有待改进\n但对于第一次实况转播来说 已经很不错了 评价都很高\n\n拍摄设备：DJI mavic3 Pro\n时间：2025.05.16 17:20\n\n决赛会有实况转播\n2025.04.23\n\n\n\n"
+    },
+    {
+      "id": "debate-videos",
+      "title": "WG动漫社趣味辩论赛",
+      "subtitle": "全程回顾 · 两场",
+      "kind": "replay",
+      "formatLabel": "全程回顾",
+      "year": 2026,
+      "publishedAt": "2025-12-12",
+      "sourceAccount": "club",
+      "mediaId": "embed-bili-bv1lnm2bgetb",
+      "coverId": "cover-bili-bv1lnm2bgetb",
+      "eventId": "debate-2026",
+      "authorIds": [],
+      "creditMemberIds": [],
+      "credits": [],
+      "videos": [
+        {
+          "mediaId": "embed-bili-bv1lnm2bgetb",
+          "label": "第一场 · 2025.12.12 · 53:36"
+        },
+        {
+          "mediaId": "embed-bili-bv1njqpb8ems",
+          "label": "第二场 · 2026.04.15 · 51:04"
+        }
+      ],
+      "sourceId": "source-bili-bv1lnm2bgetb",
+      "externalUrl": "https://www.bilibili.com/video/BV1Lnm2BGETb/",
+      "description": "时间：2025.12.12 17:50\n辩题：\n正方：角色的魅力，更在于其理想化的光辉\n反方：角色的魅力，更在于其人性化的瑕疵\n\n非常有趣的辩论赛！感谢各位辩手的精彩表现！\n\n比赛结果：\n正方：171分  反方：176分\n反方胜利\n\n辩题：\n正方：拥有可怜之处的可恨之人值得可怜\n反方：拥有可怜之处的可恨之人不值得可怜\n正方获胜\n时间：2026.04.15\n\n设备：Sony a7r IV + SIGMA 14-24mm f/2.8 DG DN"
     }
   ],
   "notes": [
@@ -5514,7 +6271,8 @@
       "publishedAt": "2026-09-01",
       "sections": [],
       "documentId": "military-review-original",
-      "editorialSummary": false
+      "editorialSummary": false,
+      "unlisted": true
     },
     {
       "id": "full-review-guide",
@@ -5541,29 +6299,6 @@
       "authorLabel": "",
       "editorialSummary": false,
       "documentId": "broadcast-guide"
-    },
-    {
-      "id": "camera-communication",
-      "title": "导播话术与沟通",
-      "subtitle": "现场通话",
-      "kind": "岗位参考",
-      "publishedAt": null,
-      "sections": [
-        {
-          "title": "指令先到，人再动作",
-          "text": "通话先说明机位，再说明需要的画面或动作。指令尽量简短，避免多人同时讲话。",
-          "imageId": null
-        },
-        {
-          "title": "彩排时约定用语",
-          "text": "推、拉、摇移等用语需要提前统一。掌机有疑问或遇到设备问题时，及时反馈给导播。",
-          "imageId": null
-        }
-      ],
-      "sourceId": "source-camera-communication",
-      "eventId": null,
-      "authorLabel": "",
-      "editorialSummary": true
     }
   ],
   "appointments": [
@@ -5571,31 +6306,102 @@
       "memberId": "person-lmg",
       "cohortLabel": "2023级",
       "role": "副社长",
-      "sourceId": "source-promo"
+      "sourceId": "source-club-management-confirmation"
     },
     {
       "memberId": "person-jky",
       "cohortLabel": "2024级",
       "role": "社长",
-      "sourceId": "source-promo"
+      "sourceId": "source-club-management-confirmation"
+    },
+    {
+      "memberId": "person-lrh",
+      "cohortLabel": "2024级",
+      "role": "副社长",
+      "sourceId": "source-club-management-confirmation"
     },
     {
       "memberId": "person-wxn",
       "cohortLabel": "2025级",
       "role": "社长",
-      "sourceId": "source-promo"
+      "sourceId": "source-club-management-confirmation"
+    },
+    {
+      "memberId": "person-gmj",
+      "cohortLabel": "2025级",
+      "role": "副社长",
+      "sourceId": "source-club-management-confirmation"
     },
     {
       "memberId": "person-dwb",
       "cohortLabel": "2026级",
       "role": "社长",
-      "sourceId": "source-promo"
+      "sourceId": "source-club-management-confirmation"
+    },
+    {
+      "memberId": "person-zyh",
+      "cohortLabel": "2026级",
+      "role": "副社长",
+      "sourceId": "source-club-management-confirmation"
     },
     {
       "memberId": "person-smj",
       "cohortLabel": "2026级",
       "role": "副社长",
-      "sourceId": "source-promo"
+      "sourceId": "source-club-management-confirmation"
+    },
+    {
+      "memberId": "person-pjt",
+      "cohortLabel": "2026级",
+      "role": "副社长",
+      "sourceId": "source-club-management-confirmation"
+    }
+  ],
+  "series": [
+    {
+      "id": "gala",
+      "title": "元旦文艺汇演",
+      "summary": "每年岁末的两场直播与回顾，社团的年度大舞台。"
+    },
+    {
+      "id": "psychodrama",
+      "title": "校园心理剧大赛",
+      "summary": "每年春季的招牌赛事，一届两场全程记录。"
+    },
+    {
+      "id": "sports",
+      "title": "秋季运动会",
+      "summary": "开幕直播与多机位回顾，每年的练兵场。"
+    },
+    {
+      "id": "sinoaus-concert",
+      "title": "中澳友好音乐会",
+      "summary": "与友好学校同台的音乐会，2024 与 2026 年的记录。"
+    },
+    {
+      "id": "random-dance",
+      "title": "随机舞蹈",
+      "summary": "舞社主办、摄影社记录的随舞现场，年年办、年年拍。"
+    },
+    {
+      "id": "chorus",
+      "title": "合唱比赛",
+      "summary": "校园文化艺术节的合唱赛场，高一高二各一场。"
+    },
+    {
+      "id": "classroom-drama",
+      "title": "课本剧大赛",
+      "summary": "课本搬上舞台，三年公演记录。"
+    },
+    {
+      "id": "plaza-concert",
+      "title": "广场音乐会",
+      "summary": "春天广场上的露天舞台，高一高二场与学科节专场。"
+    },
+    {
+      "id": "music-festival",
+      "title": "校园音乐节",
+      "summary": "夏季音乐节的直播与回放。"
     }
   ]
 }
