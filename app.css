@@ -803,6 +803,18 @@ figcaption span {
   text-decoration: underline;
   text-underline-offset: 5px;
 }
+.work-videos {
+  display: grid;
+  gap: 34px;
+}
+.work-video-item .video-item-label {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+.event-works .work-list {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
 .media-strip {
   display: flex;
   align-items: center;
