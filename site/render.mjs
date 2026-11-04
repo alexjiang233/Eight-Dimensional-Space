@@ -76,6 +76,11 @@ export function validateCatalog(data) {
     ref('sources', work.sourceId);
     for (const id of [...work.authorIds, ...work.creditMemberIds]) ref('members', id);
     for (const id of work.galleryIds || []) ref('media', id);
+    for (const video of work.videos || []) {
+      const videoMedia = indexes.media.get(video.mediaId);
+      if (!videoMedia || videoMedia.kind !== 'embed' || !video.label)
+        throw new Error(`Work video must reference an embed with a label: ${work.id}/${video.mediaId}`);
+    }
     for (const credit of work.credits || []) {
       ref('sources', credit.sourceId);
       ref('members', credit.memberId);
@@ -112,7 +117,7 @@ export function createSite(data, { base = '/' } = {}) {
   };
   const figure = (id, cls = '', group = 'page') => {
     const m = get('media', id);
-    return `<figure class="${cls}"><a href="${e(withBase(m.src))}" data-image data-gallery="${group}" data-caption="${e(m.caption)}" data-exif="${e(m.exif ? JSON.stringify(m.exif) : '') }">${img(id, ['event-cover', 'record-cover'].includes(cls) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"')}</a><figcaption>${e(m.caption)}<span>${m.sourceId === 'source-promo' ? '宣传片静帧' : m.sourceId === 'source-photo-selection' ? (m.capturedAt || '').slice(0,10) : '原文配图'}</span></figcaption></figure>`;
+    return `<figure class="${cls}"><a href="${e(withBase(m.src))}" data-image data-gallery="${group}" data-caption="${e(m.caption)}" data-exif="${e(m.exif ? JSON.stringify(m.exif) : '') }">${img(id, ['event-cover', 'record-cover'].includes(cls) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"')}</a><figcaption>${e(m.caption)}<span>${m.sourceId === 'source-promo' ? '宣传片静帧' : m.sourceId === 'source-photo-selection' ? (m.capturedAt || '').slice(0,10) : String(m.sourceId || '').startsWith('source-bili') ? 'B站视频封面' : '原文配图'}</span></figcaption></figure>`;
   };
   const url = (skin, kind = '', id = '') =>
     withBase(`/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`);
@@ -153,7 +158,8 @@ export function createSite(data, { base = '/' } = {}) {
       ['本段更新', work.updatedAt],
       ['时长', media?.durationLabel],
       ['分P', work.parts?.length ? `${work.parts.length} 段` : null],
-      ['来源', work.sourceAccount === 'personal' ? '个人频道' : work.sourceAccount === 'club' ? '社团投稿' : null],
+      ['收录视频', work.videos?.length > 1 ? `${work.videos.length} 支` : null],
+      ['来源', work.sourceAccount === 'personal' ? '个人频道' : work.sourceAccount === 'club' ? '社团投稿' : work.sourceAccount === 'mixed' ? '社团与个人频道' : null],
     ].filter(([, value]) => value);
     return items.length
       ? `<dl class="work-facts">${items.map(([label, value]) => `<div><dt>${e(label)}</dt><dd>${e(value)}</dd></div>`).join('')}</dl>`
@@ -202,13 +208,36 @@ export function createSite(data, { base = '/' } = {}) {
     work.kind === 'replay' && get('events', work.eventId)?.storyId
       ? url(skin, 'events', work.eventId) + '#watch'
       : url(skin, 'works', work.id);
+  // A merged work page stacks every collected video with its own player and label.
+  const workVideoList = (work) => {
+    const videos = (work.videos || []).map((v) => ({ ...v, media: get('media', v.mediaId) }));
+    if (videos.length < 2) return null;
+    return `<div class="work-videos">${videos
+      .map(
+        (v) =>
+          `<div class="work-video-item">${embedPlayer(v.media)}<p class="video-item-label">${e(v.label)}${v.durationLabel ? ` · ${e(v.durationLabel)}` : ''}</p></div>`,
+      )
+      .join('')}</div>`;
+  };
+  const eventWorks = (event, skin) =>
+    event.workIds.length
+      ? `<section class="section event-works"><div class="section-head"><h2>收录作品</h2><span>${event.workIds.length} 项</span></div><div class="work-list">${event.workIds.map((id) => workEntry(get('works', id), skin)).join('')}</div></section>`
+      : '';
+  // Prefer a real collected work over the generic promo button when one exists.
+  const eventMainAction = (event, skin) => {
+    const work = event.workIds.map((id) => get('works', id)).find((w) => w && w.id !== 'promo-2026');
+    return work
+      ? `<a class="button" href="${workTarget(work, skin)}">观看收录视频</a>`
+      : `<a class="button" href="${url(skin, 'works', 'promo-2026')}">观看所在宣传片</a>`;
+  };
   const workEntry = (work, skin) => {
     const media = work.mediaId ? get('media', work.mediaId) : null;
     const duration = media?.durationLabel ? ` · ${e(media.durationLabel)}` : '';
+    const count = work.videos?.length > 1 ? ` · 共${work.videos.length}支` : '';
     const stamp = work.sourceAccount
       ? `投稿 ${e(work.publishedAt || work.year)}`
       : e(work.yearLabel || work.year);
-    return `<article class="work-entry" data-kind="${work.kind}"><a class="work-image" href="${workTarget(work, skin)}">${img(work.coverId, 'loading="lazy"')}<span class="type-label">${kinds[work.kind]}</span></a><div class="work-description"><h3><a href="${workTarget(work, skin)}">${e(work.title)}</a></h3><p>${e(work.subtitle)}</p><span>${stamp}${duration}</span></div></article>`;
+    return `<article class="work-entry" data-kind="${work.kind}"><a class="work-image" href="${workTarget(work, skin)}">${img(work.coverId, 'loading="lazy"')}<span class="type-label">${kinds[work.kind]}</span></a><div class="work-description"><h3><a href="${workTarget(work, skin)}">${e(work.title)}</a></h3><p>${e(work.subtitle)}</p><span>${stamp}${duration}${count}</span></div></article>`;
   };
   const compare = (event, skin) => {
     const choices = (event.viewpoints || []).map((v) => [v.mediaId, v.label]);
@@ -245,7 +274,7 @@ export function createSite(data, { base = '/' } = {}) {
 
   function eventPage(event, skin) {
     if (event.storyId) return renderEventRecord(event, get('stories', event.storyId), skin, { e, url, figure, get, sourceLink, embedPlayer });
-    return `<section class="event-intro section"><div class="event-title"><p class="date-line">${e(event.date || event.year)}${event.place ? ` · ${e(event.place)}` : ''}</p><h1>${e(event.title)}</h1><p class="lead-copy">${e(event.summary)}</p>${facts(event)}<div class="action-row">${event.id === 'military-2026' ? `<a class="button" href="${url(skin, 'works', 'military-replay')}">观看回放</a><a href="#process">看制作现场</a>` : `<a class="button" href="${url(skin, 'works', 'promo-2026')}">观看所在宣传片</a>`}</div></div>${figure(event.coverId, 'event-cover', 'hero')}</section>${event.id === 'military-2026' ? `<div class="event-nav"><a href="#process">制作现场</a><a href="#cameras">四个机位</a><a href="#photos">现场配图</a><a href="#crew">参与者</a><a href="${url(skin, 'notes', 'military-review')}">制作复盘</a></div>${compare(event, skin)}<section class="camera-section section" id="cameras"><div class="section-head"><h2>四个机位，各有位置</h2><p>设备信息按复盘正文保留。</p></div><div class="camera-list">${(event.cameras || []).map((c) => `<article>${c.imageId ? figure(c.imageId, '', 'cameras') : `<div class="camera-equipment"><span>机位资料</span><strong>${e(c.label)}</strong><span>${e(c.equipment)}</span></div>`}<h3>${e(c.label)}</h3><p>${e(c.equipment)}</p></article>`).join('')}</div></section>` : ''}${gallery(event)}${event.contributions.length ? `<section class="people-section section" id="crew"><div class="section-head"><h2>本场参与者</h2><span>公开回放署名</span></div>${event.groupId ? figure(event.groupId, 'crew-photo', 'crew') : ''}${roster(event, skin)}<p class="source-caption">${e(event.creditsNote || '参与记录按实际来源列出。')} 名单不用于推断照片中的人物位置。</p></section>` : ''}${notesPreview(skin, event)}<section class="source-section section"><h2>来源与记录</h2><p>${e(get('sources', event.sourceId).title)}</p>${event.timeNote ? `<details><summary>活动时段的来源说明</summary><p>${e(event.timeLabel)}；${e(event.timeNote)}</p></details>` : ''}${sourceLink(event.sourceId)}</section>`;
+    return `<section class="event-intro section"><div class="event-title"><p class="date-line">${e(event.date || event.year)}${event.place ? ` · ${e(event.place)}` : ''}</p><h1>${e(event.title)}</h1><p class="lead-copy">${e(event.summary)}</p>${facts(event)}<div class="action-row">${event.id === 'military-2026' ? `<a class="button" href="${url(skin, 'works', 'military-replay')}">观看回放</a><a href="#process">看制作现场</a>` : eventMainAction(event, skin)}</div></div>${figure(event.coverId, 'event-cover', 'hero')}</section>${eventWorks(event, skin)}${event.id === 'military-2026' ? `<div class="event-nav"><a href="#process">制作现场</a><a href="#cameras">四个机位</a><a href="#photos">现场配图</a><a href="#crew">参与者</a><a href="${url(skin, 'notes', 'military-review')}">制作复盘</a></div>${compare(event, skin)}<section class="camera-section section" id="cameras"><div class="section-head"><h2>四个机位，各有位置</h2><p>设备信息按复盘正文保留。</p></div><div class="camera-list">${(event.cameras || []).map((c) => `<article>${c.imageId ? figure(c.imageId, '', 'cameras') : `<div class="camera-equipment"><span>机位资料</span><strong>${e(c.label)}</strong><span>${e(c.equipment)}</span></div>`}<h3>${e(c.label)}</h3><p>${e(c.equipment)}</p></article>`).join('')}</div></section>` : ''}${event.galleryIds.length ? gallery(event) : ''}${event.contributions.length ? `<section class="people-section section" id="crew"><div class="section-head"><h2>本场参与者</h2><span>公开回放署名</span></div>${event.groupId ? figure(event.groupId, 'crew-photo', 'crew') : ''}${roster(event, skin)}<p class="source-caption">${e(event.creditsNote || '参与记录按实际来源列出。')} 名单不用于推断照片中的人物位置。</p></section>` : ''}${notesPreview(skin, event)}<section class="source-section section"><h2>来源与记录</h2><p>${e(get('sources', event.sourceId).title)}</p>${event.timeNote ? `<details><summary>活动时段的来源说明</summary><p>${e(event.timeLabel)}；${e(event.timeNote)}</p></details>` : ''}${sourceLink(event.sourceId)}</section>`;
   }
   function worksPage(skin) {
     return `<section class="page-intro section"><h1>作品与记录</h1><p>照片、影片，以及完整直播的回放入口。</p></section><section class="works-directory section"><div class="filter-bar" role="group" aria-label="按作品类型筛选">${[
@@ -266,7 +295,8 @@ export function createSite(data, { base = '/' } = {}) {
     if (work.kind === 'photos' && work.galleryIds) return collection.photos(work, skin);
     const media = work.mediaId ? get('media', work.mediaId) : null;
     const online = media?.kind === 'embed';
-    const view = online ? embedPlayer(media) : figure(work.coverId, 'work-cover', 'work');
+    const videoList = workVideoList(work);
+    const view = online ? (videoList ?? embedPlayer(media)) : figure(work.coverId, 'work-cover', 'work');
     const playbackNote = online && work.notice ? `<p class="replay-notice">${e(work.notice)}</p>` : '';
     const playbackLink = online ? `<p class="embed-source">${sourceLink(work.sourceId, '在哔哩哔哩打开')}</p>` : '';
     const meta = online

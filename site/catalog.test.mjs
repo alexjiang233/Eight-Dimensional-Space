@@ -248,9 +248,9 @@ test('the root serves a real home page with no theme prefix, redirect or alterna
 
 test('bilibili import uses video ownership, excludes unrelated personal uploads and keeps existing works unique', () => {
   const imported = catalog.works.filter((work) => work.id.startsWith('bili-'));
-  assert.equal(imported.length, 59);
-  assert.equal(imported.filter((work) => work.sourceAccount === 'club').length, 41);
-  assert.equal(imported.filter((work) => work.sourceAccount === 'personal').length, 18);
+  assert.equal(imported.length, 55);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'club').length, 40);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'personal').length, 15);
   for (const bvid of ['BV11AmZBpEWU', 'BV1XsSUY9E7b', 'BV1gs6JBuEav', 'BV18vNH64EnS', 'BV193dWBtEuN', 'BV15bfuBhErh', 'BV1GubDznET8', 'BV1b142197GN']) {
     assert.ok(!imported.some((work) => work.id.endsWith(bvid.toLowerCase())), bvid);
     assert.ok(!catalog.media.some((media) => media.bvid === bvid), bvid);
@@ -269,22 +269,55 @@ test('bilibili import uses video ownership, excludes unrelated personal uploads 
   assert.equal(clubWork.eventId, 'military-2026');
 });
 
-test('the compilation exposes only its club-promo second part', () => {
-  const work = catalog.works.find((item) => item.id === 'bili-personal-bv1bcqrbweqj');
-  const media = catalog.media.find((item) => item.id === work.mediaId);
-  assert.equal(media.page, 2);
-  assert.equal(media.durationLabel, '59:27');
-  assert.deepEqual(work.parts.map((part) => part.page), [2]);
-  assert.deepEqual(work.parts.map((part) => part.part), ['社团宣传片-2026.07']);
-  assert.ok(!work.title.includes('飞机标本'));
-  const html = createSite(catalog).get('/works/bili-personal-bv1bcqrbweqj/');
-  assert.ok(html.includes('bvid=BV1bcqrBWEQj&amp;page=2'));
-  assert.ok(!html.includes('bvid=BV1bcqrBWEQj&amp;page=1'));
-  assert.ok(html.includes('仅接入合集第2P'));
-  assert.ok(!html.includes('<span>P1</span>'));
-  assert.ok(html.includes('data-embed-part="2"'));
-  assert.ok(html.includes('https://www.bilibili.com/video/BV1bcqrBWEQj/?p=2'));
-  assert.ok(!html.includes('飞机标本'));
+test('the personal review compilation is taken down without residue', () => {
+  assert.ok(!catalog.works.some((work) => work.id === 'bili-personal-bv1bcqrbweqj'));
+  assert.ok(!catalog.media.some((media) => media.bvid === 'BV1bcqrBWEQj'));
+  assert.ok(!catalog.sources.some((source) => source.id === 'source-bili-bv1bcqrbweqj'));
+  const pages = createSite(catalog);
+  assert.ok(!pages.has('/works/bili-personal-bv1bcqrbweqj/'));
+  for (const [path, html] of pages) assert.ok(!html.includes('BV1bcqrBWEQj'), path);
+});
+
+test('sports meeting videos merge into one work per year with real event pages', () => {
+  const merged = catalog.works.find((work) => work.id === 'sports-2025-videos');
+  assert.ok(merged);
+  assert.equal(merged.eventId, 'sports-2025');
+  assert.equal(merged.videos.length, 3);
+  assert.deepEqual(
+    merged.videos.map((video) => video.mediaId),
+    ['embed-bili-bv1s3nkzqena', 'embed-bili-bv1sqntzwedv', 'embed-bili-bv1xsnyzqee8'],
+  );
+  for (const id of ['bili-club-bv1s3nkzqena', 'bili-personal-bv1sqntzwedv', 'bili-personal-bv1xsnyzqee8']) {
+    assert.ok(!catalog.works.some((work) => work.id === id), id);
+  }
+  for (const mediaId of merged.videos.map((video) => video.mediaId)) {
+    assert.ok(catalog.media.some((media) => media.id === mediaId), mediaId);
+  }
+  const cctv = catalog.works.find((work) => work.id === 'bili-club-bv1uoy8ypete');
+  assert.equal(cctv.eventId, 'sports-2024');
+  const pages = createSite(catalog);
+  const work = pages.get('/works/sports-2025-videos/');
+  for (const bvid of ['BV1S3nkzqEna', 'BV1sqntzWEDV', 'BV1xsnyzqEe8']) {
+    assert.ok(work.includes(`bvid=${bvid}&`), bvid);
+  }
+  assert.ok(work.includes('收录视频'));
+  assert.ok(work.includes('无体育，不淮一'));
+  const event = pages.get('/events/sports-2025/');
+  assert.ok(event.includes('2025年秋季运动会'));
+  assert.ok(event.includes('第三十三届体育节'));
+  assert.ok(event.includes('2025-09-29'));
+  assert.ok(event.includes('/works/sports-2025-videos/'));
+  assert.ok(event.includes('观看收录视频'));
+  assert.ok(!event.includes('观看所在宣传片'));
+  const event2024 = pages.get('/events/sports-2024/');
+  assert.ok(event2024.includes('2024年校运会'));
+  assert.ok(event2024.includes('/works/bili-club-bv1uoy8ypete/'));
+  assert.ok(!event2024.includes('现场配图'));
+  assert.ok(!event2024.includes('0 幅'));
+  const home = pages.get('/');
+  assert.ok(home.includes('收录视频 · 在线播放'));
+  const person = pages.get('/people/person-wxn/');
+  assert.ok(person.includes('/works/sports-2025-videos/'));
 });
 
 test('multi-line descriptions keep every cross-line credit and teachers do not become members', () => {
@@ -331,6 +364,8 @@ test('the work directory filters every imported film and replay without pushing 
   assert.ok(catalog.works.filter((work) => work.kind === 'replay' && work.id.startsWith('bili-')).length > 10);
   const home = pages.get('/');
   assert.ok(home.includes('2026 社团宣传片'));
-  assert.ok(!home.includes('我们把校运会拍成了CCTV5'));
+  // The archive row may show an event cover whose alt names its video; what must
+  // stay off the home page is the catalogue itself, i.e. work-page links.
+  assert.ok(!home.includes('/works/bili-club-bv1uoy8ypete/'));
   assert.ok(!home.includes('初雪校园'));
 });

@@ -107,7 +107,7 @@ export interface Work {
   year: number | null;
   yearLabel?: string;
   publishedAt?: string | null;
-  sourceAccount?: 'club' | 'personal';
+  sourceAccount?: 'club' | 'personal' | 'mixed';
   mediaId: Id | null;
   coverId: Id;
   eventId: Id | null;
@@ -116,6 +116,7 @@ export interface Work {
   creditMemberIds: Id[];
   credits?: WorkCredit[];
   parts?: WorkPart[];
+  videos?: { mediaId: Id; label: string; durationLabel?: string }[];
   sourceId: Id;
   externalUrl?: string;
   notice?: string;

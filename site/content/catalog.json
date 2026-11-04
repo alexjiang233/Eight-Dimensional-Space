@@ -376,13 +376,6 @@
       "publishedAt": "2026-01-01"
     },
     {
-      "id": "source-bili-bv1bcqrbweqj",
-      "title": "【合集】视频复盘",
-      "url": "https://www.bilibili.com/video/BV1bcqrBWEQj/?p=2",
-      "authorLabel": "撞上树桩的猪_",
-      "publishedAt": "2025-12-20"
-    },
-    {
       "id": "source-bili-bv1rnqzbyent",
       "title": "2026元旦汇演——焕新而聚，精彩如期！",
       "url": "https://www.bilibili.com/video/BV1RnqZByEnT/",
@@ -2237,32 +2230,6 @@
       "publicationStatus": "public-source"
     },
     {
-      "id": "embed-bili-bv1bcqrbweqj",
-      "kind": "embed",
-      "platform": "bilibili",
-      "bvid": "BV1bcqrBWEQj",
-      "page": 2,
-      "title": "社团宣传片复盘（《视频复盘》第2P）",
-      "durationLabel": "59:27",
-      "caption": "复盘 · 59:27",
-      "sourceId": "source-bili-bv1bcqrbweqj",
-      "publicationStatus": "public-source"
-    },
-    {
-      "id": "cover-bili-bv1bcqrbweqj",
-      "kind": "image",
-      "src": "/media/bili-BV1bcqrBWEQj.jpg",
-      "width": 640,
-      "height": 360,
-      "alt": "视频封面：【合集】视频复盘",
-      "caption": "B站封面",
-      "sourceId": "source-bili-bv1bcqrbweqj",
-      "capturedAt": null,
-      "photographer": null,
-      "exif": null,
-      "publicationStatus": "public-source"
-    },
-    {
       "id": "embed-bili-bv1rnqzbyent",
       "kind": "embed",
       "platform": "bilibili",
@@ -3006,24 +2973,48 @@
     },
     {
       "id": "sports-2025",
-      "title": "2025运动会",
-      "fullTitle": "2025运动会",
+      "title": "2025年秋季运动会",
+      "fullTitle": "第三十三届体育节暨第四十八届秋季体育运动会",
       "year": 2025,
-      "date": null,
+      "date": "2025-09-29",
       "place": null,
       "teamSize": null,
       "cameraCount": null,
-      "coverId": "promo-sports",
+      "coverId": "cover-bili-bv1s3nkzqena",
       "groupId": null,
       "galleryIds": [
         "promo-sports"
       ],
       "workIds": [
-        "promo-2026"
+        "sports-2025-videos"
       ],
       "noteIds": [],
-      "sourceId": "source-promo",
-      "summary": "开幕式、比赛与拍摄现场。",
+      "sourceId": "source-bili-bv1s3nkzqena",
+      "summary": "第三十三届体育节暨第四十八届秋季体育运动会的全程回顾、预告与短片，共3支视频。",
+      "contributions": [],
+      "timeLabel": "开幕式 9.29 上午 8:00–9:30",
+      "timeNote": "活动日期与开幕式时段来自全程回顾视频简介；B站投稿日期为2025-09-30，不作活动日期。"
+    },
+    {
+      "id": "sports-2024",
+      "title": "2024年校运会",
+      "fullTitle": "2024年校运会",
+      "year": 2024,
+      "date": null,
+      "place": null,
+      "timeLabel": null,
+      "timeNote": "B站投稿日期为2024-10-20，未作为活动日期使用。",
+      "teamSize": null,
+      "cameraCount": null,
+      "coverId": "cover-bili-bv1uoy8ypete",
+      "groupId": null,
+      "galleryIds": [],
+      "workIds": [
+        "bili-club-bv1uoy8ypete"
+      ],
+      "noteIds": [],
+      "sourceId": "source-bili-bv1uoy8ypete",
+      "summary": "社团为2024年校运会制作的创意短片，含完整制作名单。",
       "contributions": []
     }
   ],
@@ -3947,134 +3938,6 @@
       "description": "时间：2025.12.12 17:50\n辩题：\n正方：角色的魅力，更在于其理想化的光辉\n反方：角色的魅力，更在于其人性化的瑕疵\n\n非常有趣的辩论赛！感谢各位辩手的精彩表现！\n\n比赛结果：\n正方：171分  反方：176分\n反方胜利"
     },
     {
-      "id": "bili-club-bv1s3nkzqena",
-      "title": "淮北一中第三十三届体育节暨四十八届秋季体育运动会-全程回顾",
-      "subtitle": "全程回顾 · 社团投稿",
-      "kind": "replay",
-      "formatLabel": "全程回顾",
-      "year": 2025,
-      "publishedAt": "2025-09-30",
-      "sourceAccount": "club",
-      "mediaId": "embed-bili-bv1s3nkzqena",
-      "coverId": "cover-bili-bv1s3nkzqena",
-      "eventId": null,
-      "authorIds": [],
-      "creditMemberIds": [
-        "person-wxn",
-        "person-gmj",
-        "person-gg",
-        "person-wzc",
-        "person-yjx",
-        "person-zyx",
-        "person-xke",
-        "person-lzh",
-        "person-wdc"
-      ],
-      "credits": [
-        {
-          "role": "组织",
-          "name": "王小诺",
-          "memberId": "person-wxn",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
-        },
-        {
-          "role": "组织",
-          "name": "郭铭珺",
-          "memberId": "person-gmj",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
-        },
-        {
-          "role": "策划",
-          "name": "王小诺",
-          "memberId": "person-wxn",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
-        },
-        {
-          "role": "策划",
-          "name": "郭铭珺",
-          "memberId": "person-gmj",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
-        },
-        {
-          "role": "剪辑",
-          "name": "王小诺",
-          "memberId": "person-wxn",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
-        },
-        {
-          "role": "剪辑",
-          "name": "郭铭珺",
-          "memberId": "person-gmj",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
-        },
-        {
-          "role": "拍摄",
-          "name": "郭铭珺",
-          "memberId": "person-gmj",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
-        },
-        {
-          "role": "拍摄",
-          "name": "郭歌",
-          "memberId": "person-gg",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
-        },
-        {
-          "role": "拍摄",
-          "name": "王梓诚",
-          "memberId": "person-wzc",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
-        },
-        {
-          "role": "拍摄",
-          "name": "袁静希",
-          "memberId": "person-yjx",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
-        },
-        {
-          "role": "拍摄",
-          "name": "郑宇玹",
-          "memberId": "person-zyx",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
-        },
-        {
-          "role": "后勤",
-          "name": "肖可恩",
-          "memberId": "person-xke",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰"
-        },
-        {
-          "role": "后勤",
-          "name": "李卓翰",
-          "memberId": "person-lzh",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰"
-        },
-        {
-          "role": "后勤",
-          "name": "王东辰",
-          "memberId": "person-wdc",
-          "sourceId": "source-bili-bv1s3nkzqena",
-          "sourceDescription": "后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰"
-        }
-      ],
-      "sourceId": "source-bili-bv1s3nkzqena",
-      "externalUrl": "https://www.bilibili.com/video/BV1S3nkzqEna/",
-      "description": "时间：2025.9.29 上午8:00-9:30\n设备：索尼ZV-E10M2  尼康Z30  佳能R50  DJI RS2 PRO\n组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺 \n视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹\n后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰\n感谢各位的辛苦付出！祝大家运动会玩的开心！"
-    },
-    {
       "id": "bili-club-bv1o6auzwejt",
       "title": "淮北一中2025届社团新管理层培训暨表彰大会-全程回顾",
       "subtitle": "全程回顾 · 社团投稿",
@@ -4827,7 +4690,7 @@
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1uoy8ypete",
       "coverId": "cover-bili-bv1uoy8ypete",
-      "eventId": null,
+      "eventId": "sports-2024",
       "authorIds": [],
       "creditMemberIds": [
         "person-jky",
@@ -5704,49 +5567,6 @@
       "description": "剪了八个小时——\n这条可以和运动会并列为目前最满意的视频，不辜负我的费心\n应该是高中最后一个大活动了，拍不动了……\n主要是成堆的特殊视角，导致在现场成倍的工作量，表现在几乎没沾过板凳和水，全程顶着疼到没知觉的腿乱跑\n应该是单兵作战的极限了吧？不管了，收工！\n\n设备：（大部分都是借的，一并感谢）\nNikon Z6\nDJI Mavic3Pro/Mavic4Pro\nDJI OSMO Action4/Action5Pro（x2）\nDJI OSMO 360\n\n第一次修订：2026.01.01 02:30\n第二次修订：2026.01.10 23:30"
     },
     {
-      "id": "bili-personal-bv1bcqrbweqj",
-      "title": "社团宣传片复盘（《视频复盘》第2P）",
-      "subtitle": "复盘 · 个人频道",
-      "kind": "replay",
-      "formatLabel": "复盘",
-      "year": 2025,
-      "publishedAt": "2025-12-20",
-      "sourceAccount": "personal",
-      "mediaId": "embed-bili-bv1bcqrbweqj",
-      "coverId": "cover-bili-bv1bcqrbweqj",
-      "eventId": null,
-      "authorIds": [
-        "person-jky"
-      ],
-      "creditMemberIds": [
-        "person-jky"
-      ],
-      "credits": [
-        {
-          "role": "拍摄",
-          "name": "蒋凯阳",
-          "memberId": "person-jky",
-          "sourceId": "source-bili-bv1bcqrbweqj",
-          "sourceDescription": ""
-        }
-      ],
-      "parts": [
-        {
-          "page": 2,
-          "part": "社团宣传片-2026.07",
-          "duration": 3567,
-          "durationLabel": "59:27"
-        }
-      ],
-      "notice": "仅接入合集第2P《社团宣传片-2026.07》（59:27）；其余分P与本项目无关，未在本站展示。",
-      "displayDescription": "以后尽量每条片子都录一个小复盘，总结一下，也算是记录自己的成长了。\n单发显得絮叨，所以干脆建个合集，统一扔这里。\n\n2026.07.23 社团宣传片",
-      "publicationLabel": "合集投稿日期",
-      "updatedAt": "2026-07-23",
-      "sourceId": "source-bili-bv1bcqrbweqj",
-      "externalUrl": "https://www.bilibili.com/video/BV1bcqrBWEQj/?p=2",
-      "description": "以后尽量每条片子都录一个小复盘，总结一下，也算是记录自己的成长了。\n单发显得絮叨，所以干脆建个合集，统一扔这里。\n\n更新记录：\n2025.12.20 飞机标本\n2026.07.23 社团宣传片"
-    },
-    {
       "id": "bili-personal-bv1rnqzbyent",
       "title": "2026元旦汇演——焕新而聚，精彩如期！",
       "subtitle": "短片 · 个人频道",
@@ -5807,68 +5627,6 @@
       "sourceId": "source-bili-bv1veyvbae7u",
       "externalUrl": "https://www.bilibili.com/video/BV1vEyvBAE7u/",
       "description": "练练手。拍着玩，主打随意\n\n刚拍完就炸机，撞钟楼自由落体，遗体凉的很透。\n回来出个视频记录一下维修过程，反正过保了随便折腾"
-    },
-    {
-      "id": "bili-personal-bv1xsnyzqee8",
-      "title": "无体育，不淮一",
-      "subtitle": "短片 · 个人频道",
-      "kind": "film",
-      "formatLabel": "短片",
-      "year": 2025,
-      "publishedAt": "2025-09-30",
-      "sourceAccount": "personal",
-      "mediaId": "embed-bili-bv1xsnyzqee8",
-      "coverId": "cover-bili-bv1xsnyzqee8",
-      "eventId": null,
-      "authorIds": [
-        "person-jky"
-      ],
-      "creditMemberIds": [
-        "person-jky"
-      ],
-      "credits": [
-        {
-          "role": "拍摄",
-          "name": "蒋凯阳",
-          "memberId": "person-jky",
-          "sourceId": "source-bili-bv1xsnyzqee8",
-          "sourceDescription": ""
-        }
-      ],
-      "sourceId": "source-bili-bv1xsnyzqee8",
-      "externalUrl": "https://www.bilibili.com/video/BV1xsnyzqEe8/",
-      "description": "基本是目前我个人能力的极限，还是比较满意的。也算是集大成者了吧。\n条件简陋、水平不足，是这样的。\n简称……自我内卷？\n（2025.10.04换源，修正了一些问题）"
-    },
-    {
-      "id": "bili-personal-bv1sqntzwedv",
-      "title": "新的篇章，继续见证！淮北一中2025届运动会，敬请期待！",
-      "subtitle": "预告 · 个人频道",
-      "kind": "film",
-      "formatLabel": "预告",
-      "year": 2025,
-      "publishedAt": "2025-09-25",
-      "sourceAccount": "personal",
-      "mediaId": "embed-bili-bv1sqntzwedv",
-      "coverId": "cover-bili-bv1sqntzwedv",
-      "eventId": null,
-      "authorIds": [
-        "person-jky"
-      ],
-      "creditMemberIds": [
-        "person-jky"
-      ],
-      "credits": [
-        {
-          "role": "拍摄",
-          "name": "蒋凯阳",
-          "memberId": "person-jky",
-          "sourceId": "source-bili-bv1sqntzwedv",
-          "sourceDescription": ""
-        }
-      ],
-      "sourceId": "source-bili-bv1sqntzwedv",
-      "externalUrl": "https://www.bilibili.com/video/BV1sqntzWEDV/",
-      "description": "视频发布时间：\n开幕式快剪 9.29 12:00\n开幕式长片 9.29 14:00\n正赛集锦 9.30 14:00"
     },
     {
       "id": "bili-personal-bv1fpvtz4eyf",
@@ -6148,6 +5906,159 @@
       "sourceId": "source-bili-bv1ox421r7rp",
       "externalUrl": "https://www.bilibili.com/video/BV1ox421r7rp/",
       "description": "拍摄日期：2024.03.20\n设备：DJI Mini 3 Pro\n注：已获得飞行许可。"
+    },
+    {
+      "id": "sports-2025-videos",
+      "title": "2025年秋季运动会",
+      "subtitle": "全程回顾 · 预告 · 短片",
+      "kind": "replay",
+      "formatLabel": "全程回顾",
+      "year": 2025,
+      "publishedAt": "2025-09-30",
+      "sourceAccount": "mixed",
+      "mediaId": "embed-bili-bv1s3nkzqena",
+      "coverId": "cover-bili-bv1s3nkzqena",
+      "eventId": "sports-2025",
+      "authorIds": [],
+      "creditMemberIds": [
+        "person-wxn",
+        "person-gmj",
+        "person-gg",
+        "person-wzc",
+        "person-yjx",
+        "person-zyx",
+        "person-xke",
+        "person-lzh",
+        "person-wdc",
+        "person-jky"
+      ],
+      "credits": [
+        {
+          "role": "组织",
+          "name": "王小诺",
+          "memberId": "person-wxn",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
+        },
+        {
+          "role": "组织",
+          "name": "郭铭珺",
+          "memberId": "person-gmj",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
+        },
+        {
+          "role": "策划",
+          "name": "王小诺",
+          "memberId": "person-wxn",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
+        },
+        {
+          "role": "策划",
+          "name": "郭铭珺",
+          "memberId": "person-gmj",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
+        },
+        {
+          "role": "剪辑",
+          "name": "王小诺",
+          "memberId": "person-wxn",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
+        },
+        {
+          "role": "剪辑",
+          "name": "郭铭珺",
+          "memberId": "person-gmj",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺"
+        },
+        {
+          "role": "拍摄",
+          "name": "郭铭珺",
+          "memberId": "person-gmj",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
+        },
+        {
+          "role": "拍摄",
+          "name": "郭歌",
+          "memberId": "person-gg",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
+        },
+        {
+          "role": "拍摄",
+          "name": "王梓诚",
+          "memberId": "person-wzc",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
+        },
+        {
+          "role": "拍摄",
+          "name": "袁静希",
+          "memberId": "person-yjx",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
+        },
+        {
+          "role": "拍摄",
+          "name": "郑宇玹",
+          "memberId": "person-zyx",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹"
+        },
+        {
+          "role": "后勤",
+          "name": "肖可恩",
+          "memberId": "person-xke",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰"
+        },
+        {
+          "role": "后勤",
+          "name": "李卓翰",
+          "memberId": "person-lzh",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰"
+        },
+        {
+          "role": "后勤",
+          "name": "王东辰",
+          "memberId": "person-wdc",
+          "sourceId": "source-bili-bv1s3nkzqena",
+          "sourceDescription": "后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰"
+        },
+        {
+          "role": "拍摄",
+          "name": "蒋凯阳",
+          "memberId": "person-jky",
+          "sourceId": "source-bili-bv1sqntzwedv",
+          "sourceDescription": "预告《新的篇章，继续见证！》与短片《无体育，不淮一》为个人频道投稿，拍摄：蒋凯阳"
+        }
+      ],
+      "videos": [
+        {
+          "mediaId": "embed-bili-bv1s3nkzqena",
+          "label": "全程回顾 · 社团投稿",
+          "durationLabel": "1:34:27"
+        },
+        {
+          "mediaId": "embed-bili-bv1sqntzwedv",
+          "label": "预告《新的篇章，继续见证！》 · 个人频道",
+          "durationLabel": "0:28"
+        },
+        {
+          "mediaId": "embed-bili-bv1xsnyzqee8",
+          "label": "短片《无体育，不淮一》 · 个人频道",
+          "durationLabel": "1:01"
+        }
+      ],
+      "sourceId": "source-bili-bv1s3nkzqena",
+      "externalUrl": "https://www.bilibili.com/video/BV1S3nkzqEna/",
+      "description": "时间：2025.9.29 上午8:00-9:30\n设备：索尼ZV-E10M2  尼康Z30  佳能R50  DJI RS2 PRO\n组织、策划、剪辑：高二（21）班王小诺  高二（9）班郭铭珺 \n视频拍摄：高二（9）班郭铭珺  高二（3）班郭歌  高一（12）班王梓诚  高一（9）班袁静希  高一（17）班郑宇玹\n后勤：高二（10）班肖可恩  高一（14）班 李卓翰  高一（3）班王东辰\n感谢各位的辛苦付出！祝大家运动会玩的开心！"
     }
   ],
   "notes": [
