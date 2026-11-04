@@ -248,9 +248,9 @@ test('the root serves a real home page with no theme prefix, redirect or alterna
 
 test('bilibili import uses video ownership, excludes unrelated personal uploads and keeps existing works unique', () => {
   const imported = catalog.works.filter((work) => work.id.startsWith('bili-'));
-  assert.equal(imported.length, 55);
-  assert.equal(imported.filter((work) => work.sourceAccount === 'club').length, 40);
-  assert.equal(imported.filter((work) => work.sourceAccount === 'personal').length, 15);
+  assert.equal(imported.length, 38);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'club').length, 27);
+  assert.equal(imported.filter((work) => work.sourceAccount === 'personal').length, 11);
   for (const bvid of ['BV11AmZBpEWU', 'BV1XsSUY9E7b', 'BV1gs6JBuEav', 'BV18vNH64EnS', 'BV193dWBtEuN', 'BV15bfuBhErh', 'BV1GubDznET8', 'BV1b142197GN']) {
     assert.ok(!imported.some((work) => work.id.endsWith(bvid.toLowerCase())), bvid);
     assert.ok(!catalog.media.some((media) => media.bvid === bvid), bvid);
@@ -320,6 +320,67 @@ test('sports meeting videos merge into one work per year with real event pages',
   assert.ok(person.includes('/works/sports-2025-videos/'));
 });
 
+test('annual signature events merge per year with real event pages', () => {
+  const mergedIds = [
+    'psychodrama-2026-videos', 'psychodrama-2025-videos', 'psychodrama-2024-videos',
+    'gala-2026-videos', 'gala-2025-videos', 'gala-2024-videos',
+    'morning-run-2024',
+  ];
+  const pages = createSite(catalog);
+  for (const id of mergedIds) {
+    const work = catalog.works.find((item) => item.id === id);
+    assert.ok(work, id);
+    assert.ok(work.videos.length >= 2, id);
+    for (const video of work.videos) assert.ok(catalog.media.some((m) => m.id === video.mediaId), `${id}/${video.mediaId}`);
+    const html = pages.get(`/works/${work.id}/`);
+    assert.ok(html.includes('收录视频'), id);
+    for (const video of work.videos) {
+      const media = catalog.media.find((m) => m.id === video.mediaId);
+      assert.ok(html.includes(`bvid=${media.bvid}&`), `${id}/${media.bvid}`);
+    }
+  }
+  // Dissolved standalones are gone; their players only live in merged pages.
+  for (const id of ['bili-club-bv1qdev6neqz', 'bili-club-bv1jivubdepi', 'bili-club-bv1zd6vyvemj', 'bili-club-bv1qx4yeeek5', 'bili-personal-bv1bni3bnenc', 'bili-personal-bv1rnqzbyent']) {
+    assert.ok(!catalog.works.some((work) => work.id === id), id);
+    assert.ok(!pages.has(`/works/${id}/`), id);
+  }
+  // Event pages per year.
+  const checks = [
+    ['gala-2026', '2026年元旦文艺汇演', '2025-12-30', 'gala-2026-videos'],
+    ['gala-2025', '2025年元旦文艺汇演', '2024-12-30', 'gala-2025-videos'],
+    ['gala-2024', '2024年元旦文艺汇演', '2023-12-29', 'gala-2024-videos'],
+    ['psychodrama-2026', '第十二届校园心理剧大赛', '2026-04-22', 'psychodrama-2026-videos'],
+    ['psychodrama-2025', '第十一届校园心理剧大赛', '2025-04-09', 'psychodrama-2025-videos'],
+    ['psychodrama-2024', '第十届校园心理剧大赛', '2024-04-10', 'psychodrama-2024-videos'],
+  ];
+  for (const [eventId, title, date, workId] of checks) {
+    const event = catalog.events.find((ev) => ev.id === eventId);
+    assert.ok(event, eventId);
+    assert.equal(event.title, title);
+    assert.equal(event.date, date);
+    assert.deepEqual(event.workIds, [workId]);
+    const html = pages.get(`/events/${eventId}/`);
+    assert.ok(html.includes(title));
+    assert.ok(html.includes(`/works/${workId}/`));
+    assert.ok(html.includes('观看收录视频'));
+    assert.ok(html.includes('收录作品'));
+    assert.ok(!html.includes('现场配图'));
+  }
+  // The run merge stays a standalone work labelled 2024, without an event page.
+  const run = catalog.works.find((work) => work.id === 'morning-run-2024');
+  assert.equal(run.eventId, null);
+  assert.equal(run.year, 2024);
+  assert.equal(run.title, '2024年跑操');
+  // The 2026 gala keeps the full crew credits from the live shows plus the personal shorts.
+  const gala26 = catalog.works.find((work) => work.id === 'gala-2026-videos');
+  assert.ok(gala26.credits.some((credit) => credit.name === '王小诺' && credit.role === '社长'));
+  assert.ok(gala26.credits.some((credit) => credit.name === '蒋凯阳' && credit.role === '拍摄'));
+  // The 2025 gala keeps its eight-person camera team as credits.
+  const gala25 = catalog.works.find((work) => work.id === 'gala-2025-videos');
+  assert.equal(gala25.credits.filter((credit) => credit.role === '拍摄').length, 8);
+  assert.ok(gala25.credits.every((credit) => credit.sourceDescription.includes('拍摄组成员')));
+});
+
 test('multi-line descriptions keep every cross-line credit and teachers do not become members', () => {
   const sports = catalog.works.find((item) => item.id === 'bili-club-bv1uoy8ypete');
   const roleNames = (role) => sports.credits.filter((credit) => credit.role === role).map((credit) => credit.name);
@@ -331,9 +392,10 @@ test('multi-line descriptions keep every cross-line credit and teachers do not b
   assert.ok(teacher);
   assert.equal(teacher.memberId, null);
   assert.ok(!catalog.members.some((member) => member.name === '丁源老师'));
-  const newYear = catalog.works.find((item) => item.id === 'bili-club-bv1zd6vyvemj');
-  assert.equal(newYear.credits.filter((credit) => credit.role === '拍摄').length, 8);
-  assert.ok(newYear.credits.every((credit) => credit.sourceDescription.includes('拍摄组成员')));
+  const gala26 = catalog.works.find((item) => item.id === 'gala-2026-videos');
+  const teacher26 = gala26.credits.find((credit) => credit.name === '丁老师');
+  assert.ok(teacher26);
+  assert.equal(teacher26.memberId, null);
 });
 
 test('work pages show real cover, upload date, expandable original description, parts and visible credits', () => {
@@ -349,7 +411,7 @@ test('work pages show real cover, upload date, expandable original description, 
   const teaser = pages.get('/works/bili-club-bv1xz8u6jebc/');
   assert.ok(!teaser.includes('<h2>制作署名</h2>'), 'event crew does not imply credits on its teaser');
   const person = pages.get('/people/person-lrh/');
-  assert.ok(person.includes('/works/bili-club-bv1zd6vyvemj/'));
+  assert.ok(person.includes('/works/gala-2025-videos/'));
   assert.ok(person.includes('/works/bili-club-bv1uoy8ypete/') === false);
 });
 

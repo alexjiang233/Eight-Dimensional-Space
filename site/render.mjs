@@ -10,7 +10,10 @@ export const escape = (value) =>
     (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
   );
 const e = escape;
-const kinds = { film: '影片', replay: '直播回放', photos: '照片' };
+  const kinds = { film: '影片', replay: '直播回放', photos: '照片' };
+  // Directory order: newest upload first; works without a publication date
+  // fall back to their year. Stable for equal keys.
+  const byRecency = (a, b) => String(b.publishedAt || b.year || 0).localeCompare(String(a.publishedAt || a.year || 0));
 
 export function validateCatalog(data) {
   const collections = ['sources', 'media', 'members', 'events', 'works', 'notes', 'documents', 'stories'];
@@ -289,7 +292,7 @@ export function createSite(data, { base = '/' } = {}) {
       )
       .join(
         '',
-      )}<button type="button" class="mobile-filter" data-open-filter>筛选作品</button><span data-result-count>${data.works.length} 项作品</span></div><div class="work-list directory">${data.works.map((w) => workEntry(w, skin)).join('')}</div><p class="empty-results" hidden>当前分类没有作品。</p></section>`;
+      )}<button type="button" class="mobile-filter" data-open-filter>筛选作品</button><span data-result-count>${data.works.length} 项作品</span></div><div class="work-list directory">${[...data.works].sort(byRecency).map((w) => workEntry(w, skin)).join('')}</div><p class="empty-results" hidden>当前分类没有作品。</p></section>`;
   }
   function workPage(work, skin) {
     if (work.kind === 'photos' && work.galleryIds) return collection.photos(work, skin);
