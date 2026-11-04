@@ -1,6 +1,9 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+// JS is on: reveal styling may hide sections until they scroll into view.
+// Without JS everything stays visible (progressive enhancement).
+document.documentElement.dataset.js = '';
 const filmDialog = $('.film-dialog');
 const imageDialog = $('.image-dialog');
 const filterDialog = $('.filter-dialog');
@@ -9,14 +12,15 @@ const filterDialog = $('.filter-dialog');
 $$('[data-embed-part]').forEach((link) => {
   link.addEventListener('click', (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const player = $('.work-view .embed-player iframe');
+    const scope = link.closest('.work-video-item') || document.querySelector('.work-view');
+    const player = scope?.querySelector('.embed-player iframe');
     if (!player) return;
     event.preventDefault();
     const src = new URL(player.src);
     src.searchParams.set('page', link.dataset.embedPart);
     src.searchParams.set('autoplay', '0');
     player.src = src.href;
-    $$('[data-embed-part]').forEach((item) => {
+    link.closest('.work-parts').querySelectorAll('[data-embed-part]').forEach((item) => {
       if (item === link) item.setAttribute('aria-current', 'true');
       else item.removeAttribute('aria-current');
     });
@@ -248,6 +252,53 @@ $$('[data-year]').forEach((button) =>
   }),
 );
 
+// Series year switcher on the events index: swapping to a newer year slides
+// the card in from the right, an earlier year from the left.
+$$('[data-series-year]').forEach((button) =>
+  button.addEventListener('click', (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (button.getAttribute('aria-current') === 'true') return;
+    const block = button.closest('.series-block');
+    const card = block.querySelector('[data-series-card]');
+    if (!card) return;
+    const active = block.querySelector('[data-series-year][aria-current="true"]');
+    const forward = Number(button.dataset.year) > Number(active?.dataset.year);
+    const image = card.querySelector('[data-series-image]');
+    image.src = button.dataset.src;
+    image.alt = button.dataset.alt;
+    image.width = Number(button.dataset.width);
+    image.height = Number(button.dataset.height);
+    card.href = button.dataset.href;
+    card.querySelector('[data-series-title]').textContent = button.dataset.title;
+    card.querySelector('[data-series-date]').textContent = button.dataset.date;
+    block
+      .querySelectorAll('[data-series-year]')
+      .forEach((b) => b.setAttribute('aria-current', String(b === button)));
+    if (reduce.matches) return;
+    card.classList.remove('swipe-forward', 'swipe-back');
+    void card.offsetWidth; // restart the animation
+    card.classList.add(forward ? 'swipe-forward' : 'swipe-back');
+  }),
+);
+
+// Scroll reveal: each marked section rises once when it enters the viewport.
+if ('IntersectionObserver' in window) {
+  const reveal = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-visible');
+        reveal.unobserve(entry.target);
+      }
+    },
+    { rootMargin: '0px 0px -8% 0px' },
+  );
+  $$('[data-reveal]').forEach((el) => reveal.observe(el));
+} else {
+  $$('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
+}
+
 const menu = $('.menu-toggle');
 menu.hidden = false;
 menu.addEventListener('click', () => {
@@ -263,6 +314,11 @@ if ($('.filter-bar')) {
     items.forEach((item) => {
       item.hidden = kind !== 'all' && item.dataset.kind !== kind;
       if (!item.hidden) count++;
+    });
+    // A year group with no visible entries hides its marker too.
+    $$('.works-year-group').forEach((group) => {
+      group.hidden =
+        kind !== 'all' && ![...group.querySelectorAll('.work-entry')].some((item) => !item.hidden);
     });
     $$('[data-filter]').forEach((b) =>
       b.setAttribute('aria-pressed', String(b.dataset.filter === kind)),
