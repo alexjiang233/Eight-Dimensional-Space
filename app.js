@@ -271,21 +271,23 @@ $$('.series-block').forEach(block => {
   }));
 });
 
-// Scroll reveal: each marked section rises once when it enters the viewport.
+// Scroll reveal: marked blocks rise when they enter the viewport and reset
+// once they leave below, so scrolling back replays them (single-direction
+// reversible). Leaving through the top keeps them settled. Stagger containers
+// hold the mark for their children instead of the block itself.
 if ('IntersectionObserver' in window) {
   const reveal = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add('is-visible');
-        reveal.unobserve(entry.target);
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        else if (entry.boundingClientRect.top > 0) entry.target.classList.remove('is-visible');
       }
     },
     { rootMargin: '0px 0px -8% 0px' },
   );
-  $$('[data-reveal]').forEach((el) => reveal.observe(el));
+  $$('[data-reveal], [data-reveal-stagger]').forEach((el) => reveal.observe(el));
 } else {
-  $$('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
+  $$('[data-reveal], [data-reveal-stagger]').forEach((el) => el.classList.add('is-visible'));
 }
 
 const menu = $('.menu-toggle');
