@@ -188,12 +188,21 @@ export interface Catalog {
     promoWorkId: Id;
     heroStillId: Id;
     heroVideoId: Id;
+    homeSelection: Id[];
+    introduction: {
+      about: {
+        lead: string;
+        intro: string;
+        sections: { id: Id; title: string; deck?: string; paragraphs: string[] }[];
+      };
+    };
   };
   sources: Source[];
   appointments?: { memberId: Id; cohortLabel: string; role: string; sourceId: Id }[];
   media: (Photo | Film | Embed)[];
   members: Member[];
   series: EventSeries[];
+  eventGroups: { id: Id; title: string; seriesIds: Id[] }[];
   events: Event[];
   works: Work[];
   notes: Note[];

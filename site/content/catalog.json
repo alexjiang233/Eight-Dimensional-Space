@@ -8,7 +8,47 @@
     "featuredEventId": "military-2026",
     "promoWorkId": "promo-2026",
     "heroStillId": "promo-hero-still",
-    "heroVideoId": "promo-cover-loop"
+    "heroVideoId": "promo-cover-loop",
+    "introduction": {
+      "about": {
+        "lead": "我们把校园里的活动拍下来，也把怎么拍、怎么合作写下来。",
+        "intro": "八维空间是淮北一中的摄影社。照片、视频和直播，是我们参与校园生活的方式。",
+        "sections": [
+          {
+            "id": "technique",
+            "title": "技术为本",
+            "deck": "方法写下来，下一届能接着用。",
+            "paragraphs": [
+              "一场活动从看场地开始。机位摆在哪、画面怎么接、声音怎么留，先在现场想清楚，再动手。",
+              "做完不算结束。教程和复盘把方法写下来，也把没解决的问题留在那里，下一届不用从零试起。"
+            ]
+          },
+          {
+            "id": "companions",
+            "title": "一起做事",
+            "deck": "一场活动，需要很多人一起完成。",
+            "paragraphs": [
+              "社团里年级不同、擅长的方向也不同。有人拍照片，有人管直播，有人剪片，现场缺哪一环就补哪一环。",
+              "暑假的群里，问题总有人接；新人刚来，也有人带着认识大家。毕业的成员有空还会回来，或远程帮着看一份方案。"
+            ]
+          },
+          {
+            "id": "continuity",
+            "title": "换届以后",
+            "deck": "人换了，记录和联系还在。",
+            "paragraphs": [
+              "新一届可以接着做，也可以改。活动怎么办、资料放在哪，尽量留下清楚的记录。",
+              "毕业后的成员还会回来拍一场，或远程看一眼方案。联系不断，经验也就还在。"
+            ]
+          }
+        ]
+      }
+    },
+    "homeSelection": [
+      "campus-photos",
+      "gala-2026-videos",
+      "bili-club-bv1pjrrb8emf"
+    ]
   },
   "sources": [
     {
@@ -721,94 +761,6 @@
         "iso": "125",
         "focal": "50 mm",
         "date": "2025-09-30 11:04"
-      },
-      "publicationStatus": "approved"
-    },
-    {
-      "id": "photo-work-tripod",
-      "kind": "image",
-      "src": "/photos/display/work-tripod.jpg",
-      "width": 7728,
-      "height": 5152,
-      "alt": "一名同学站在摄像机三脚架旁。",
-      "caption": "会场",
-      "sourceId": "source-photo-selection",
-      "capturedAt": "2024-12-30 16:13",
-      "photographer": null,
-      "exif": {
-        "camera": "FUJIFILM X-T50",
-        "lens": "XF16-50mmF2.8-4.8 R LM WR",
-        "shutter": "1/120 s",
-        "aperture": "f/4.8",
-        "iso": "12800",
-        "focal": "50 mm",
-        "date": "2024-12-30 16:13"
-      },
-      "publicationStatus": "approved"
-    },
-    {
-      "id": "photo-work-edit",
-      "kind": "image",
-      "src": "/photos/display/work-edit.jpg",
-      "width": 7728,
-      "height": 5152,
-      "alt": "两名同学在笔记本电脑前看素材。",
-      "caption": "会场 / 电脑前",
-      "sourceId": "source-photo-selection",
-      "capturedAt": "2024-12-30 11:09",
-      "photographer": null,
-      "exif": {
-        "camera": "FUJIFILM X-T50",
-        "lens": "XF16-50mmF2.8-4.8 R LM WR",
-        "shutter": "1/50 s",
-        "aperture": "f/4.5",
-        "iso": "6400",
-        "focal": "44.5 mm",
-        "date": "2024-12-30 11:09"
-      },
-      "publicationStatus": "approved"
-    },
-    {
-      "id": "photo-work-camera",
-      "kind": "image",
-      "src": "/photos/display/work-camera.jpg",
-      "width": 7728,
-      "height": 5152,
-      "alt": "两名同学在会场里举着相机。",
-      "caption": "机位",
-      "sourceId": "source-photo-selection",
-      "capturedAt": "2024-12-30 11:09",
-      "photographer": null,
-      "exif": {
-        "camera": "FUJIFILM X-T50",
-        "lens": "XF16-50mmF2.8-4.8 R LM WR",
-        "shutter": "1/100 s",
-        "aperture": "f/3",
-        "iso": "2500",
-        "focal": "18.5 mm",
-        "date": "2024-12-30 11:09"
-      },
-      "publicationStatus": "approved"
-    },
-    {
-      "id": "photo-work-review",
-      "kind": "image",
-      "src": "/photos/display/work-review.jpg",
-      "width": 7728,
-      "height": 5152,
-      "alt": "几名同学在看台前看相机和电脑。",
-      "caption": "看素材",
-      "sourceId": "source-photo-selection",
-      "capturedAt": "2024-12-30 11:39",
-      "photographer": null,
-      "exif": {
-        "camera": "FUJIFILM X-T50",
-        "lens": "XF16-50mmF2.8-4.8 R LM WR",
-        "shutter": "1/100 s",
-        "aperture": "f/3.8",
-        "iso": "6400",
-        "focal": "33.3 mm",
-        "date": "2024-12-30 11:39"
       },
       "publicationStatus": "approved"
     },
@@ -3368,7 +3320,7 @@
       "id": "plaza-2025",
       "title": "2025年广场音乐节",
       "fullTitle": "2025年广场音乐节",
-      "seriesId": "plaza-concert",
+      "seriesId": "music-festival",
       "year": 2025,
       "date": "2025-03-21",
       "place": null,
@@ -3395,7 +3347,7 @@
       "id": "plaza-2026",
       "title": "2026年学科节·广场音乐会",
       "fullTitle": "2026年学科节·广场音乐会",
-      "seriesId": "plaza-concert",
+      "seriesId": "music-festival",
       "year": 2026,
       "date": "2026-05-09",
       "place": null,
@@ -3659,18 +3611,14 @@
     {
       "id": "working-photos",
       "title": "拍摄现场",
-      "subtitle": "会场、机位与工作台",
+      "subtitle": "器材与工作现场",
       "kind": "photos",
       "year": null,
       "yearLabel": "2024",
       "mediaId": null,
-      "coverId": "photo-work-tripod",
+      "coverId": "photo-work-gear",
       "eventId": null,
       "galleryIds": [
-        "photo-work-tripod",
-        "photo-work-edit",
-        "photo-work-camera",
-        "photo-work-review",
         "photo-work-gear",
         "photo-work-screen"
       ],
@@ -6394,14 +6342,37 @@
       "summary": "课本搬上舞台，三年公演记录。"
     },
     {
-      "id": "plaza-concert",
-      "title": "广场音乐会",
-      "summary": "春天广场上的露天舞台，高一高二场与学科节专场。"
+      "id": "music-festival",
+      "title": "音乐节",
+      "summary": "校园音乐节与广场音乐会的现场记录。"
+    }
+  ],
+  "eventGroups": [
+    {
+      "id": "annual",
+      "title": "运动会与汇演",
+      "seriesIds": [
+        "sports",
+        "gala"
+      ]
     },
     {
-      "id": "music-festival",
-      "title": "校园音乐节",
-      "summary": "夏季音乐节的直播与回放。"
+      "id": "theatre",
+      "title": "剧场",
+      "seriesIds": [
+        "psychodrama",
+        "classroom-drama"
+      ]
+    },
+    {
+      "id": "music-dance",
+      "title": "音乐与舞蹈",
+      "seriesIds": [
+        "music-festival",
+        "random-dance",
+        "chorus",
+        "sinoaus-concert"
+      ]
     }
   ]
 }

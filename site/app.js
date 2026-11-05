@@ -252,35 +252,24 @@ $$('[data-year]').forEach((button) =>
   }),
 );
 
-// Series year switcher on the events index: swapping to a newer year slides
-// the card in from the right, an earlier year from the left.
-$$('[data-series-year]').forEach((button) =>
-  button.addEventListener('click', (event) => {
+// A year may contain several events. Without JS every record remains visible.
+$$('.series-block').forEach(block => {
+  const buttons = [...block.querySelectorAll('[data-series-year]')];
+  const panels = [...block.querySelectorAll('[data-series-panel]')];
+  const selectYear = year => {
+    panels.forEach(panel => { panel.hidden = panel.dataset.year !== year; });
+    buttons.forEach(button => button.setAttribute('aria-current', String(button.dataset.year === year)));
+  };
+  if (!buttons.length) return;
+  selectYear(buttons[0].dataset.year);
+  block.classList.add('series-enhanced');
+  buttons.forEach(button => button.addEventListener('click', event => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     if (button.getAttribute('aria-current') === 'true') return;
-    const block = button.closest('.series-block');
-    const card = block.querySelector('[data-series-card]');
-    if (!card) return;
-    const active = block.querySelector('[data-series-year][aria-current="true"]');
-    const forward = Number(button.dataset.year) > Number(active?.dataset.year);
-    const image = card.querySelector('[data-series-image]');
-    image.src = button.dataset.src;
-    image.alt = button.dataset.alt;
-    image.width = Number(button.dataset.width);
-    image.height = Number(button.dataset.height);
-    card.href = button.dataset.href;
-    card.querySelector('[data-series-title]').textContent = button.dataset.title;
-    card.querySelector('[data-series-date]').textContent = button.dataset.date;
-    block
-      .querySelectorAll('[data-series-year]')
-      .forEach((b) => b.setAttribute('aria-current', String(b === button)));
-    if (reduce.matches) return;
-    card.classList.remove('swipe-forward', 'swipe-back');
-    void card.offsetWidth; // restart the animation
-    card.classList.add(forward ? 'swipe-forward' : 'swipe-back');
-  }),
-);
+    selectYear(button.dataset.year);
+  }));
+});
 
 // Scroll reveal: each marked section rises once when it enters the viewport.
 if ('IntersectionObserver' in window) {

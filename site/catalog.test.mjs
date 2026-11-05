@@ -62,7 +62,7 @@ test('dangling content references and duplicate identities stop generation', () 
 test('photo collections keep original metadata and management credits do not imply event attendance', () => {
   const pages = createSite(catalog);
   const photos = catalog.media.filter(m => m.sourceId === 'source-photo-selection');
-  assert.equal(photos.length, 15);
+  assert.equal(photos.length, 11);
   assert.ok(photos.every(m => m.exif && m.photographer === null && !('source' in m) && !('sha256' in m)));
   const collection = pages.get('/works/campus-photos/');
   assert.match(collection, /data-exif=/);
@@ -322,7 +322,7 @@ test('sports meeting videos merge into one work per year with real event pages',
 test('recurring activities group into series with merged recordings and year switchers', () => {
   const pages = createSite(catalog);
   // Nine series cover the recurring activities; standalone records stay out.
-  assert.equal(catalog.series.length, 9);
+  assert.equal(catalog.series.length, 8);
   const seriesEvents = catalog.events.filter((ev) => ev.seriesId);
   assert.equal(seriesEvents.length, 23);
   for (const s of catalog.series) assert.ok(seriesEvents.some((ev) => ev.seriesId === s.id), s.id);
@@ -372,7 +372,7 @@ test('recurring activities group into series with merged recordings and year swi
   const index = pages.get('/events/');
   for (const s of catalog.series) assert.ok(index.includes(`id="series-${s.id}"`), s.id);
   assert.ok(index.includes('data-series-year'));
-  assert.ok(index.includes('单场记录'));
+  assert.ok(index.includes('其他现场'));
   // Event pages carry same-series year navigation with the current year marked.
   const gala2025 = pages.get('/events/gala-2025/');
   assert.ok(gala2025.includes('event-series-years'));
@@ -524,13 +524,25 @@ test('the work directory filters every imported film and replay without pushing 
   for (const year of ['2026', '2025', '2024']) assert.ok(directory.includes(`<p class="works-year">${year}</p>`), year);
   assert.ok(catalog.works.filter((work) => work.kind === 'replay' && work.id.startsWith('bili-')).length > 10);
   const home = pages.get('/');
-  // The homepage reads as three acts with the manifesto, not a directory:
-  // full-bleed live moment, quiet asymmetric pair, group-photo finale.
-  for (const line of ['拍下每一次热闹，', '记住每一张脸。']) assert.ok(home.includes(line), line);
-  for (const title of ['军训总结大会', '镜头前后，都有我们的身影。', '收工前，总有一张合影。']) assert.ok(home.includes(title), title);
-  assert.ok(home.includes('act-stage'));
-  assert.ok(home.includes('act-quiet'));
-  assert.ok(home.includes('act-finale'));
+  // Featured works come before the real production excerpt and full guides.
+  for (const title of ['技术为本', '精选作品', '全程回顾制作指南', '如何完成一场活动直播？']) assert.ok(home.includes(title), title);
+  for (const target of ['/notes/broadcast-guide/', '/notes/full-review-guide/', '/events/military-2026/#execution', '/people/']) assert.ok(home.includes(target), target);
+  assert.ok(!home.includes('现场用什么'));
+  assert.ok(!home.includes('home-together'));
+  assert.ok(!home.includes('photo-together-stand'));
+  assert.ok(!home.includes('photo-cover-group'));
+  assert.ok(!home.includes('索尼 a7m5'));
+  assert.ok(home.includes('/media/article-06.jpg'));
+  assert.ok(!home.includes('也是朋友'));
+  assert.ok(!home.includes('home-culture'));
+  assert.ok(!home.includes('craft-chain'));
+  assert.ok(home.indexOf('home-selection-grid') < home.indexOf('home-tech-grid'));
+  for (const id of catalog.site.homeSelection) assert.ok(home.includes(`/works/${id}/`));
+  assert.ok(home.includes(catalog.stories.find(s => s.id === 'military-2026').execution[1].text));
+  assert.ok(!home.includes('culture-lines'));
+  assert.equal((home.match(/class="home-guide"/g) || []).length, 2);
+  for (const old of ['act-stage', 'act-quiet', 'act-finale']) assert.ok(!home.includes(old));
+  assert.ok(!home.includes('一年一年'));
   assert.ok(home.includes('home-trail'));
   assert.ok(home.includes('观看宣传片'));
   assert.ok(!home.includes('slate-no'));
@@ -551,7 +563,8 @@ test('the work directory filters every imported film and replay without pushing 
   assert.ok(!people.includes('参与制作'));
   assert.ok(!people.includes('name-wall'));
   // The 传承 tagline lives here; the rejected 做事有章法 line never returns.
-  assert.ok(people.includes('一年一年，快门不停。'));
+  assert.ok(people.includes('<h1>一年一年</h1>'));
+  assert.ok(!people.includes('镜头后的人'));
   assert.ok(!people.includes('做事有章法'));
   assert.ok(people.includes('李若浩'));
   for (const m of catalog.members) {
@@ -632,4 +645,63 @@ test('multi-session dates and management confirmation retain their own factual s
   }
   assert.ok(catalog.appointments.every((a) => a.sourceId === 'source-club-management-confirmation'));
   assert.equal(catalog.sources.find((s) => s.id === 'source-club-management-confirmation').publishedAt, '2026-11-04');
+});
+
+
+test('music series keeps all four events and both 2026 records in the same year panel', () => {
+  const events = catalog.events.filter(ev => ev.seriesId === 'music-festival');
+  assert.deepEqual(events.map(ev => ev.id).sort(), ['music-fest-2024', 'music-fest-2026', 'plaza-2025', 'plaza-2026']);
+  assert.ok(!catalog.series.some(s => s.id === 'plaza-concert'));
+  const pages = createSite(catalog);
+  const block = pages.get('/events/').split('id="series-music-festival"')[1].split('</section>')[0];
+  assert.equal((block.match(/data-series-year data-year="2026"/g) || []).length, 1);
+  const panel = block.split('id="music-festival-2026"')[1].split('id="music-festival-2025"')[0];
+  for (const id of ['plaza-2026', 'music-fest-2026']) {
+    assert.ok(panel.includes(`/events/${id}/`));
+    assert.ok(pages.has(`/events/${id}/`));
+  }
+  assert.ok(!panel.includes(' hidden'), 'all events remain reachable without JavaScript');
+  for (const id of ['plaza-2026', 'music-fest-2026']) {
+    const html = pages.get(`/events/${id}/`);
+    assert.ok(html.includes('2026 · 2026年学科节·广场音乐会'));
+    assert.ok(html.includes('2026 · 2026年音乐节'));
+  }
+});
+
+
+test('activity categories define a complete stable series order without changing event years', () => {
+  assert.deepEqual(catalog.eventGroups.map(g => g.seriesIds), [['sports','gala'],['psychodrama','classroom-drama'],['music-festival','random-dance','chorus','sinoaus-concert']]);
+  const html = createSite(catalog).get('/events/');
+  const markers = catalog.eventGroups.flatMap(g => [`id="group-${g.id}"`, ...g.seriesIds.map(id => `id="series-${id}"`)]);
+  for (let i = 1; i < markers.length; i++) assert.ok(html.indexOf(markers[i]) > html.indexOf(markers[i - 1]), markers[i]);
+  const bad = structuredClone(catalog);
+  bad.eventGroups[0].seriesIds.push('psychodrama');
+  assert.throws(() => validateCatalog(bad), /Duplicate grouped series/);
+  const missing = structuredClone(catalog);
+  missing.eventGroups[0].seriesIds.pop();
+  assert.throws(() => validateCatalog(missing), /Ungrouped series/);
+});
+
+test('about introduces technique, relationships and continuity without old onboarding or photos', () => {
+  const html = createSite(catalog).get('/about/');
+  for (const section of catalog.site.introduction.about.sections) {
+    assert.ok(html.includes(`id="${section.id}"`));
+    for (const p of section.paragraphs) assert.ok(html.includes(p));
+  }
+  // Real guides, work photos and the collaboration record carry the page.
+  for (const target of ['/notes/broadcast-guide/', '/notes/full-review-guide/', '/events/military-2026/#crew']) assert.ok(html.includes(target), target);
+  for (const asset of ['work-screen.jpg', 'work-gear.jpg']) assert.ok(html.includes(asset), asset);
+  assert.ok(html.includes('about-role-grid'));
+  assert.ok(html.includes('about-recurring'));
+  assert.ok(!html.includes('怎么开始'));
+  assert.ok(!html.includes('一年一年'));
+  assert.ok(!html.includes('photo-cover-group'));
+});
+
+
+test('withdrawn monochrome photos leave every page and collection', () => {
+  const names = ['work-tripod','work-edit','work-camera','work-review'];
+  for (const name of names) assert.ok(!catalog.media.some(m => m.id === `photo-${name}`));
+  assert.deepEqual(catalog.works.find(w => w.id === 'working-photos').galleryIds, ['photo-work-gear','photo-work-screen']);
+  for (const [route, html] of createSite(catalog)) for (const name of names) assert.ok(!html.includes(`${name}.jpg`), `${route}: ${name}`);
 });

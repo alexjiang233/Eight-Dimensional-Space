@@ -30,6 +30,18 @@ export function validateCatalog(data) {
   const ref = (name, id) => {
     if (id && !indexes[name].has(id)) throw new Error(`Missing ${name}: ${id}`);
   };
+  const groupedSeries = new Set();
+  const groupIds = new Set();
+  for (const group of data.eventGroups || []) {
+    if (!/^[a-z0-9-]+$/.test(group.id) || groupIds.has(group.id)) throw new Error(`Invalid/duplicate event group: ${group.id}`);
+    groupIds.add(group.id);
+    for (const id of group.seriesIds) {
+      ref('series', id);
+      if (groupedSeries.has(id)) throw new Error(`Duplicate grouped series: ${id}`);
+      groupedSeries.add(id);
+    }
+  }
+  for (const series of data.series) if (!groupedSeries.has(series.id)) throw new Error(`Ungrouped series: ${series.id}`);
   for (const appointment of data.appointments || []) {
     ref('members', appointment.memberId);
     ref('sources', appointment.sourceId);
@@ -107,6 +119,8 @@ export function validateCatalog(data) {
     ref('sources', note.sourceId);
     for (const section of note.sections) ref('media', section.imageId);
   }
+  if (!data.site.homeSelection?.length || new Set(data.site.homeSelection).size !== data.site.homeSelection.length) throw new Error('Invalid home selection');
+  for (const id of data.site.homeSelection) ref('works', id);
   ref('events', data.site.featuredEventId);
   ref('works', data.site.promoWorkId);
   ref('media', data.site.heroStillId);
@@ -284,7 +298,7 @@ export function createSite(data, { base = '/' } = {}) {
     const loopMedia = get('media', data.site.heroVideoId);
     const video = `<video class="hero-video" data-hero-video data-src="${e(withBase(loopMedia.src))}" poster="${e(withBase(stillMedia.src))}" width="${loopMedia.width}" height="${loopMedia.height}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>`;
     const identity = `<h1><span>八维空间</span><span class="club-name">摄影社</span></h1>${filmButton(skin)}`;
-    const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#manifest">看作品与活动</a><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
+    const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#manifest">看精选作品</a><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
     return collection.home(hero, skin);
   }
 
@@ -292,7 +306,7 @@ export function createSite(data, { base = '/' } = {}) {
   const seriesNavigation = (event, skin) => {
     const s = get('series', event.seriesId);
     const siblings = data.events.filter((ev) => ev.seriesId === event.seriesId).sort((a, b) => b.year - a.year);
-    return `<div class="event-series"><a class="event-series-name" href="${url(skin, 'events')}#series-${e(s.id)}">${e(s.title)}</a><nav class="event-series-years" aria-label="同系列其他年份">${siblings.map((ev) => `<a href="${url(skin, 'events', ev.id)}"${ev.id === event.id ? ' class="is-current" aria-current="page"' : ''}>${ev.year}</a>`).join('')}</nav></div>`;
+    return `<div class="event-series"><a class="event-series-name" href="${url(skin, 'events')}#series-${e(s.id)}">${e(s.title)}</a><nav class="event-series-years" aria-label="同系列其他年份">${siblings.map((ev) => `<a href="${url(skin, 'events', ev.id)}"${ev.id === event.id ? ' class="is-current" aria-current="page"' : ''}>${ev.year}${siblings.filter(other => other.year === ev.year).length > 1 ? ` · ${e(ev.title)}` : ''}</a>`).join('')}</nav></div>`;
   };
 
   function eventPage(event, skin) {
@@ -301,44 +315,29 @@ export function createSite(data, { base = '/' } = {}) {
     return `<section class="event-intro section"><div class="event-title">${seriesNav}<p class="date-line">${e(eventDateLabel(event))}${event.place ? ` · ${e(event.place)}` : ''}</p><h1>${e(event.title)}</h1><p class="lead-copy">${e(event.summary)}</p>${facts(event)}<div class="action-row">${event.id === 'military-2026' ? `<a class="button" href="${url(skin, 'works', 'military-replay')}">观看回放</a><a href="#process">看制作现场</a>` : eventMainAction(event, skin)}</div></div>${figure(event.coverId, 'event-cover', 'hero')}</section>${eventWorks(event, skin)}${event.id === 'military-2026' ? `<div class="event-nav"><a href="#process">制作现场</a><a href="#cameras">四个机位</a><a href="#photos">现场配图</a><a href="#crew">参与者</a><a href="${url(skin, 'notes', 'military-review')}">制作复盘</a></div>${compare(event, skin)}<section class="camera-section section" id="cameras"><div class="section-head"><h2>四个机位，各有位置</h2><p>设备信息按复盘正文保留。</p></div><div class="camera-list">${(event.cameras || []).map((c) => `<article>${c.imageId ? figure(c.imageId, '', 'cameras') : `<div class="camera-equipment"><span>机位资料</span><strong>${e(c.label)}</strong><span>${e(c.equipment)}</span></div>`}<h3>${e(c.label)}</h3><p>${e(c.equipment)}</p></article>`).join('')}</div></section>` : ''}${event.galleryIds.length ? gallery(event) : ''}${event.contributions.length ? `<section class="people-section section" id="crew"><div class="section-head"><h2>本场参与者</h2><span>公开回放署名</span></div>${event.groupId ? figure(event.groupId, 'crew-photo', 'crew') : ''}${roster(event, skin)}<p class="source-caption">${e(event.creditsNote || '参与记录按实际来源列出。')} 名单不用于推断照片中的人物位置。</p></section>` : ''}${notesPreview(skin, event)}<section class="source-section section"><h2>来源与记录</h2><p>${e(get('sources', event.sourceId).title)}</p>${event.timeNote ? `<details><summary>活动时段的来源说明</summary><p>${e(event.timeLabel)}；${e(event.timeNote)}</p></details>` : ''}${sourceLink(event.sourceId)}</section>`;
   }
   // The events index reads as recurring series. A name index at the top jumps
-  // straight to any series; each series is a compact row with a year switcher
-  // (the swipe the user liked) over its cover and current-event title.
+  // straight to a compact series block; a year may contain several events.
   function eventsIndexPage(skin) {
-    const toc = data.series
-      .filter((s) => data.events.some((ev) => ev.seriesId === s.id))
-      .map((s) => `<a href="#series-${e(s.id)}">${e(s.title)}</a>`)
-      .join('');
-    const seriesBlocks = data.series
-      .map((s) => {
+    const toc = data.eventGroups.map(group => `<a href="#group-${e(group.id)}">${e(group.title)}</a>`).join('');
+    const renderSeries = s => {
         const events = data.events.filter((ev) => ev.seriesId === s.id).sort((a, b) => b.year - a.year);
         if (!events.length) return '';
-        const current = events[0];
-        const cover = get('media', current.coverId);
-        const yearButtons = events
-          .map((ev) => {
-            const m = get('media', ev.coverId);
-            return `<a href="${url(skin, 'events', ev.id)}" data-series-year data-year="${ev.year}" data-title="${e(ev.title)}" data-date="${e(eventDateLabel(ev))}" data-href="${url(skin, 'events', ev.id)}" data-src="${e(withBase(m.src))}" data-alt="${e(m.alt || m.caption)}" data-width="${m.width}" data-height="${m.height}" aria-current="${ev.id === current.id}">${ev.year}</a>`;
-          })
-          .join('');
+        const years = [...new Set(events.map(ev => ev.year))];
+        const yearButtons = years.map((year, i) => {
+          const ev = events.find(ev => ev.year === year);
+          return `<a href="${url(skin, 'events', ev.id)}" data-series-year data-year="${year}" aria-controls="${e(s.id)}-${year}" aria-current="${i === 0}">${year}</a>`;
+        }).join('');
+        const panels = years.map(year => `<div class="series-panel" id="${e(s.id)}-${year}" data-series-panel data-year="${year}"><p class="series-panel-year">${year}</p>${events.filter(ev => ev.year === year).map(ev => `<a class="series-card" href="${url(skin, 'events', ev.id)}"><span class="series-thumb">${img(ev.coverId, 'loading="lazy"')}</span><span class="series-card-copy"><strong>${e(ev.title)}</strong><span data-series-date>${e(eventDateLabel(ev))}</span></span></a>`).join('')}</div>`).join('');
         return `<section class="series-block" id="series-${e(s.id)}" data-reveal>
-          <header class="series-head">
-            <h2>${e(s.title)}</h2>
-            <div class="series-years" role="group" aria-label="按年份切换">${yearButtons}</div>
-            <p class="series-summary">${e(s.summary)}</p>
-          </header>
-          <a class="series-card" data-series-card href="${url(skin, 'events', current.id)}">
-            <span class="series-thumb"><img data-series-image src="${e(withBase(cover.src))}" width="${cover.width}" height="${cover.height}" alt="${e(cover.alt || cover.caption)}" loading="lazy"></span>
-            <span class="series-card-copy"><strong data-series-title>${e(current.title)}</strong><span data-series-date>${e(eventDateLabel(current))}</span></span>
-            <span class="series-card-cta">查看记录</span>
-          </a>
+          <header class="series-head"><h3>${e(s.title)}</h3><p class="series-summary">${e(s.summary)}</p><div class="series-years" role="group" aria-label="按年份切换">${yearButtons}</div></header>
+          <div class="series-panels">${panels}</div>
         </section>`;
-      })
-      .join('');
+    };
+    const grouped = data.eventGroups.map((group, index) => `<section class="event-group section${index % 2 ? ' event-group-reverse' : ''}" id="group-${e(group.id)}"><header class="event-group-heading"><h2>${e(group.title)}</h2></header><div class="series-index">${group.seriesIds.map(id => renderSeries(get('series', id))).join('')}</div></section>`).join('');
     const loners = data.events.filter((ev) => !ev.seriesId).sort((a, b) => b.year - a.year);
     const lonerBlocks = loners
       .map((ev) => `<a class="record-entry" data-reveal href="${url(skin, 'events', ev.id)}">${img(ev.coverId, 'loading="lazy"')}<div><p>${e(eventDateLabel(ev))}</p><h3>${e(ev.title)}</h3><p>${e(ev.summary)}</p></div></a>`)
       .join('');
-    return `<section class="page-intro section"><h1>活动</h1><p class="page-tagline">把现场交给我们</p></section><nav class="series-toc" aria-label="系列目录">${toc}</nav><div class="series-index">${seriesBlocks}</div>${lonerBlocks ? `<section class="section lone-events"><div class="section-head"><h2>单场记录</h2></div><div class="record-list">${lonerBlocks}</div></section>` : ''}`;
+    return `<section class="page-intro section events-intro"><h1>活动</h1><p class="page-tagline">把现场交给我们</p></section><nav class="series-toc" aria-label="系列目录">${toc}<a href="#group-other">其他现场</a></nav>${grouped}${lonerBlocks ? `<section class="section lone-events" id="group-other"><div class="section-head"><h2>其他现场</h2></div><div class="record-list">${lonerBlocks}</div></section>` : ''}`;
   }
   function worksPage(skin) {
     // The directory groups by year: the year marker is how the archive reads.
