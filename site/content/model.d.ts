@@ -43,6 +43,8 @@ export interface Embed {
 export interface Member {
   id: Id;
   name: string;
+  /** Personal-page URL name (JiangKaiyang); required for roster members. */
+  slug?: string;
   specialties: string[];
   cohort: string | null;
   portraitId: Id | null;
@@ -199,7 +201,6 @@ export interface Catalog {
       about: {
         lead: string;
         intro: string;
-        sections: { id: Id; title: string; deck?: string; paragraphs: string[] }[];
       };
     };
   };

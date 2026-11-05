@@ -47,6 +47,13 @@ export function validateCatalog(data) {
     ref('sources', appointment.sourceId);
     if (appointment.photoMediaId) ref('media', appointment.photoMediaId);
   }
+  const slugs = new Set();
+  for (const m of data.members) {
+    if (m.slug === undefined) continue;
+    if (!/^[A-Za-z][A-Za-z-]*$/.test(m.slug)) throw new Error(`Invalid member slug: ${m.id}`);
+    if (slugs.has(m.slug)) throw new Error(`Duplicate member slug: ${m.slug}`);
+    slugs.add(m.slug);
+  }
   for (const asset of data.media) {
     if (asset.kind === 'embed') {
       if (asset.platform !== 'bilibili' || !/^BV[0-9A-Za-z]{10}$/.test(asset.bvid))
@@ -158,6 +165,12 @@ export function createSite(data, { base = '/' } = {}) {
   const route = (skin, kind = '', id = '') =>
     `/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`;
   const featured = get('events', data.site.featuredEventId);
+  // Personal pages address people by name (JiangKaiyang), not by internal ids.
+  const memberSlug = (m) => {
+    if (!m.slug) throw new Error(`Member without slug: ${m.id}`);
+    return m.slug;
+  };
+  const personHref = (id, skin) => url(skin, 'people', memberSlug(get('members', id)));
   // Personal pages belong to the management roster (宣传片片尾署名) only;
   // everyone else stays a plain name inside crew lists and credits.
   const pageMembers = new Set((data.appointments || []).map((a) => a.memberId));
@@ -226,7 +239,7 @@ export function createSite(data, { base = '/' } = {}) {
     return `<section class="section work-credits"><div class="section-head"><h2>制作署名</h2></div><div class="credit-groups">${[...groups]
       .map(
         ([role, names]) =>
-          `<div><h3>${e(role)}</h3><p>${[...names.values()].map((credit) => credit.memberId && pageMembers.has(credit.memberId) ? `<a href="${url(skin, 'people', credit.memberId)}">${e(credit.name)}</a>` : `<span>${e(credit.name)}</span>`).join('、')}</p></div>`,
+          `<div><h3>${e(role)}</h3><p>${[...names.values()].map((credit) => credit.memberId && pageMembers.has(credit.memberId) ? `<a href="${personHref(credit.memberId, skin)}">${e(credit.name)}</a>` : `<span>${e(credit.name)}</span>`).join('、')}</p></div>`,
       )
       .join('')}</div>${sources.length ? `<details class="credit-source"><summary>署名依据</summary>${sources.map((line) => `<p>${e(line)}</p>`).join('')}</details>` : ''}</section>`;
   };
@@ -235,7 +248,7 @@ export function createSite(data, { base = '/' } = {}) {
       .map((c) => {
         const m = get('members', c.memberId);
         const name = pageMembers.has(m.id)
-          ? `<a class="person-name" href="${url(skin, 'people', m.id)}">${e(m.name)}</a>`
+          ? `<a class="person-name" href="${personHref(m.id, skin)}">${e(m.name)}</a>`
           : `<span class="person-name">${e(m.name)}</span>`;
         return `<div class="roster-item">${name}<span class="roster-role">${e(c.role)}</span></div>`;
       })
@@ -305,7 +318,7 @@ export function createSite(data, { base = '/' } = {}) {
     const still = `<img class="hero-still" src="${e(withBase(stillMedia.src))}" width="${stillMedia.width}" height="${stillMedia.height}" alt="${e(stillMedia.alt)}" loading="eager" fetchpriority="high">`;
     const loopMedia = get('media', data.site.heroVideoId);
     const video = `<video class="hero-video" data-hero-video data-src="${e(withBase(loopMedia.src))}" poster="${e(withBase(stillMedia.src))}" width="${loopMedia.width}" height="${loopMedia.height}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>`;
-    const identity = `<h1><span>八维空间</span><span class="club-name">摄影社</span></h1>${filmButton(skin)}`;
+    const identity = `<h1><span data-split>八维空间</span><span class="club-name" data-split>摄影社</span></h1>${filmButton(skin)}`;
     const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
     return collection.home(hero, skin);
   }
@@ -396,11 +409,15 @@ export function createSite(data, { base = '/' } = {}) {
     const events = data.events.filter(ev => ev.contributions.some(c => c.memberId === member.id));
     const works = data.works.filter(w => w.authorIds.includes(member.id) || w.creditMemberIds.includes(member.id));
     const appointments = (data.appointments || []).filter(a => a.memberId === member.id);
+    // A confirmed personal work portrait leads the page; group photos stay on
+    // the people page, never as someone's own lead image.
+    const portraitId = appointments.map(a => a.photoMediaId).find(Boolean);
+    const portrait = portraitId ? figure(portraitId, 'person-portrait', 'person') : '';
     const history = events.map(ev => {
       const c = ev.contributions.find(c => c.memberId === member.id);
       return `<article><p>${e(eventDateLabel(ev))}</p><h3><a href="${url(skin, 'events', ev.id)}">${e(ev.title)}</a></h3><p>${e(c.role)} · ${e(c.source)}</p>${c.detail ? `<p>${e(c.detail)}</p>` : ''}${c.note ? `<details><summary>职责来源说明</summary><p>${e(c.note)}</p></details>` : ''}</article>`;
     }).join('');
-    return `<section class="person-intro section"><div><p class="date-line">成员</p><h1>${e(member.name)}</h1>${appointments.map(a => `<p>${e(a.cohortLabel)}${a.role ? ` / ${e(a.role)}` : ''} · 管理层</p>`).join('')}<div class="specialties">${member.specialties.map(s => `<span>${e(s)}</span>`).join('')}</div></div>${events.length ? figure(featured.groupId, 'person-context', 'person') + '<p class="source-caption">军训团队合影</p>' : ''}</section>${history ? `<section class="section"><div class="section-head"><h2>参与过的现场</h2></div><div class="event-list">${history}</div></section>` : ''}${works.length ? `<section class="section"><div class="section-head"><h2>相关制作</h2></div><div class="work-list">${works.map(w => workEntry(w, skin)).join('')}</div></section>` : ''}`;
+    return `<section class="person-intro section"><div><p class="date-line">成员</p><h1>${e(member.name)}</h1>${appointments.map(a => `<p>${e(a.cohortLabel)}${a.role ? ` / ${e(a.role)}` : ''} · 管理层</p>`).join('')}<div class="specialties">${member.specialties.map(s => `<span>${e(s)}</span>`).join('')}</div></div>${portrait}</section>${history ? `<section class="section"><div class="section-head"><h2>参与过的现场</h2></div><div class="event-list">${history}</div></section>` : ''}${works.length ? `<section class="section"><div class="section-head"><h2>相关制作</h2></div><div class="work-list">${works.map(w => workEntry(w, skin)).join('')}</div></section>` : ''}`;
   }
 
   function notePage(note, skin) {
@@ -416,7 +433,7 @@ export function createSite(data, { base = '/' } = {}) {
       ['notes', '资料'],
       ['about', '关于'],
     ];
-    return `<!doctype html><html lang="zh-CN" class="skin-${skin}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="view-transition" content="same-origin"><title>${e(title)} · 八维空间</title><link rel="stylesheet" href="${withBase('/app.css')}"><link rel="stylesheet" href="${withBase(`/${skin}.css`)}"><script type="module" src="${withBase('/app.js')}"></script><noscript><style>.site-nav{display:flex!important;flex-wrap:wrap}.compare-choices,.year-buttons,.filter-bar button{display:none!important}</style></noscript></head><body class="page-${page.type}"><a class="skip" href="#main">跳到正文</a><header class="site-header"><a class="brand" href="${url(skin)}"><span>八维空间</span><small>淮北一中摄影社</small></a><nav class="site-nav" id="site-nav" aria-label="主导航">${nav.map(([key, label]) => `<a href="${url(skin, key)}" ${page.type === key ? 'aria-current="page"' : ''}>${label}</a>`).join('')}</nav><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>菜单</button></header><main id="main">${content}</main>${renderFooter(data, skin, { url, e })}<dialog class="image-dialog" aria-label="查看完整图片"><header><p data-image-caption></p><button type="button" data-close-dialog>关闭 ×</button></header><img class="large-image" alt=""><details class="image-metadata" hidden><summary>拍摄信息</summary><dl data-image-exif></dl></details><footer><button type="button" data-image-prev>上一幅</button><span data-image-count></span><button type="button" data-image-next>下一幅</button></footer></dialog><dialog class="film-dialog" aria-labelledby="film-title"><header><h2 id="film-title">摄影社宣传片</h2><button type="button" data-close-dialog>关闭 ×</button></header><div class="embed-player film-frame" data-src="${e(embedSrc(promoEmbed))}" data-title="${e(promoEmbed.title)}"></div><p class="embed-source">${sourceLink(promoWork.sourceId, "在哔哩哔哩打开")}</p></dialog><dialog class="filter-dialog" aria-labelledby="filter-title"><header><h2 id="filter-title">筛选作品</h2><button type="button" data-close-dialog>关闭 ×</button></header><form><fieldset><legend>作品类型</legend>${[
+    return `<!doctype html><html lang="zh-CN" class="skin-${skin}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="view-transition" content="same-origin"><title>${e(title)} · 八维空间</title><link rel="stylesheet" href="${withBase('/app.css')}"><link rel="stylesheet" href="${withBase(`/${skin}.css`)}"><script type="module" src="${withBase('/app.js')}"></script><noscript><style>.site-nav{display:flex!important;flex-wrap:wrap}.compare-choices,.year-buttons,.filter-bar button{display:none!important}</style></noscript></head><body class="page-${page.type}"><div class="splash" aria-hidden="true"><p class="splash-word"><span>八维空间</span></p><p class="splash-word splash-word-sub"><span>摄影社</span></p></div><a class="skip" href="#main">跳到正文</a><header class="site-header"><a class="brand" href="${url(skin)}"><span>八维空间</span><small>淮北一中摄影社</small></a><nav class="site-nav" id="site-nav" aria-label="主导航">${nav.map(([key, label]) => `<a href="${url(skin, key)}" ${page.type === key ? 'aria-current="page"' : ''}>${label}</a>`).join('')}</nav><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>菜单</button></header><main id="main">${content}</main>${renderFooter(data, skin, { url, e })}<dialog class="image-dialog" aria-label="查看完整图片"><header><p data-image-caption></p><button type="button" data-close-dialog>关闭 ×</button></header><img class="large-image" alt=""><details class="image-metadata" hidden><summary>拍摄信息</summary><dl data-image-exif></dl></details><footer><button type="button" data-image-prev>上一幅</button><span data-image-count></span><button type="button" data-image-next>下一幅</button></footer></dialog><dialog class="film-dialog" aria-labelledby="film-title"><header><h2 id="film-title">摄影社宣传片</h2><button type="button" data-close-dialog>关闭 ×</button></header><div class="embed-player film-frame" data-src="${e(embedSrc(promoEmbed))}" data-title="${e(promoEmbed.title)}"></div><p class="embed-source">${sourceLink(promoWork.sourceId, "在哔哩哔哩打开")}</p></dialog><dialog class="filter-dialog" aria-labelledby="filter-title"><header><h2 id="filter-title">筛选作品</h2><button type="button" data-close-dialog>关闭 ×</button></header><form><fieldset><legend>作品类型</legend>${[
       ['all', '全部'],
       ['photos', '照片'],
       ['film', '影片'],
@@ -450,7 +467,7 @@ export function createSite(data, { base = '/' } = {}) {
       add(route(skin, 'events', ev.id), 'events', ev.title, eventPage(ev, skin));
     for (const w of data.works) add(route(skin, 'works', w.id), 'works', w.title, workPage(w, skin));
     for (const m of data.members)
-      if (pageMembers.has(m.id)) add(route(skin, 'people', m.id), 'people', m.name, personPage(m, skin));
+      if (pageMembers.has(m.id)) add(route(skin, 'people', memberSlug(m)), 'people', m.name, personPage(m, skin));
     for (const n of data.notes) add(route(skin, 'notes', n.id), 'notes', n.title, notePage(n, skin));
   }
   return pages;

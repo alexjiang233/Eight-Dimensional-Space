@@ -35,7 +35,7 @@ for (const media of data.media) {
 if (assets) {
   const fontDir = join(output, 'fonts/fieldwork');
   await mkdir(fontDir, { recursive: true });
-  for (const name of ['sans.woff2', 'OFL.txt'])
+  for (const name of ['sans.woff2', 'serif.woff2', 'OFL.txt'])
     await copyFile(join(assets, 'fonts/fieldwork', name), join(fontDir, name));
 }
 const pages = createSite(data, { base });

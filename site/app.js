@@ -274,7 +274,8 @@ $$('.series-block').forEach(block => {
 // Scroll reveal: marked blocks rise when they enter the viewport and reset
 // once they leave below, so scrolling back replays them (single-direction
 // reversible). Leaving through the top keeps them settled. Stagger containers
-// hold the mark for their children instead of the block itself.
+// hold the mark for their children instead of the block itself, and split
+// titles play their characters one by one on the same signal.
 if ('IntersectionObserver' in window) {
   const reveal = new IntersectionObserver(
     (entries) => {
@@ -285,10 +286,104 @@ if ('IntersectionObserver' in window) {
     },
     { rootMargin: '0px 0px -8% 0px' },
   );
-  $$('[data-reveal], [data-reveal-stagger]').forEach((el) => reveal.observe(el));
+  $$('[data-reveal], [data-reveal-stagger], [data-split]').forEach((el) => reveal.observe(el));
 } else {
-  $$('[data-reveal], [data-reveal-stagger]').forEach((el) => el.classList.add('is-visible'));
+  $$('[data-reveal], [data-reveal-stagger], [data-split]').forEach((el) => el.classList.add('is-visible'));
 }
+
+// ===== Interaction pass: split titles, finder loupe and count-up stats. Desktop-fine-pointer extras skip touch devices
+// and reduced-motion users; every piece degrades to the plain site. =====
+
+// Opening curtain: every load plays it (CSS runs the animation); inside one
+// session the repeat is skipped, and reduced-motion users never see it.
+const splash = $('.splash');
+if (splash) {
+  if (sessionStorage.getItem('eds-splash') || reduce.matches) {
+    splash.remove();
+  } else {
+    sessionStorage.setItem('eds-splash', '1');
+    splash.addEventListener('animationend', (event) => {
+      if (event.target === splash) splash.remove();
+    });
+    setTimeout(() => splash.remove(), 3200);
+  }
+}
+
+// Split titles: characters become individually animated spans; the readable
+// text stays on aria-label. Runs before the observer so titles animate.
+$$('[data-split]').forEach((el) => {
+  const text = el.textContent;
+  el.setAttribute('aria-label', text);
+  el.textContent = '';
+  [...text].forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.className = 'split-ch';
+    s.textContent = ch;
+    s.setAttribute('aria-hidden', 'true');
+    s.style.setProperty('--ch-i', String(i));
+    el.append(s);
+  });
+});
+
+// Finder loupe: a small frame trails the pointer across the photo wall.
+const photoWall = $('.home-photo-cluster');
+if (photoWall && matchMedia('(pointer: fine)').matches && !reduce.matches) {
+  const loupe = document.createElement('div');
+  loupe.className = 'finder-loupe';
+  loupe.setAttribute('aria-hidden', 'true');
+  photoWall.append(loupe);
+  let x = 0;
+  let y = 0;
+  let cx = 0;
+  let cy = 0;
+  let running = false;
+  let raf = 0;
+  const loop = () => {
+    cx += (x - cx) * 0.18;
+    cy += (y - cy) * 0.18;
+    loupe.style.transform = `translate(${cx}px, ${cy}px)`;
+    raf = running ? requestAnimationFrame(loop) : 0;
+  };
+  photoWall.addEventListener('pointermove', (event) => {
+    const rect = photoWall.getBoundingClientRect();
+    x = event.clientX - rect.left;
+    y = event.clientY - rect.top;
+    if (!running) {
+      running = true;
+      cx = x;
+      cy = y;
+      loupe.classList.add('is-on');
+      raf = requestAnimationFrame(loop);
+    }
+  });
+  photoWall.addEventListener('pointerleave', () => {
+    running = false;
+    loupe.classList.remove('is-on');
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+  });
+}
+
+// Stats count up once, from zero, when the row scrolls into view.
+$$('[data-count]').forEach((el) => {
+  const end = Number(el.dataset.count);
+  if (!Number.isFinite(end) || reduce.matches || !('IntersectionObserver' in window)) return;
+  el.textContent = '0';
+  const io = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    io.disconnect();
+    const start = performance.now();
+    const duration = 1400;
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = String(Math.round(end * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, { rootMargin: '0px 0px -10% 0px' });
+  io.observe(el);
+});
 
 const menu = $('.menu-toggle');
 menu.hidden = false;

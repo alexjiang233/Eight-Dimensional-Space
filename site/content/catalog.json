@@ -12,36 +12,7 @@
     "introduction": {
       "about": {
         "lead": "我们把校园里的活动拍下来，也把怎么拍、怎么合作写下来。",
-        "intro": "八维空间是淮北一中的摄影社。照片、视频和直播，是我们参与校园生活的方式。",
-        "sections": [
-          {
-            "id": "technique",
-            "title": "技术为本",
-            "deck": "方法写下来，下一届能接着用。",
-            "paragraphs": [
-              "一场活动从看场地开始。机位摆在哪、画面怎么接、声音怎么留，先在现场想清楚，再动手。",
-              "做完不算结束。教程和复盘把方法写下来，也把没解决的问题留在那里，下一届不用从零试起。"
-            ]
-          },
-          {
-            "id": "companions",
-            "title": "一起做事",
-            "deck": "一场活动，需要很多人一起完成。",
-            "paragraphs": [
-              "社团里年级不同、擅长的方向也不同。有人拍照片，有人管直播，有人剪片，现场缺哪一环就补哪一环。",
-              "暑假的群里，问题总有人接；新人刚来，也有人带着认识大家。毕业的成员有空还会回来，或远程帮着看一份方案。"
-            ]
-          },
-          {
-            "id": "continuity",
-            "title": "换届以后",
-            "deck": "人换了，记录和联系还在。",
-            "paragraphs": [
-              "新一届可以接着做，也可以改。活动怎么办、资料放在哪，尽量留下清楚的记录。",
-              "毕业后的成员还会回来拍一场，或远程看一眼方案。联系不断，经验也就还在。"
-            ]
-          }
-        ]
+        "intro": "八维空间是淮北一中的摄影社。照片、视频和直播，是我们参与校园生活的方式。"
       }
     },
     "homeSelection": [
@@ -2813,7 +2784,8 @@
       ],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "JiangKaiyang"
     },
     {
       "id": "person-dwb",
@@ -2823,7 +2795,8 @@
       ],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "DuWenbo"
     },
     {
       "id": "person-lmg",
@@ -2833,7 +2806,8 @@
       ],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "LiMugeng"
     },
     {
       "id": "person-smj",
@@ -2843,7 +2817,8 @@
       ],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "SuMingjun"
     },
     {
       "id": "person-zyh",
@@ -2853,7 +2828,8 @@
       ],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "ZhengYuhan"
     },
     {
       "id": "person-why",
@@ -2871,7 +2847,8 @@
       "specialties": [],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "WangXiaonuo"
     },
     {
       "id": "person-gmj",
@@ -2879,7 +2856,8 @@
       "specialties": [],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "GuoMingjun"
     },
     {
       "id": "person-dxc",
@@ -2895,7 +2873,8 @@
       "specialties": [],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "PengJintian"
     },
     {
       "id": "person-wdc",
@@ -2967,7 +2946,8 @@
       "specialties": [],
       "cohort": null,
       "portraitId": null,
-      "bio": null
+      "bio": null,
+      "slug": "LiRuohao"
     },
     {
       "id": "person-fw",

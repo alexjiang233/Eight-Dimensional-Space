@@ -46,13 +46,13 @@
   color: #bbc5b5;
 }
 .skin-editorial .timeline {
-  background: #e9eadf;
+  background: var(--surface);
 }
 .skin-editorial .notes-preview {
-  background: #e9eadf;
+  background: var(--surface);
 }
 .skin-editorial .notes-preview .note-link {
-  background: #f4f4ee;
+  background: var(--deep);
 }
 .skin-editorial .page-home .works-section {
   padding-bottom: 80px;
@@ -61,30 +61,31 @@
   max-width: 15em;
 }
 .skin-editorial .work-image .type-label {
-  background: #f3f4f0e8;
+  background: rgba(13, 16, 11, 0.72);
+  color: #f0efe2;
 }
 .skin-editorial .event-intro {
-  background: #e9eadf;
+  background: var(--surface);
 }
 .skin-editorial .camera-section {
-  background: #e9eadf;
+  background: var(--surface);
 }
 .skin-editorial .gallery-section {
   padding-bottom: 65px;
 }
 .skin-editorial .crew-directory {
-  background: #e9eadf;
+  background: var(--surface);
 }
 .skin-editorial .person-intro {
-  background: #e9eadf;
+  background: var(--surface);
 }
 .skin-editorial .note-intro {
   max-width: none;
-  background: #e9eadf;
+  background: var(--surface);
 }
 .skin-editorial .page-notes .reading-nav a {
   padding-left: 15px;
-  border-left: 2px solid #c3cbbd;
+  border-left: 2px solid var(--line);
 }
 .skin-editorial .page-notes .reading-nav a:hover {
   border-color: var(--accent);
