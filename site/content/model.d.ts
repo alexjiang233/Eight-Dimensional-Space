@@ -189,6 +189,12 @@ export interface Catalog {
     heroStillId: Id;
     heroVideoId: Id;
     homeSelection: Id[];
+    /** Homepage photo strip: media ids shown directly on the work wall. */
+    homePhotoIds?: Id[];
+    /** Internal club lessons shown on the homepage; photo slots fill in as prints arrive. */
+    homeInternal?: { title: string; note: string; videoWorkId?: Id | null; photoMediaId?: Id | null }[];
+    /** Group photos on the people page, in capture order. */
+    peopleGroupPhotoIds?: Id[];
     introduction: {
       about: {
         lead: string;
@@ -198,7 +204,7 @@ export interface Catalog {
     };
   };
   sources: Source[];
-  appointments?: { memberId: Id; cohortLabel: string; role: string; sourceId: Id }[];
+  appointments?: { memberId: Id; cohortLabel: string; role: string; sourceId: Id; photoMediaId?: Id | null }[];
   media: (Photo | Film | Embed)[];
   members: Member[];
   series: EventSeries[];

@@ -45,9 +45,52 @@
       }
     },
     "homeSelection": [
-      "campus-photos",
-      "gala-2026-videos",
-      "bili-club-bv1pjrrb8emf"
+      "sports-2025-videos",
+      "psychodrama-2026-videos",
+      "military-replay"
+    ],
+    "homePhotoIds": [
+      "photo-see-campus",
+      "photo-scene-parade",
+      "photo-scene-window",
+      "photo-scene-spring",
+      "photo-see-track",
+      "photo-see-flower"
+    ],
+    "homeInternal": [
+      {
+        "title": "无人机讲座",
+        "note": "2024.11 · 三人分工：一人遥控、一人云台、一人掌机",
+        "videoWorkId": "bili-club-bv1fsznyhegy",
+        "photoMediaId": "photo-club-drone-side"
+      },
+      {
+        "title": "调色教程",
+        "note": "2025 · 后期调色课",
+        "videoWorkId": null,
+        "photoMediaId": null
+      },
+      {
+        "title": "破冰大会",
+        "note": "2026 · 新学期新成员",
+        "videoWorkId": null,
+        "photoMediaId": "photo-club-icebreaker"
+      }
+    ],
+    "homeSelectionMeta": {
+      "sports-2025-videos": {
+        "coverId": "cover-bili-bv1xsnyzqee8",
+        "title": "无体育，不淮一",
+        "tag": "集锦短片",
+        "href": "/works/sports-2025-videos/#video-bv1xsnyzqee8"
+      }
+    },
+    "homeInternalTitle": "",
+    "peopleGroupPhotoIds": [
+      "photo-staff-2324",
+      "photo-cover-group",
+      "photo-together-red",
+      "photo-group-dinner2026"
     ]
   },
   "sources": [
@@ -2504,6 +2547,260 @@
       "photographer": null,
       "exif": null,
       "publicationStatus": "public-source"
+    },
+    {
+      "id": "photo-scene-spring",
+      "kind": "image",
+      "src": "/photos/display/scene-spring.jpg",
+      "width": 6048,
+      "height": 4024,
+      "alt": "春天的教学楼前花枝低垂，两名同学驻足看花。",
+      "caption": "春 / 花与教学楼",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2025-03-26 17:39",
+      "photographer": null,
+      "exif": {
+        "camera": "NIKON CORPORATION NIKON Z 6",
+        "lens": "NIKKOR Z 24-200mm f/4-6.3 VR",
+        "shutter": "1/500 s",
+        "aperture": "f/6.3",
+        "iso": "500",
+        "focal": "180 mm",
+        "date": "2025-03-26 17:39"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-scene-window",
+      "kind": "image",
+      "src": "/photos/display/scene-window.jpg",
+      "width": 5165,
+      "height": 3443,
+      "alt": "绿枝探到教学楼的蓝框窗边。",
+      "caption": "窗边 / 绿枝",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2026-05-30 09:41",
+      "photographer": null,
+      "exif": {
+        "camera": "NIKON CORPORATION NIKON Z 30",
+        "lens": "56mm F1.4 DC DN | Contemporary 018",
+        "shutter": "1/1000 s",
+        "aperture": "f/2.8",
+        "iso": "125",
+        "focal": "56 mm",
+        "date": "2026-05-30 09:41"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-scene-parade",
+      "kind": "image",
+      "src": "/photos/display/scene-parade.jpg",
+      "width": 3024,
+      "height": 4032,
+      "alt": "军训操场上的队列与国旗。",
+      "caption": "操场 / 军训",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-08-17 18:14",
+      "photographer": null,
+      "exif": {
+        "camera": "DJI FC3582",
+        "lens": "",
+        "shutter": "1/320 s",
+        "aperture": "f/1.7",
+        "iso": "120",
+        "focal": "6.72 mm",
+        "date": "2024-08-17 18:14"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-club-drone-side",
+      "kind": "image",
+      "src": "/photos/display/club-drone-side.jpg",
+      "width": 4928,
+      "height": 3264,
+      "alt": "无人机讲座现场的侧拍，台下社员举着相机记录。",
+      "caption": "无人机讲座 / 侧拍",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-11-21",
+      "photographer": null,
+      "exif": {
+        "camera": "",
+        "lens": "",
+        "shutter": "1/160 s",
+        "aperture": "f/4.5",
+        "iso": "6400",
+        "focal": "72.5 mm",
+        "date": null
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-club-icebreaker",
+      "kind": "image",
+      "src": "/photos/display/club-icebreaker.jpg",
+      "width": 3970,
+      "height": 2642,
+      "alt": "破冰大会上的合影。",
+      "caption": "破冰大会 / 合影",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2026-10-30 18:04",
+      "photographer": null,
+      "exif": {
+        "camera": "Canon EOS R50",
+        "lens": "",
+        "shutter": "1/60 s",
+        "aperture": "f/4.5",
+        "iso": "2500",
+        "focal": "20 mm",
+        "date": "2026-10-30 18:04"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-club-drone-group",
+      "kind": "image",
+      "src": "/photos/display/club-drone-group.jpg",
+      "width": 6240,
+      "height": 4160,
+      "alt": "无人机讲座后社员的合影。",
+      "caption": "无人机讲座 / 合影",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-11-21 17:52",
+      "photographer": null,
+      "exif": {
+        "camera": "SONY ILCE-7RM4A",
+        "lens": "FE 24-105mm F4 G OSS",
+        "shutter": "1/200 s",
+        "aperture": "f/4",
+        "iso": "500",
+        "focal": "27 mm",
+        "date": "2024-11-21 17:52"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-club-icebreaker-crew",
+      "kind": "image",
+      "src": "/photos/display/club-icebreaker-crew.jpg",
+      "width": 6000,
+      "height": 4000,
+      "alt": "破冰大会的社员群像。",
+      "caption": "破冰大会 / 群像",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2026-10-30 18:12",
+      "photographer": null,
+      "exif": {
+        "camera": "Canon EOS R50",
+        "lens": "RF-S55-210mm F5-7.1 IS STM",
+        "shutter": "1/200 s",
+        "aperture": "f/5",
+        "iso": "6400",
+        "focal": "55 mm",
+        "date": "2026-10-30 18:12"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-staff-2324",
+      "kind": "image",
+      "src": "/photos/display/staff-2324.jpg",
+      "width": 2671,
+      "height": 1781,
+      "alt": "23+24 届管理层的合影。",
+      "caption": "23+24 届 / 管理层合影",
+      "sourceId": "source-photo-selection",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-group-dinner2026",
+      "kind": "image",
+      "src": "/photos/display/group-dinner2026.jpg",
+      "width": 4064,
+      "height": 2384,
+      "alt": "2026 年 6 月管理层在食堂的聚餐合影。",
+      "caption": "管理层聚餐 / 合影",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2026-06-10",
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-member-jky",
+      "kind": "image",
+      "src": "/photos/display/member-jky.jpg",
+      "width": 3984,
+      "height": 2240,
+      "alt": "蒋凯阳的工作照。",
+      "caption": "蒋凯阳 / 工作照",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-03-26 17:32",
+      "photographer": null,
+      "exif": {
+        "camera": "Canon EOS R8",
+        "lens": "EF50mm f/1.4 USM",
+        "shutter": "1/2000 s",
+        "aperture": "f/1.8",
+        "iso": "400",
+        "focal": "50 mm",
+        "date": "2024-03-26 17:32"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-member-gmj",
+      "kind": "image",
+      "src": "/photos/display/member-gmj.jpg",
+      "width": 7728,
+      "height": 5152,
+      "alt": "郭铭珺的工作照。",
+      "caption": "郭铭珺 / 工作照",
+      "sourceId": "source-photo-selection",
+      "capturedAt": "2024-12-30 16:12",
+      "photographer": null,
+      "exif": {
+        "camera": "FUJIFILM X-T50",
+        "lens": "XF16-50mmF2.8-4.8 R LM WR",
+        "shutter": "1/75 s",
+        "aperture": "f/4.8",
+        "iso": "12800",
+        "focal": "50 mm",
+        "date": "2024-12-30 16:12"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "promo-poster-official",
+      "kind": "image",
+      "src": "/promo/club-promo-cover.jpg",
+      "width": 3840,
+      "height": 2160,
+      "alt": "摄影社宣传片封面。",
+      "caption": "宣传片封面",
+      "sourceId": "source-promo",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-member-wxn",
+      "kind": "image",
+      "src": "/photos/display/member-wxn.jpg",
+      "width": 6240,
+      "height": 4160,
+      "alt": "王小诺的工作照。",
+      "caption": "王小诺 / 工作照",
+      "sourceId": "source-photo-selection",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "approved"
     }
   ],
   "members": [
@@ -6260,7 +6557,8 @@
       "memberId": "person-jky",
       "cohortLabel": "2024级",
       "role": "社长",
-      "sourceId": "source-club-management-confirmation"
+      "sourceId": "source-club-management-confirmation",
+      "photoMediaId": "photo-member-jky"
     },
     {
       "memberId": "person-lrh",
@@ -6272,13 +6570,15 @@
       "memberId": "person-wxn",
       "cohortLabel": "2025级",
       "role": "社长",
-      "sourceId": "source-club-management-confirmation"
+      "sourceId": "source-club-management-confirmation",
+      "photoMediaId": "photo-member-wxn"
     },
     {
       "memberId": "person-gmj",
       "cohortLabel": "2025级",
       "role": "副社长",
-      "sourceId": "source-club-management-confirmation"
+      "sourceId": "source-club-management-confirmation",
+      "photoMediaId": "photo-member-gmj"
     },
     {
       "memberId": "person-dwb",

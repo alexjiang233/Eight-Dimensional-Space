@@ -45,6 +45,7 @@ export function validateCatalog(data) {
   for (const appointment of data.appointments || []) {
     ref('members', appointment.memberId);
     ref('sources', appointment.sourceId);
+    if (appointment.photoMediaId) ref('media', appointment.photoMediaId);
   }
   for (const asset of data.media) {
     if (asset.kind === 'embed') {
@@ -121,6 +122,12 @@ export function validateCatalog(data) {
   }
   if (!data.site.homeSelection?.length || new Set(data.site.homeSelection).size !== data.site.homeSelection.length) throw new Error('Invalid home selection');
   for (const id of data.site.homeSelection) ref('works', id);
+  for (const id of data.site.homePhotoIds || []) ref('media', id);
+  for (const feature of data.site.homeInternal || []) {
+    if (feature.videoWorkId) ref('works', feature.videoWorkId);
+    if (feature.photoMediaId) ref('media', feature.photoMediaId);
+  }
+  for (const id of data.site.peopleGroupPhotoIds || []) ref('media', id);
   ref('events', data.site.featuredEventId);
   ref('works', data.site.promoWorkId);
   ref('media', data.site.heroStillId);
@@ -245,7 +252,8 @@ export function createSite(data, { base = '/' } = {}) {
       .map((v) => {
         const source = get('sources', v.media.sourceId);
         const publication = source.publishedAt ? ` · 投稿 ${e(source.publishedAt)}` : '';
-        return `<div class="work-video-item">${embedPlayer(v.media)}<p class="video-item-label">${e(v.label)}${v.durationLabel ? ` · ${e(v.durationLabel)}` : ''}${publication}</p><p class="embed-source">${sourceLink(v.media.sourceId, '在哔哩哔哩打开')}</p>${workParts(v, v.media)}</div>`;
+        const anchor = v.media.bvid ? ` id="video-${v.media.bvid.toLowerCase()}"` : '';
+        return `<div class="work-video-item"${anchor}>${embedPlayer(v.media)}<p class="video-item-label">${e(v.label)}${v.durationLabel ? ` · ${e(v.durationLabel)}` : ''}${publication}</p><p class="embed-source">${sourceLink(v.media.sourceId, '在哔哩哔哩打开')}</p>${workParts(v, v.media)}</div>`;
       })
       .join('')}</div>`;
   };
@@ -298,7 +306,7 @@ export function createSite(data, { base = '/' } = {}) {
     const loopMedia = get('media', data.site.heroVideoId);
     const video = `<video class="hero-video" data-hero-video data-src="${e(withBase(loopMedia.src))}" poster="${e(withBase(stillMedia.src))}" width="${loopMedia.width}" height="${loopMedia.height}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>`;
     const identity = `<h1><span>八维空间</span><span class="club-name">摄影社</span></h1>${filmButton(skin)}`;
-    const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><a href="#manifest">看精选作品</a><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
+    const hero = `<section class="hero hero-editorial">${still}${video}<div class="hero-identity">${identity}</div><div class="hero-bottom"><button type="button" data-hero-toggle aria-pressed="false" hidden>播放封面</button></div></section>`;
     return collection.home(hero, skin);
   }
 
@@ -370,7 +378,10 @@ export function createSite(data, { base = '/' } = {}) {
     const media = work.mediaId ? get('media', work.mediaId) : null;
     const online = media?.kind === 'embed';
     const videoList = workVideoList(work);
-    const view = online ? (videoList ?? embedPlayer(media)) : figure(work.coverId, 'work-cover', 'work');
+    // The promo cover is the one shared element in cross-document view
+    // transitions: on the work page its player box carries the same name.
+    const playerClass = online && !videoList && work.id === 'promo-2026' ? 'embed-player vt-promo-cover' : 'embed-player';
+    const view = online ? (videoList ?? embedPlayer(media, playerClass)) : figure(work.coverId, 'work-cover', 'work');
     const playbackNote = online && work.notice ? `<p class="replay-notice">${e(work.notice)}</p>` : '';
     const playbackLink = online && !videoList ? `<p class="embed-source">${sourceLink(work.sourceId, '在哔哩哔哩打开')}</p>` : '';
     const meta = online
@@ -419,7 +430,7 @@ export function createSite(data, { base = '/' } = {}) {
         '',
       )}</fieldset><div class="filter-actions"><button type="reset">重置</button><button class="button" type="submit">确认筛选</button></div></form></dialog></body></html>`;
   }
-  const collection = collectionPages({ data, get, img, figure, url, e, workEntry, sourceLink });
+  const collection = collectionPages({ data, get, img, figure, url, e, workEntry, sourceLink, withBase });
   const pages = new Map();
   for (const skin of skins) {
     const add = (path, type, title, content) =>
