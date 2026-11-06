@@ -294,21 +294,6 @@ if ('IntersectionObserver' in window) {
 // ===== Interaction pass: split titles, finder loupe and count-up stats. Desktop-fine-pointer extras skip touch devices
 // and reduced-motion users; every piece degrades to the plain site. =====
 
-// Opening curtain: every load plays it (CSS runs the animation); inside one
-// session the repeat is skipped, and reduced-motion users never see it.
-const splash = $('.splash');
-if (splash) {
-  if (sessionStorage.getItem('eds-splash') || reduce.matches) {
-    splash.remove();
-  } else {
-    sessionStorage.setItem('eds-splash', '1');
-    splash.addEventListener('animationend', (event) => {
-      if (event.target === splash) splash.remove();
-    });
-    setTimeout(() => splash.remove(), 3200);
-  }
-}
-
 // Split titles: characters become individually animated spans; the readable
 // text stays on aria-label. Runs before the observer so titles animate.
 $$('[data-split]').forEach((el) => {
@@ -411,6 +396,9 @@ if ($('.filter-bar')) {
     );
     $('[data-result-count]').textContent = `${count} 项作品`;
     $('.empty-results').hidden = count !== 0;
+    // The album shelf is a photo entry, so it steps aside for film/replay views.
+    const shelf = $('[data-photo-sets]');
+    if (shelf) shelf.hidden = !(kind === 'all' || kind === 'photos');
     const radio = filterDialog.querySelector(`input[value="${kind}"]`);
     if (radio) radio.checked = true;
     const u = new URL(location.href);
