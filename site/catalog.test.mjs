@@ -12,10 +12,14 @@ test('published source facts stay separate from missing photo credits and confli
   assert.equal(event.teamSize, 7);
   assert.equal(event.contributions.length, 6);
   assert.match(event.contributions.find((c) => c.memberId === 'person-dwb').note, /正文/);
+  // Dates are only kept where the file itself carries EXIF; no photographer is
+  // named for any photo without a confirmed credit.
+  const datedSources = new Set(['source-photo-selection', 'source-shangshan-2026']);
+  assert.ok(catalog.media.filter((m) => m.kind === 'image').every((m) => m.photographer === null));
   assert.ok(
     catalog.media
-      .filter((m) => m.kind === 'image' && m.sourceId !== 'source-photo-selection')
-      .every((m) => m.photographer === null && m.capturedAt === null),
+      .filter((m) => m.kind === 'image' && !datedSources.has(m.sourceId))
+      .every((m) => m.capturedAt === null),
   );
   assert.deepEqual(catalog.works.find((w) => w.id === 'military-photos').authorIds, []);
   assert.match(catalog.works.find((w) => w.kind === 'replay').notice, /声音丢失/);
@@ -698,7 +702,7 @@ test('the silver-print pass: chapter colors and detail pass', async () => {
   assert.ok(css.includes('[data-split].is-visible .split-ch'));
   // Chapter colors: butter-cream tech, grey-green lessons on the silver page.
   assert.ok(css.includes('.home-tech { background:#f5edd8;'));
-  assert.ok(css.includes('.home-internal { background:#e6ebe2;'));
+  assert.ok(css.includes('.home-internal { background:#e9e5db;'));
   assert.ok(home.includes('data-count="45"'));
   assert.ok(!css.includes('progress-x'));
   assert.ok(appjs.includes('finder-loupe'));
@@ -890,4 +894,30 @@ test('photo albums open the works page and the military album closes the loop wi
   const duplicated = structuredClone(catalog);
   duplicated.site.worksPhotoSetIds = ['campus-photos', 'campus-photos'];
   assert.throws(() => validateCatalog(duplicated), /Duplicate photo set/);
+});
+
+test('the club block explains a year and the daily strip carries the photographed days', () => {
+  const pages = createSite(catalog);
+  const home = pages.get('/');
+  // One lead paragraph sets the yearly rhythm, three dated items follow it.
+  assert.ok(home.includes('class="home-club-lead"'));
+  assert.ok(home.includes('招新分两批'));
+  assert.equal((home.match(/class="home-club-when"/g) || []).length, 3);
+  assert.equal((home.match(/class="home-club-photo"/g) || []).length, 2);
+  assert.ok(home.includes('/works/bili-club-bv1fsznyhegy/'));
+  assert.ok(home.includes('href="/events/"'));
+  // 日常 is a strip of six shots, one of them the canteen dinner.
+  assert.equal((home.match(/class="home-daily-photo"/g) || []).length, 6);
+  for (const name of ['daily-park-gate', 'daily-review', 'daily-water', 'daily-wall', 'daily-shoot', 'together-dinner']) {
+    assert.ok(home.includes(`/photos/display/${name}.jpg`), name);
+  }
+  // Every daily photo keeps its own EXIF date, and none claims a photographer.
+  for (const id of catalog.site.homeDailyPhotos) {
+    const media = catalog.media.find((m) => m.id === id);
+    assert.equal(media.photographer, null, id);
+    assert.ok(media.capturedAt, id);
+  }
+  const bad = structuredClone(catalog);
+  bad.site.homeDailyPhotos = ['photo-daily-gate', 'photo-daily-gate'];
+  assert.throws(() => validateCatalog(bad), /Duplicate daily photo/);
 });

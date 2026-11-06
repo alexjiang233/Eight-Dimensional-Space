@@ -196,7 +196,13 @@ export interface Catalog {
     /** Homepage photo strip: media ids shown directly on the work wall. */
     homePhotoIds?: Id[];
     /** Internal club lessons shown on the homepage; photo slots fill in as prints arrive. */
-    homeInternal?: { title: string; note: string; videoWorkId?: Id | null; photoMediaId?: Id | null }[];
+    homeInternal?: { title: string; when?: string; note: string; videoWorkId?: Id | null; photoMediaId?: Id | null }[];
+    /** Opening line for the club-activities block: how a year actually runs. */
+    homeClubLead?: string;
+    /** Opening line for the daily block. */
+    homeDailyNote?: string;
+    /** Photos in the daily strip, left to right. */
+    homeDailyPhotos?: Id[];
     /** Group photos on the people page, in capture order. */
     peopleGroupPhotoIds?: Id[];
     introduction: {

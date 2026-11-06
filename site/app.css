@@ -1849,8 +1849,6 @@ html:has(.page-home) { scroll-padding-top:74px; }
 .home-tech-intro p { margin:0; color:#51463b; background:#ebe0c5; padding:6px 10px; font-size:.85rem; }
 .home-tech-title { font-family:var(--display); font-size:clamp(38px,5.5vw,78px); line-height:1.12; margin:0; }
 .home-tech-spread { display:grid; grid-template-columns:minmax(0,2.1fr) minmax(0,1fr); align-items:center; gap:clamp(20px,4vw,62px); }
-.home-lesson-photo { margin:0; min-width:0; }
-.home-lesson-photo img { display:block; width:100%; height:auto; }
 .home-tech-copy h3 { font-family:var(--display); font-size:clamp(24px,2.8vw,40px); line-height:1.25; margin:0; }
 .home-tech-quote { margin:12px 0; }
 .home-tech-quote p { max-width:34em; line-height:1.7; margin:0 0 8px; }
@@ -1904,31 +1902,41 @@ html:has(.page-home) { scroll-padding-top:74px; }
 .home-tech-reading-item span { font-size:.9rem; color:#5c564b; }
 .home-tech-reading-item:hover strong { color:var(--accent); }
 
-.home-internal { background:#e6ebe2; padding-block:clamp(32px,5vw,68px); }
-.home-internal .section-head { margin-bottom:24px; }
-.home-internal-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
-.home-lesson.has-photo { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); align-items:center; gap:16px; }
-.home-lesson h3 { font-family:var(--display); font-size:clamp(19px,2vw,28px); margin:0; }
-.home-lesson p { font-size:.88rem; color:var(--muted); margin:6px 0; line-height:1.6; }
-.home-lesson-photo figcaption { display:none; }
-.home-lesson-list { margin-top:24px; }
-.home-lesson-list .home-lesson > div { display:flex; gap:4px 18px; align-items:baseline; flex-wrap:wrap; }
+/* 社团活动：左边是一年的流程和三节课，右边两张现场照片。 */
+.home-internal { background:#e9e5db; padding-block:clamp(34px,5vw,72px); }
+.home-internal .section-head { margin-bottom:clamp(18px,2.4vw,30px); }
+.home-club-lead { margin:0 0 clamp(24px,3.2vw,38px); max-width:42em; font-size:clamp(15px,1.05vw,17px); line-height:1.95; color:#3d3b36; }
+.home-club { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:clamp(26px,4vw,56px); align-items:start; }
+.home-club-list { margin:0; padding:0; list-style:none; display:grid; gap:clamp(16px,2vw,26px); }
+.home-club-list li { display:grid; grid-template-columns:5.4em minmax(0,1fr); gap:4px 14px; align-items:baseline; }
+.home-club-when { font-variant-numeric:tabular-nums; font-size:.86rem; letter-spacing:.04em; color:var(--muted); }
+.home-club-what { display:block; }
+.home-club-what strong { display:block; font-family:var(--display); font-size:clamp(18px,1.55vw,23px); font-weight:700; }
+.home-club-what span { display:block; margin-top:3px; font-size:.92rem; line-height:1.6; color:#4c483f; }
+.home-club-list li > .text-link { grid-column:2; font-size:.9rem; }
+.home-club-photos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(10px,1.4vw,20px); align-items:start; }
+.home-club-photo { margin:0; }
+.home-club-photo img { display:block; width:100%; height:auto; }
+.home-club-photo figcaption { margin-top:6px; font-size:.8rem; color:var(--muted); }
 
-@media (max-width:780px) {
-  .home-tech-spread, .home-internal-grid { grid-template-columns:1fr; }
-  .home-tech-cams { grid-template-columns:repeat(2,minmax(0,1fr)); }
-}
-.home-daily {
-  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2.2fr); align-items:center;
-  gap:clamp(16px,4vw,56px); padding-block:clamp(28px,5vw,68px); background:#efe6dc;
-}
-.home-daily-title h2 { font-family:var(--display); font-size:clamp(30px,4vw,62px); line-height:1.1; margin:0; }
-.home-daily-title p { font-size:clamp(16px,2vw,25px); margin:10px 0 0; }
+/* 日常：一句实话，加一排生活照。 */
+.home-daily { padding-block:clamp(34px,5vw,72px); background:#efe6dc; }
+.home-daily-head { display:grid; grid-template-columns:minmax(0,auto) minmax(0,1fr); gap:clamp(14px,3vw,42px); align-items:baseline; }
+.home-daily-head h2 { font-family:var(--display); font-size:clamp(30px,4vw,62px); line-height:1.1; margin:0; }
+.home-daily-head p { margin:0; max-width:46em; font-size:clamp(15px,1.05vw,17px); line-height:1.95; color:#3d3b36; }
+.home-daily-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(6px,.8vw,12px); margin-top:clamp(22px,3vw,36px); }
 .home-daily-photo { margin:0; }
-.home-daily-photo img { display:block; width:100%; height:auto; }
-.home-daily-photo figcaption { margin-top:7px; color:var(--muted); font-size:.83rem; }
+.home-daily-photo a { display:block; aspect-ratio:3/2; overflow:hidden; }
+.home-daily-photo img { display:block; width:100%; height:100%; object-fit:cover; }
+.home-daily-photo figcaption { display:none; }
+.home-daily-foot { margin:clamp(12px,1.6vw,18px) 0 0; font-size:.82rem; color:var(--muted); }
 @media (max-width:780px) {
-  .home-daily { grid-template-columns:1fr; }
+  .home-club { grid-template-columns:1fr; }
+  .home-club-photos { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  /* 手机上说明已在上面列过，图注只留桌面。 */
+  .home-club-photo figcaption { display:none; }
+  .home-daily-head { grid-template-columns:1fr; gap:10px; }
+  .home-daily-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 
 /* Stats: real counts that roll up once when they scroll into view. */

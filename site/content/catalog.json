@@ -36,22 +36,35 @@
     "homeInternal": [
       {
         "title": "无人机讲座",
-        "note": "2024.11 · 三人分工：一人遥控、一人云台、一人掌机",
+        "when": "2024.11",
+        "note": "三人分工：一人遥控、一人云台、一人掌机",
         "videoWorkId": "bili-club-bv1fsznyhegy",
         "photoMediaId": "photo-club-drone-side"
       },
       {
         "title": "调色教程",
-        "note": "2025 · 后期调色课",
+        "when": "2025",
+        "note": "后期调色课",
         "videoWorkId": null,
         "photoMediaId": null
       },
       {
         "title": "破冰大会",
-        "note": "2026 · 新学期新成员",
+        "when": "2026.10",
+        "note": "开学后的第一次见面",
         "videoWorkId": null,
         "photoMediaId": "photo-club-icebreaker"
       }
+    ],
+    "homeClubLead": "招新分两批：暑假先在新人群里认识，九月学校招新大会上正式见面。招新后开破冰会，让新成员认全管理层；十月运动会全员上阵。平时穿插社团课，无人机和调色都是课上讲的。",
+    "homeDailyNote": "不拍摄的时候，群里的消息也没停过。暑假那阵每天几百上千条：约饭、发片、问作业、临时约一场。今年七月第一次一起出校门，去相山公园走了一下午。",
+    "homeDailyPhotos": [
+      "photo-daily-gate",
+      "photo-daily-review",
+      "photo-daily-water",
+      "photo-daily-wall",
+      "photo-daily-shoot",
+      "photo-together-dinner"
     ],
     "homeSelectionMeta": {
       "sports-2025-videos": {
@@ -90,6 +103,13 @@
       "url": null,
       "authorLabel": null,
       "publishedAt": null
+    },
+    {
+      "id": "source-shangshan-2026",
+      "title": "2026 相山公园团建",
+      "url": null,
+      "authorLabel": null,
+      "publishedAt": "2026-07-27"
     },
     {
       "id": "source-full-review-guide",
@@ -1000,6 +1020,116 @@
         "iso": "200",
         "focal": "7.08 mm",
         "date": "2026-06-10 18:12"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-daily-gate",
+      "kind": "image",
+      "src": "/photos/display/daily-park-gate.jpg",
+      "width": 7008,
+      "height": 4672,
+      "alt": "三个人拿着稳定器，走进相山公园的山门。",
+      "caption": "相山公园 / 出发",
+      "sourceId": "source-shangshan-2026",
+      "capturedAt": "2026-07-27 15:02",
+      "photographer": null,
+      "exif": {
+        "camera": "Sony ILCE-7M5",
+        "lens": "50-400mm F4.5-6.3",
+        "shutter": "1/250 s",
+        "aperture": "f/4.5",
+        "iso": "250",
+        "focal": "50 mm",
+        "date": "2026-07-27 15:02"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-daily-review",
+      "kind": "image",
+      "src": "/photos/display/daily-review.jpg",
+      "width": 7008,
+      "height": 4672,
+      "alt": "两个人凑在一起看相机屏幕上的画面。",
+      "caption": "相山公园 / 一起看片",
+      "sourceId": "source-shangshan-2026",
+      "capturedAt": "2026-07-27 17:06",
+      "photographer": null,
+      "exif": {
+        "camera": "Sony ILCE-7M5",
+        "lens": "50-400mm F4.5-6.3",
+        "shutter": "1/200 s",
+        "aperture": "f/7.1",
+        "iso": "3200",
+        "focal": "161 mm",
+        "date": "2026-07-27 17:06"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-daily-water",
+      "kind": "image",
+      "src": "/photos/display/daily-water.jpg",
+      "width": 7008,
+      "height": 4672,
+      "alt": "一个人仰头喝水，旁边的人笑着举起相机。",
+      "caption": "相山公园 / 路上",
+      "sourceId": "source-shangshan-2026",
+      "capturedAt": "2026-07-27 17:06",
+      "photographer": null,
+      "exif": {
+        "camera": "Sony ILCE-7M5",
+        "lens": "50-400mm F4.5-6.3",
+        "shutter": "1/50 s",
+        "aperture": "f/7.1",
+        "iso": "800",
+        "focal": "50 mm",
+        "date": "2026-07-27 17:06"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-daily-wall",
+      "kind": "image",
+      "src": "/photos/display/daily-wall.jpg",
+      "width": 7008,
+      "height": 4672,
+      "alt": "两个人在红墙前的石台上，一个举着手机拍，一个比划着。",
+      "caption": "相山公园 / 红墙",
+      "sourceId": "source-shangshan-2026",
+      "capturedAt": "2026-07-27 16:14",
+      "photographer": null,
+      "exif": {
+        "camera": "Sony ILCE-7M5",
+        "lens": "50-400mm F4.5-6.3",
+        "shutter": "1/320 s",
+        "aperture": "f/5.6",
+        "iso": "250",
+        "focal": "84 mm",
+        "date": "2026-07-27 16:14"
+      },
+      "publicationStatus": "approved"
+    },
+    {
+      "id": "photo-daily-shoot",
+      "kind": "image",
+      "src": "/photos/display/daily-shoot.jpg",
+      "width": 7008,
+      "height": 4672,
+      "alt": "一个人举着手机取景，背景是公园里的长椅。",
+      "caption": "相山公园 / 随手拍",
+      "sourceId": "source-shangshan-2026",
+      "capturedAt": "2026-07-27 15:53",
+      "photographer": null,
+      "exif": {
+        "camera": "Sony ILCE-7M5",
+        "lens": "50-400mm F4.5-6.3",
+        "shutter": "1/320 s",
+        "aperture": "f/6.3",
+        "iso": "1000",
+        "focal": "200 mm",
+        "date": "2026-07-27 15:53"
       },
       "publicationStatus": "approved"
     },

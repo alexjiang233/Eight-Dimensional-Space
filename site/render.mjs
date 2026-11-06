@@ -138,6 +138,9 @@ export function validateCatalog(data) {
     if (!work.galleryIds?.length) throw new Error(`Photo set has no photos: ${id}`);
   }
   for (const id of data.site.homePhotoIds || []) ref('media', id);
+  const dailyPhotos = data.site.homeDailyPhotos || [];
+  if (new Set(dailyPhotos).size !== dailyPhotos.length) throw new Error('Duplicate daily photo');
+  for (const id of dailyPhotos) ref('media', id);
   for (const feature of data.site.homeInternal || []) {
     if (feature.videoWorkId) ref('works', feature.videoWorkId);
     if (feature.photoMediaId) ref('media', feature.photoMediaId);
@@ -164,7 +167,7 @@ export function createSite(data, { base = '/' } = {}) {
   };
   const figure = (id, cls = '', group = 'page') => {
     const m = get('media', id);
-    return `<figure class="${cls}"><a href="${e(withBase(m.src))}" data-image data-gallery="${group}" data-caption="${e(m.caption)}" data-exif="${e(m.exif ? JSON.stringify(m.exif) : '') }">${img(id, ['event-cover', 'record-cover'].includes(cls) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"')}</a><figcaption>${e(m.caption)}<span>${m.sourceId === 'source-promo' ? '宣传片静帧' : m.sourceId === 'source-photo-selection' ? (m.capturedAt || '').slice(0,10) : String(m.sourceId || '').startsWith('source-bili') ? 'B站视频封面' : '原文配图'}</span></figcaption></figure>`;
+    return `<figure class="${cls}"><a href="${e(withBase(m.src))}" data-image data-gallery="${group}" data-caption="${e(m.caption)}" data-exif="${e(m.exif ? JSON.stringify(m.exif) : '') }">${img(id, ['event-cover', 'record-cover'].includes(cls) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"')}</a><figcaption>${e(m.caption)}<span>${m.sourceId === 'source-promo' ? '宣传片静帧' : m.sourceId === 'source-photo-selection' || m.sourceId === 'source-shangshan-2026' ? (m.capturedAt || '').slice(0,10) : String(m.sourceId || '').startsWith('source-bili') ? 'B站视频封面' : '原文配图'}</span></figcaption></figure>`;
   };
   const url = (skin, kind = '', id = '') =>
     withBase(`/${kind ? `${kind}/` : ''}${id ? `${id}/` : ''}`);

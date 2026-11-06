@@ -62,15 +62,7 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
       </figure>`;
     }).join('');
     const internal = data.site.homeInternal || [];
-    const internalCard = (entry) => {
-      const video = entry.videoWorkId ? work(entry.videoWorkId) : null;
-      return `<article class="home-lesson${entry.photoMediaId ? ' has-photo' : ''}">
-        ${entry.photoMediaId ? figure(entry.photoMediaId, 'home-lesson-photo', 'home-lessons') : ''}
-        <div><h3>${e(entry.title)}</h3><p>${e(entry.note)}</p>
-          ${video ? `<a class="text-link" href="${url(skin, 'works', video.id)}">看这节社团课</a>` : ''}
-        </div>
-      </article>`;
-    };
+    const dailyPhotos = data.site.homeDailyPhotos || [];
     const military = get('events', data.site.featuredEventId);
     const militaryUrl = url(skin, 'events', military.id);
     const guides = ['broadcast-guide', 'full-review-guide'].map(id => get('notes', id));
@@ -124,14 +116,25 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
       </div>
     </section>
     ${internal.length ? `<section class="section home-internal" aria-labelledby="home-internal-title">
-      <div class="section-head"><h2 id="home-internal-title">社团活动</h2></div>
-      <div class="home-internal-grid">${internal.filter(entry => entry.photoMediaId).map(internalCard).join('')}</div>
-      ${internal.some(entry => !entry.photoMediaId) ? `<div class="home-lesson-list">${internal.filter(entry => !entry.photoMediaId).map(internalCard).join('')}</div>` : ''}
+      <div class="section-head"><h2 id="home-internal-title">社团活动</h2><a class="text-link" href="${url(skin, 'events')}">历年活动</a></div>
+      ${data.site.homeClubLead ? `<p class="home-club-lead">${e(data.site.homeClubLead)}</p>` : ''}
+      <div class="home-club">
+        <ol class="home-club-list">${internal.map((item) => `<li>
+            <span class="home-club-when">${e(item.when || '')}</span>
+            <span class="home-club-what"><strong>${e(item.title)}</strong><span>${e(item.note)}</span></span>
+            ${item.videoWorkId ? `<a class="text-link" href="${url(skin, 'works', item.videoWorkId)}">看这节社团课</a>` : ''}
+        </li>`).join('')}</ol>
+        <div class="home-club-photos">${internal.filter((item) => item.photoMediaId).map((item) => figure(item.photoMediaId, 'home-club-photo', 'home-club')).join('')}</div>
+      </div>
     </section>` : ''}
-    <section class="section home-daily" id="daily" aria-labelledby="home-daily-title">
-      <div class="home-daily-title"><h2 id="home-daily-title">日常</h2><p>食堂聚餐</p></div>
-      ${figure('photo-together-dinner', 'home-daily-photo', 'home-daily')}
-    </section>
+    ${dailyPhotos.length ? `<section class="section home-daily" id="daily" aria-labelledby="home-daily-title">
+      <div class="home-daily-head">
+        <h2 id="home-daily-title">日常</h2>
+        ${data.site.homeDailyNote ? `<p>${e(data.site.homeDailyNote)}</p>` : ''}
+      </div>
+      <div class="home-daily-grid">${dailyPhotos.map((id) => figure(id, 'home-daily-photo', 'home-daily')).join('')}</div>
+      <p class="home-daily-foot">2026 年 6—7 月 · 食堂与相山公园。摄影者未逐张确认。</p>
+    </section>` : ''}
     <section class="home-stats" aria-label="站点数据"><div class="home-stats-row">${stats.map(([n, label]) => `<div class="home-stat"><strong data-count="${n}">${n}</strong><span>${label}</span></div>`).join('')}</div></section>
     <section class="home-promo" aria-label="宣传片">
       <a href="${url(skin, 'works', promo.id)}" data-film>
