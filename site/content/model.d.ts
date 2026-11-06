@@ -191,6 +191,8 @@ export interface Catalog {
     heroStillId: Id;
     heroVideoId: Id;
     homeSelection: Id[];
+    /** Photo collections previewed above the works directory, in reading order. */
+    worksPhotoSetIds?: Id[];
     /** Homepage photo strip: media ids shown directly on the work wall. */
     homePhotoIds?: Id[];
     /** Internal club lessons shown on the homepage; photo slots fill in as prints arrive. */

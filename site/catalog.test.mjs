@@ -133,7 +133,7 @@ test('footer stays compact with section entries only', () => {
         assert.ok(!footer.includes(`href="${target}"`), `${path}: footer must not list individual pages (${target})`);
       }
     }
-    for (const target of ['/', '/about/', '/works/', '/events/', '/people/', '/notes/']) {
+    for (const target of ['/', '/about/', '/works/', '/events/', '/people/', '/notes/', '/updates/']) {
       assert.ok(footer.includes(`href="${target}"`), `${path}: footer missing ${target}`);
     }
     for (const link of html.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)) {
@@ -244,10 +244,11 @@ test('the root serves a real home page with no theme prefix, redirect or alterna
   const pages = createSite(catalog);
   assert.ok(pages.get('/').includes('class="hero hero-editorial"'));
   assert.ok(!/http-equiv="refresh"|进入八维空间/.test(pages.get('/')));
-  assert.equal(pages.size, 6 + catalog.events.length + catalog.works.length + new Set(catalog.appointments.map(a => a.memberId)).size + catalog.notes.length);
+  assert.equal(pages.size, 7 + catalog.events.length + catalog.works.length + new Set(catalog.appointments.map(a => a.memberId)).size + catalog.notes.length);
   for (const [path, html] of pages) {
     assert.ok(!path.startsWith('/editorial/'));
-    assert.ok(!/industrial|工业版|工业试作|skin-link|data-skin-switch|monitor-wall|\/editorial\//.test(html), path);
+    assert.ok(!/industrial|skin-link|data-skin-switch|monitor-wall|\/editorial\//.test(html), path);
+    if (path !== '/updates/') assert.ok(!/工业版|工业试作/.test(html), path);
   }
 });
 
@@ -563,11 +564,25 @@ test('the work directory filters every imported film and replay without pushing 
     const media = catalog.media.find((m) => m.id === id);
     assert.ok(home.includes(`src="${media.src}"`), id);
   }
-  assert.ok(home.includes('什么时候切下一机位？'));
-  for (const href of ['/events/military-2026/#execution', '/events/military-2026/#watch', '/notes/broadcast-guide/', '/notes/full-review-guide/']) {
+  // The tech act is a collage of gear shots on the left and the claim on the
+  // right, with one line quoted from the guide under it.
+  assert.ok(home.includes('class="home-tech-collage"'));
+  for (const id of ['article-01', 'article-06', 'article-10', 'article-07', 'article-05', 'article-02']) {
+    assert.ok(home.includes(`/media/${id}.jpg`), id);
+  }
+  assert.ok(home.includes('每添加一种效果或一台相机'));
+  assert.ok(!home.includes('直播白皮书节选'));
+  // 技术段的两个现场入口已按用户要求撤掉，白皮书入口保留。
+  for (const href of ['/notes/broadcast-guide/', '/notes/full-review-guide/']) {
     assert.ok(home.includes(`href="${href}"`), href);
   }
-  for (const entry of catalog.site.homeInternal) assert.ok(home.includes(entry.title), entry.title);
+  const activities = home.match(/<section class="section home-internal"[^>]*>([\s\S]*?)<\/section>/)[1];
+  const daily = home.match(/<section class="section home-daily"[^>]*>([\s\S]*?)<\/section>/)[1];
+  assert.ok(activities.includes('社团活动'));
+  for (const entry of catalog.site.homeInternal) assert.ok(activities.includes(entry.title), entry.title);
+  assert.ok(!activities.includes('食堂聚餐'));
+  assert.ok(daily.includes('/photos/display/together-dinner.jpg'));
+  assert.ok(daily.includes('data-gallery="home-daily"'));
   assert.ok(home.includes('/works/bili-club-bv1fsznyhegy/'));
   assert.ok(home.includes('/photos/display/club-drone-side.jpg'));
   assert.ok(home.includes('/photos/display/club-icebreaker.jpg'));
@@ -583,7 +598,6 @@ test('the work directory filters every imported film and replay without pushing 
   assert.ok(!home.includes('现场用什么'));
   assert.ok(!home.includes('photo-cover-group'));
   assert.ok(!home.includes('索尼 a7m5'));
-  assert.ok(home.includes('/media/article-06.jpg'));
   assert.ok(!home.includes('/media/article-11.jpg'));
   assert.ok(!home.includes(catalog.stories.find(s => s.id === 'military-2026').execution[1].text));
   for (const old of ['act-stage', 'act-quiet', 'act-finale']) assert.ok(!home.includes(old));
@@ -642,18 +656,15 @@ test('the header bar is translucent glass without any distortion', async () => {
   }
 });
 
-test('the interaction pass ships entrance, stagger, scroll-driven drift and page transitions as progressive enhancement', async () => {
+test('the interaction pass ships entrance, stagger and scroll-driven drift as progressive enhancement', async () => {
   const pages = createSite(catalog);
   const css = await readFile(new URL('./app.css', import.meta.url), 'utf8');
   const appjs = await readFile(new URL('./app.js', import.meta.url), 'utf8');
   const home = pages.get('/');
-  // Every same-origin navigation cross-fades; CSS-declared, Chromium runs it,
-  // everyone else navigates as before.
-  assert.ok(css.includes('@view-transition { navigation: auto; }'));
-  assert.ok(css.includes('::view-transition-old(root)'));
-  // The promo cover is the single shared element: home frame → work player.
-  assert.ok(css.includes('view-transition-name: promo-cover'));
-  assert.ok(pages.get('/works/promo-2026/').includes('vt-promo-cover'));
+  assert.ok(!css.includes('@view-transition'));
+  assert.ok(!css.includes('view-transition-name: promo-cover'));
+  assert.ok(!home.includes('name="view-transition"'));
+  assert.ok(appjs.includes('document.startViewTransition'));
   assert.ok(css.includes('@keyframes cluster-drift'));
   assert.ok(css.includes('@media (prefers-reduced-motion: no-preference)'));
   assert.equal((home.match(/data-reveal-stagger/g) || []).length, 1);
@@ -662,7 +673,7 @@ test('the interaction pass ships entrance, stagger, scroll-driven drift and page
   assert.ok(!appjs.includes('unobserve'));
 });
 
-test('the silver-print pass: opening curtain, unified transitions, chapter colors and detail pass', async () => {
+test('the silver-print pass: chapter colors and detail pass', async () => {
   const pages = createSite(catalog);
   const css = await readFile(new URL('./app.css', import.meta.url), 'utf8');
   const appjs = await readFile(new URL('./app.js', import.meta.url), 'utf8');
@@ -679,14 +690,9 @@ test('the silver-print pass: opening curtain, unified transitions, chapter color
   assert.ok(!css.includes('slide-1'));
   assert.ok(css.includes('.home-selection { background:var(--deep);'));
   assert.ok(css.includes('.home-video-card:first-child { grid-column:1/-1; aspect-ratio:21/9; }'));
-  // Opening curtain: the club name on dark, then the curtain lifts.
-  assert.ok(home.includes('class="splash"'));
-  assert.ok(css.includes('@keyframes splash-lift'));
-  assert.ok(appjs.includes("sessionStorage.getItem('eds-splash')"));
-  // Page transitions share the curtain's language: lift away, rise from below.
-  assert.ok(css.includes('@keyframes vt-out'));
-  assert.ok(css.includes('@keyframes vt-in'));
-  assert.ok(!css.includes('page-out'), 'old cross-fade keys are gone');
+  assert.ok(!home.includes('class="splash"'));
+  assert.ok(!css.includes('@keyframes splash-lift'));
+  assert.ok(!appjs.includes("sessionStorage.getItem('eds-splash')"));
   // Split titles on the hero and the tech creed.
   assert.ok(home.includes('data-split'));
   assert.ok(css.includes('[data-split].is-visible .split-ch'));
@@ -824,15 +830,14 @@ test('about answers who the club is with real material only', () => {
   const html = createSite(catalog).get('/about/');
   // The retired homepage creed sections are gone for good — not parked here.
   for (const gone of ['id="technique"', 'id="companions"', 'id="continuity"', '一起做事', '换届以后', '怎么开始', '一场直播里的位置', 'about-role-grid', 'about-recurring', 'about-chapter']) assert.ok(!html.includes(gone), gone);
-  // Real material: working photos, the confirmed roster, collected lessons.
-  for (const asset of ['work-screen.jpg', 'work-gear.jpg']) assert.ok(html.includes(asset), asset);
-  assert.ok(html.includes('谁在这里'));
-  assert.ok(html.includes('怎么参与'));
-  assert.ok(html.includes('href="/people/JiangKaiyang/"'));
-  assert.ok(html.includes('href="/people/WangXiaonuo/"'));
-  for (const target of ['/notes/broadcast-guide/', '/notes/full-review-guide/']) assert.ok(html.includes(target), target);
-  assert.ok(html.includes('data-film'));
-  assert.ok(html.includes('制作资料'));
+  const main = html.split('<main id="main">')[1].split('</main>')[0];
+  for (const asset of ['work-screen.jpg', 'work-gear.jpg', '制作资料', '资料整理中']) assert.ok(!main.includes(asset), asset);
+  assert.ok(main.includes('谁在这里'));
+  assert.ok(main.includes('社团日常'));
+  for (const target of ['/people/JiangKaiyang/', '/people/WangXiaonuo/', '/events/', '/works/promo-2026/']) {
+    assert.ok(main.includes(`href="${target}"`), target);
+  }
+  assert.ok(main.includes('data-film'));
   // No group photo as a personal lead image anywhere.
   assert.ok(!html.includes('军训团队合影'));
 });
@@ -843,4 +848,46 @@ test('withdrawn monochrome photos leave every page and collection', () => {
   for (const name of names) assert.ok(!catalog.media.some(m => m.id === `photo-${name}`));
   assert.deepEqual(catalog.works.find(w => w.id === 'working-photos').galleryIds, ['photo-work-gear','photo-work-screen']);
   for (const [route, html] of createSite(catalog)) for (const name of names) assert.ok(!html.includes(`${name}.jpg`), `${route}: ${name}`);
+});
+
+test('photo albums open the works page and the military album closes the loop with its event', () => {
+  const pages = createSite(catalog);
+  const works = pages.get('/works/');
+  const shelfStart = works.indexOf('id="photo-sets"');
+  const directoryStart = works.indexOf('class="works-directory');
+  assert.ok(shelfStart > 0 && directoryStart > shelfStart, 'album shelf precedes the directory');
+  const shelf = works.slice(shelfStart, directoryStart);
+  assert.deepEqual(catalog.site.worksPhotoSetIds, ['military-photos', 'campus-photos', 'together-photos']);
+  assert.equal((shelf.match(/class="photo-set"/g) || []).length, 3);
+  for (const id of catalog.site.worksPhotoSetIds) {
+    const work = catalog.works.find((w) => w.id === id);
+    assert.ok(shelf.includes(`href="/works/${id}/"`), id);
+    assert.ok(shelf.includes(`${work.galleryIds.length} 张`), `${id} count`);
+    assert.ok(shelf.includes(work.title), `${id} title`);
+  }
+  // Photographs keep their own ratio in the shelf and the directory; no crop window.
+  assert.ok(!shelf.includes('aspect-ratio'));
+  assert.ok(works.includes('data-photo-sets'));
+  assert.ok(works.includes('href="/works/?type=photos"'));
+  // The complete catalogue stays: every collection still has a directory entry.
+  assert.equal((works.match(/data-kind="photos"/g) || []).length, 4);
+  // Home's photo wall leads to the album shelf.
+  assert.ok(pages.get('/').includes('href="/works/#photo-sets"'));
+
+  const album = pages.get('/works/military-photos/');
+  assert.ok(album.includes('href="/events/military-2026/"'));
+  assert.ok(album.includes('href="/events/military-2026/#watch"'));
+  assert.ok(album.includes('href="/notes/military-review/"'));
+  assert.ok(album.includes('href="/works/#photo-sets"'));
+
+  const event = pages.get('/events/military-2026/');
+  assert.ok(event.includes('href="/works/military-photos/"'));
+  assert.ok(event.includes('现场图集 · 11 张'));
+
+  const bad = structuredClone(catalog);
+  bad.site.worksPhotoSetIds = ['promo-2026'];
+  assert.throws(() => validateCatalog(bad), /Photo set is not a photo collection/);
+  const duplicated = structuredClone(catalog);
+  duplicated.site.worksPhotoSetIds = ['campus-photos', 'campus-photos'];
+  assert.throws(() => validateCatalog(duplicated), /Duplicate photo set/);
 });

@@ -1,6 +1,7 @@
 import { renderEventRecord } from './event-record.mjs';
 import { renderDocument } from './document.mjs';
 import { renderFooter } from './footer.mjs';
+import { renderUpdates } from './updates.mjs';
 import { collectionPages } from './collection.mjs';
 // One editorial site, driven by the shared content graph.
 export const skins = ['editorial'];
@@ -129,6 +130,13 @@ export function validateCatalog(data) {
   }
   if (!data.site.homeSelection?.length || new Set(data.site.homeSelection).size !== data.site.homeSelection.length) throw new Error('Invalid home selection');
   for (const id of data.site.homeSelection) ref('works', id);
+  const photoSets = data.site.worksPhotoSetIds || [];
+  if (new Set(photoSets).size !== photoSets.length) throw new Error('Duplicate photo set');
+  for (const id of photoSets) {
+    const work = indexes.works.get(id);
+    if (!work || work.kind !== 'photos') throw new Error(`Photo set is not a photo collection: ${id}`);
+    if (!work.galleryIds?.length) throw new Error(`Photo set has no photos: ${id}`);
+  }
   for (const id of data.site.homePhotoIds || []) ref('media', id);
   for (const feature of data.site.homeInternal || []) {
     if (feature.videoWorkId) ref('works', feature.videoWorkId);
@@ -360,6 +368,28 @@ export function createSite(data, { base = '/' } = {}) {
       .join('');
     return `<section class="page-intro section events-intro"><h1>活动</h1><p class="page-tagline">把现场交给我们</p></section><nav class="series-toc" aria-label="系列目录">${toc}<a href="#group-other">其他现场</a></nav>${grouped}${lonerBlocks ? `<section class="section lone-events" id="group-other"><div class="section-head"><h2>其他现场</h2></div><div class="record-list">${lonerBlocks}</div></section>` : ''}`;
   }
+  // Photo collections lead the directory: a visitor who came for photographs
+  // should meet albums first, not the film and replay catalogue. Sizes follow
+  // each cover's own proportions; the shelf staggers instead of cropping.
+  function photoSetShelf(skin) {
+    const ids = data.site.worksPhotoSetIds || [];
+    if (!ids.length) return '';
+    const sets = ids.map((id) => get('works', id));
+    const shown = sets.reduce((total, work) => total + work.galleryIds.length, 0);
+    const all = data.works.filter((work) => work.kind === 'photos');
+    const cards = sets
+      .map((work) => {
+        const cover = get('media', work.coverId);
+        const event = work.eventId ? get('events', work.eventId) : null;
+        const meta = event ? `${event.title} · ${work.galleryIds.length} 张` : `${work.yearLabel || work.year} · ${work.galleryIds.length} 张`;
+        return `<a class="photo-set" href="${url(skin, 'works', work.id)}">
+          <span class="photo-set-frame"><img src="${e(withBase(cover.src))}" width="${cover.width}" height="${cover.height}" alt="${e(cover.alt || cover.caption)}" loading="lazy"></span>
+          <span class="photo-set-copy"><span class="photo-set-meta">${e(meta)}</span><span class="photo-set-title">${e(work.title)}</span><span class="photo-set-note">${e(work.description || work.subtitle)}</span><span class="photo-set-cta">进入影集</span></span>
+        </a>`;
+      })
+      .join('');
+    return `<section class="section works-photo-sets" id="photo-sets" data-photo-sets aria-labelledby="photo-sets-title"><div class="section-head"><h2 id="photo-sets-title">照片选集</h2><p>${sets.length} 个影集 · ${shown} 张照片</p><a class="text-link" href="${url(skin, 'works')}?type=photos">全部照片<span class="photo-set-all-count">${all.length > sets.length ? `（${all.length} 个影集）` : ''}</span></a></div><div class="photo-set-shelf">${cards}</div></section>`;
+  }
   function worksPage(skin) {
     // The directory groups by year: the year marker is how the archive reads.
     // .work-entry classes stay stable so the filter keeps working.
@@ -372,7 +402,7 @@ export function createSite(data, { base = '/' } = {}) {
     const groups = [...byYear]
       .map(([year, works]) => `<div class="works-year-group" data-year="${e(year)}"><p class="works-year">${e(year)}</p><div class="work-list directory">${works.map((w) => workEntry(w, skin)).join('')}</div></div>`)
       .join('');
-    return `<section class="page-intro section"><h1>作品与记录</h1><p>照片、影片，以及完整直播的回放入口。</p></section><section class="works-directory section"><div class="filter-bar" role="group" aria-label="按作品类型筛选">${[
+    return `<section class="page-intro section"><h1>作品与记录</h1><p>照片、影片，以及完整直播的回放入口。</p></section>${photoSetShelf(skin)}<section class="works-directory section"><div class="filter-bar" role="group" aria-label="按作品类型筛选">${[
       ['all', '全部'],
       ['photos', '照片'],
       ['film', '影片'],
@@ -393,8 +423,7 @@ export function createSite(data, { base = '/' } = {}) {
     const videoList = workVideoList(work);
     // The promo cover is the one shared element in cross-document view
     // transitions: on the work page its player box carries the same name.
-    const playerClass = online && !videoList && work.id === 'promo-2026' ? 'embed-player vt-promo-cover' : 'embed-player';
-    const view = online ? (videoList ?? embedPlayer(media, playerClass)) : figure(work.coverId, 'work-cover', 'work');
+    const view = online ? (videoList ?? embedPlayer(media)) : figure(work.coverId, 'work-cover', 'work');
     const playbackNote = online && work.notice ? `<p class="replay-notice">${e(work.notice)}</p>` : '';
     const playbackLink = online && !videoList ? `<p class="embed-source">${sourceLink(work.sourceId, '在哔哩哔哩打开')}</p>` : '';
     const meta = online
@@ -433,7 +462,7 @@ export function createSite(data, { base = '/' } = {}) {
       ['notes', '资料'],
       ['about', '关于'],
     ];
-    return `<!doctype html><html lang="zh-CN" class="skin-${skin}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="view-transition" content="same-origin"><title>${e(title)} · 八维空间</title><link rel="stylesheet" href="${withBase('/app.css')}"><link rel="stylesheet" href="${withBase(`/${skin}.css`)}"><script type="module" src="${withBase('/app.js')}"></script><noscript><style>.site-nav{display:flex!important;flex-wrap:wrap}.compare-choices,.year-buttons,.filter-bar button{display:none!important}</style></noscript></head><body class="page-${page.type}"><div class="splash" aria-hidden="true"><p class="splash-word"><span>八维空间</span></p><p class="splash-word splash-word-sub"><span>摄影社</span></p></div><a class="skip" href="#main">跳到正文</a><header class="site-header"><a class="brand" href="${url(skin)}"><span>八维空间</span><small>淮北一中摄影社</small></a><nav class="site-nav" id="site-nav" aria-label="主导航">${nav.map(([key, label]) => `<a href="${url(skin, key)}" ${page.type === key ? 'aria-current="page"' : ''}>${label}</a>`).join('')}</nav><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>菜单</button></header><main id="main">${content}</main>${renderFooter(data, skin, { url, e })}<dialog class="image-dialog" aria-label="查看完整图片"><header><p data-image-caption></p><button type="button" data-close-dialog>关闭 ×</button></header><img class="large-image" alt=""><details class="image-metadata" hidden><summary>拍摄信息</summary><dl data-image-exif></dl></details><footer><button type="button" data-image-prev>上一幅</button><span data-image-count></span><button type="button" data-image-next>下一幅</button></footer></dialog><dialog class="film-dialog" aria-labelledby="film-title"><header><h2 id="film-title">摄影社宣传片</h2><button type="button" data-close-dialog>关闭 ×</button></header><div class="embed-player film-frame" data-src="${e(embedSrc(promoEmbed))}" data-title="${e(promoEmbed.title)}"></div><p class="embed-source">${sourceLink(promoWork.sourceId, "在哔哩哔哩打开")}</p></dialog><dialog class="filter-dialog" aria-labelledby="filter-title"><header><h2 id="filter-title">筛选作品</h2><button type="button" data-close-dialog>关闭 ×</button></header><form><fieldset><legend>作品类型</legend>${[
+    return `<!doctype html><html lang="zh-CN" class="skin-${skin}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${e(title)} · 八维空间</title><link rel="stylesheet" href="${withBase('/app.css')}"><link rel="stylesheet" href="${withBase(`/${skin}.css`)}"><script type="module" src="${withBase('/app.js')}"></script><noscript><style>.site-nav{display:flex!important;flex-wrap:wrap}.compare-choices,.year-buttons,.filter-bar button{display:none!important}</style></noscript></head><body class="page-${page.type}"><a class="skip" href="#main">跳到正文</a><header class="site-header"><a class="brand" href="${url(skin)}"><span>八维空间</span><small>淮北一中摄影社</small></a><nav class="site-nav" id="site-nav" aria-label="主导航">${nav.map(([key, label]) => `<a href="${url(skin, key)}" ${page.type === key ? 'aria-current="page"' : ''}>${label}</a>`).join('')}</nav><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>菜单</button></header><main id="main">${content}</main>${renderFooter(data, skin, { url, e })}<dialog class="image-dialog" aria-label="查看完整图片"><header><p data-image-caption></p><button type="button" data-close-dialog>关闭 ×</button></header><img class="large-image" alt=""><details class="image-metadata" hidden><summary>拍摄信息</summary><dl data-image-exif></dl></details><footer><button type="button" data-image-prev>上一幅</button><span data-image-count></span><button type="button" data-image-next>下一幅</button></footer></dialog><dialog class="film-dialog" aria-labelledby="film-title"><header><h2 id="film-title">摄影社宣传片</h2><button type="button" data-close-dialog>关闭 ×</button></header><div class="embed-player film-frame" data-src="${e(embedSrc(promoEmbed))}" data-title="${e(promoEmbed.title)}"></div><p class="embed-source">${sourceLink(promoWork.sourceId, "在哔哩哔哩打开")}</p></dialog><dialog class="filter-dialog" aria-labelledby="filter-title"><header><h2 id="filter-title">筛选作品</h2><button type="button" data-close-dialog>关闭 ×</button></header><form><fieldset><legend>作品类型</legend>${[
       ['all', '全部'],
       ['photos', '照片'],
       ['film', '影片'],
@@ -453,6 +482,7 @@ export function createSite(data, { base = '/' } = {}) {
     const add = (path, type, title, content) =>
       pages.set(path, layout(skin, { path, type }, title, content));
     add(route(skin), 'home', '首页', home(skin));
+    add(route(skin, 'updates'), 'updates', '更新日志', renderUpdates(e));
     add(route(skin, 'about'), 'about', '关于社团', collection.about(skin));
     add(route(skin, 'works'), 'works', '作品与记录', worksPage(skin));
     add(route(skin, 'events'), 'events', '活动', eventsIndexPage(skin));

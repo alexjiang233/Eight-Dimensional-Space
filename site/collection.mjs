@@ -74,6 +74,8 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
     const military = get('events', data.site.featuredEventId);
     const militaryUrl = url(skin, 'events', military.id);
     const guides = ['broadcast-guide', 'full-review-guide'].map(id => get('notes', id));
+    const broadcastGuide = guides[0];
+
     const promo = work('promo-2026');
     const stats = [
       [data.works.length, '收录作品'],
@@ -81,8 +83,9 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
       [(data.appointments || []).length, '管理层成员'],
     ];
     return `${hero}
+    <div class="home-media-spread">
     <section class="section home-selection" id="manifest" aria-labelledby="home-selection-title">
-      <div class="section-head"><span class="gallery-no" aria-hidden="true">01</span><h2 id="home-selection-title">精选作品</h2><a class="text-link" href="${url(skin, 'works')}">全部作品</a></div>
+      <div class="section-head"><h2 id="home-selection-title">精选作品</h2><a class="text-link" href="${url(skin, 'works')}">全部作品</a></div>
       <div class="home-video-wall" data-reveal-stagger>${videos.map(item => { const c = cardOf(item); return `
         <a class="home-video-card" href="${e(c.href)}">
           ${img(c.cover, 'loading="lazy"')}
@@ -90,37 +93,45 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
         </a>`; }).join('')}
       </div>
     </section>
-    <section class="section home-photos" aria-label="照片墙">${photoCluster ? `<div class="home-photo-cluster" data-reveal>${photoCluster}</div>` : ''}</section>
+    <section class="section home-photos" id="photos" aria-labelledby="home-photos-title">
+      <div class="section-head"><h2 id="home-photos-title">照片展示</h2><a class="text-link" href="${url(skin, 'works')}#photo-sets">照片选集</a></div>
+      <div class="home-photo-cluster" data-reveal>${photoCluster}</div>
+    </section>
+    </div>
     <section class="section home-tech" id="fieldwork" aria-labelledby="home-tech-title">
-      <div class="home-tech-intro">
-        <h2 id="home-tech-title" class="home-tech-title">技术为本</h2>
-        <p>${e(military.title)} · ${e(military.date)}</p>
-      </div>
       <div class="home-tech-spread">
-        <div class="home-tech-frames">
-          ${figure('article-08', '', 'home-fieldwork')}
-          ${figure('article-06', '', 'home-fieldwork')}
+        <div class="home-tech-collage">
+          ${['article-01', 'article-06', 'article-10', 'article-07', 'article-05', 'article-02'].map((id) => {
+            const m = get('media', id);
+            return `<figure><a href="${e(withBase(m.src))}" data-image data-gallery="home-tech" data-caption="${e(m.caption)}" data-exif="${e(m.exif ? JSON.stringify(m.exif) : '')}"><img src="${e(withBase(m.src))}" width="${m.width}" height="${m.height}" alt="${e(m.alt || m.caption)}" loading="lazy"></a></figure>`;
+          }).join('')}
+          <svg class="home-tech-marks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 7 V0 H7" /><path d="M93 0 H100 V7" /><path d="M0 93 V100 H7" /><path d="M93 100 H100 V93" />
+          </svg>
         </div>
-        <div class="home-tech-copy">
-          <h3>什么时候切下一机位？</h3>
-          <p>分列式上，一个班走过主席台，下一个班已经在准备。导播要同时看各机位拍到了什么，既不能漏掉交接，也要避免几路画面都对着同一个班。</p>
-          <div class="home-tech-links">
-            <a class="text-link" href="${militaryUrl}#execution">看现场怎么切</a>
-            <a class="text-link" href="${militaryUrl}#watch">看完整回放</a>
-          </div>
+        <div class="home-tech-slogan">
+          <h2 id="home-tech-title" class="home-tech-title">技术为本</h2>
+          <p class="home-tech-date">${e(military.title)} · ${e(military.date)}</p>
+          <p class="home-tech-line">每添加一种效果或一台相机，难度都会成倍增加。</p>
+          <cite class="home-tech-source">以上出自<a class="text-link" href="${url(skin, 'notes', broadcastGuide.id)}">《${e(broadcastGuide.title)}》</a></cite>
         </div>
       </div>
-      <div class="home-whitepapers" aria-label="制作指南">
-        ${guides.map(note => `<a class="home-whitepaper" href="${url(skin, 'notes', note.id)}">
-          <span>${e(note.kind)}</span><strong>${e(note.title)}</strong>
-        </a>`).join('')}
+      <div class="home-tech-reading" aria-labelledby="home-tech-reading-title">
+        <p class="home-tech-reading-label" id="home-tech-reading-title">制作白皮书</p>
+        <div class="home-tech-reading-row">
+          ${guides.map(note => `<a class="home-tech-reading-item" href="${url(skin, 'notes', note.id)}"><strong>《${e(note.title)}》</strong><span>${e(note.subtitle)}</span></a>`).join('')}
+        </div>
       </div>
     </section>
     ${internal.length ? `<section class="section home-internal" aria-labelledby="home-internal-title">
-      <div class="section-head"><h2 id="home-internal-title">社团课与日常</h2></div>
+      <div class="section-head"><h2 id="home-internal-title">社团活动</h2></div>
       <div class="home-internal-grid">${internal.filter(entry => entry.photoMediaId).map(internalCard).join('')}</div>
       ${internal.some(entry => !entry.photoMediaId) ? `<div class="home-lesson-list">${internal.filter(entry => !entry.photoMediaId).map(internalCard).join('')}</div>` : ''}
     </section>` : ''}
+    <section class="section home-daily" id="daily" aria-labelledby="home-daily-title">
+      <div class="home-daily-title"><h2 id="home-daily-title">日常</h2><p>食堂聚餐</p></div>
+      ${figure('photo-together-dinner', 'home-daily-photo', 'home-daily')}
+    </section>
     <section class="home-stats" aria-label="站点数据"><div class="home-stats-row">${stats.map(([n, label]) => `<div class="home-stat"><strong data-count="${n}">${n}</strong><span>${label}</span></div>`).join('')}</div></section>
     <section class="home-promo" aria-label="宣传片">
       <a href="${url(skin, 'works', promo.id)}" data-film>
@@ -135,15 +146,9 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
   }
   function about(skin) {
     const copy = data.site.introduction.about;
-    const guides = ['broadcast-guide', 'full-review-guide'].map(id => get('notes', id));
-    // 关于 answers one question only: who this club is. The old creed
-    // paragraphs (technique / companions / continuity) lived here after being
-    // retired from the homepage — gone for good; the page now stays with
-    // real material: a plain introduction, working photos, the actual roster
-    // and the collected lessons.
+    // 关于 answers one question only: who this club is. A compact text opening,
+    // then the roster and the ways in — real lessons, the members, the film.
     const internal = data.site.homeInternal || [];
-    const guideRow = (note) => `<a class="about-guide" href="${url(skin, 'notes', note.id)}"><span class="about-guide-meta">${e(note.kind)} · ${e(note.publishedAt)}</span><strong>${e(note.title)}</strong><span class="about-guide-deck">${e(note.subtitle)}</span></a>`;
-    const guideIndex = `<div class="about-guide-index"><p class="about-label">制作资料</p>${guides.map(guideRow).join('')}</div>`;
     const rosterRows = [...new Set((data.appointments || []).map((a) => a.cohortLabel))].sort().map((cohort) => {
       const people = (data.appointments || []).filter((a) => a.cohortLabel === cohort);
       return `<div class="about-roster-row"><span class="about-roster-cohort">${e(cohort)}</span><span class="about-roster-names">${people.map((a) => {
@@ -151,24 +156,23 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
         return `<a href="${url(skin, 'people', m.slug)}">${e(m.name)}${a.role ? `<em>${e(a.role)}</em>` : ''}</a>`;
       }).join('')}</span></div>`;
     }).join('');
-    const lessons = internal.map((f) => {
-      const vw = f.videoWorkId ? work(f.videoWorkId) : null;
-      return vw
-        ? `<a class="about-lesson" href="${url(skin, 'works', vw.id)}"><strong>${e(f.title)}</strong><span>看这节社团课</span></a>`
-        : `<div class="about-lesson"><strong>${e(f.title)}</strong><span>资料整理中</span></div>`;
-    }).join('');
+    const lessons = internal.filter((f) => f.videoWorkId).map((f) => {
+      const vw = work(f.videoWorkId);
+      return `<a class="about-lesson" href="${url(skin, 'works', vw.id)}"><strong>${e(f.title)}</strong><span>看这节社团课</span></a>`;
+    }).join('') + `<a class="about-lesson" href="${url(skin, 'events')}"><strong>历年活动</strong><span>查看现场记录</span></a>`;
     return `<section class="section about-opening">
       <div class="about-kicker"><span>淮北一中</span><span>摄影社</span></div>
       <h1 data-split>八维空间摄影社</h1>
-      <div class="about-opening-grid">
-        <p class="about-lead">${e(copy.lead)}</p>
-        <div class="about-opening-note"><p>${e(copy.intro)}</p><dl class="about-facts"><div><dt>日常</dt><dd>照片 · 影片 · 直播</dd></div><div><dt>留下</dt><dd>教程 · 复盘 · 作品</dd></div><div><dt>收录</dt><dd>${data.works.length} 项作品 · ${data.events.length} 场活动</dd></div></dl></div>
-      </div>
+      <p class="about-lead">${e(copy.lead)}</p>
+      <p class="about-intro">${e(copy.intro)}</p>
+      <nav class="about-formats" aria-label="浏览作品">
+        ${[['photos','照片'],['film','影片'],['replay','直播回放']].map(([kind, label]) => `<a href="${url(skin, 'works')}?type=${kind}">${label}</a>`).join('')}
+      </nav>
     </section>
-    <section class="section about-plate">${figure('photo-work-gear', 'about-plate-main', 'about')}${figure('photo-work-screen', 'about-plate-side', 'about')}</section>
-    <section class="section about-roster"><div class="section-head"><h2>谁在这里</h2><a class="text-link" href="${url(skin, 'people')}">全部成员</a></div><div class="about-roster-grid">${rosterRows}</div><p class="about-note">名单经社团确认：2023 级仅列当前仍活跃的成员，非完整名单。</p></section>
-    <section class="section about-join"><div class="section-head"><h2>怎么参与</h2></div><div class="about-lessons">${lessons}</div><a class="watch-link" href="${url(skin, 'works', 'promo-2026')}" data-film><span class="play-shape" aria-hidden="true">▷</span>观看宣传片<span>在线播放 · 1分55秒</span></a></section>
-    ${guideIndex}
+    <section class="section about-columns">
+      <div class="about-roster"><div class="section-head"><h2>谁在这里</h2><a class="text-link" href="${url(skin, 'people')}">全部成员</a></div><div class="about-roster-grid">${rosterRows}</div><p class="about-note">名单经社团确认：2023 级仅列当前仍活跃的成员，非完整名单。</p></div>
+      <div class="about-join"><div class="section-head"><h2>社团日常</h2></div><div class="about-lessons">${lessons}</div><a class="watch-link" href="${url(skin, 'works', 'promo-2026')}" data-film><span class="play-shape" aria-hidden="true">▷</span>观看宣传片<span>在线播放 · 1分55秒</span></a></div>
+    </section>
     `;
   }
   function people(skin) {
@@ -181,7 +185,19 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
     return `<section class="section page-intro"><p class="eyebrow">成员</p><h1>一年一年</h1></section>${management}${groupWall}`;
   }
   function photos(work, skin) {
-    return `<section class="section collection-intro"><p class="eyebrow">照片 / ${e(work.yearLabel || work.year)}</p><h1>${e(work.title)}</h1><p>${e(work.subtitle)} · ${work.galleryIds.length} 张</p>${work.eventId ? `<a class="text-link" href="${url(skin,'events',work.eventId)}">返回活动记录</a>` : ''}</section><section class="section collection-grid">${work.galleryIds.map((id,i)=>figure(id,`collection-photo item-${i}`,work.id)).join('')}</section><section class="section collection-end"><a class="text-link" href="${url(skin,'works')}?type=photos">返回照片选集</a><details><summary>照片来源与信息</summary><p>${work.sourceId === 'source-review' ? '来自本场公开复盘配图。来源未逐张标注摄影者或EXIF；不由人物岗位推断照片作者。' : '来自社团素材。拍摄时间与参数保留文件 EXIF 记录；摄影者尚未确认。'}</p></details></section>`;
+    // An album belongs to one event. Its intro carries the three places a
+    // visitor actually goes next: the record, the full replay, the review.
+    const event = work.eventId ? get('events', work.eventId) : null;
+    const story = event?.storyId ? get('stories', event.storyId) : null;
+    const replay = event ? data.works.find((w) => w.eventId === event.id && w.kind === 'replay' && w.mediaId) : null;
+    const related = [
+      event ? `<a class="text-link" href="${url(skin, 'events', event.id)}">活动记录 · ${e(event.title)}</a>` : '',
+      replay ? `<a class="text-link" href="${url(skin, 'events', event.id)}#watch">看完整回放</a>` : '',
+      story?.reviewNoteId ? `<a class="text-link" href="${url(skin, 'notes', story.reviewNoteId)}">制作复盘</a>` : '',
+    ]
+      .filter(Boolean)
+      .join('');
+    return `<section class="section collection-intro"><p class="eyebrow">照片 / ${e(work.yearLabel || work.year)}</p><h1>${e(work.title)}</h1><p>${e(work.subtitle)} · ${work.galleryIds.length} 张</p>${related ? `<div class="collection-links">${related}</div>` : ''}</section><section class="section collection-grid">${work.galleryIds.map((id, i) => figure(id, `collection-photo item-${i}`, work.id)).join('')}</section><section class="section collection-end"><a class="text-link" href="${url(skin, 'works')}#photo-sets">返回照片选集</a><details><summary>照片来源与信息</summary><p>${work.sourceId === 'source-review' ? '来自本场公开复盘配图。来源未逐张标注摄影者或EXIF；不由人物岗位推断照片作者。' : '来自社团素材。拍摄时间与参数保留文件 EXIF 记录；摄影者尚未确认。'}</p></details></section>`;
   }
   function notes(skin) {
     return `<section class="section page-intro"><p class="eyebrow">制作资料</p><h1>拍摄前，翻一翻。</h1><p>制作指南、岗位参考与活动复盘。</p></section><section class="section"><div class="resource-grid">${noteLinks(skin)}</div></section>`;

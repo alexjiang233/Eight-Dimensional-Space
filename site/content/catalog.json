@@ -20,6 +20,11 @@
       "psychodrama-2026-videos",
       "military-replay"
     ],
+    "worksPhotoSetIds": [
+      "military-photos",
+      "campus-photos",
+      "together-photos"
+    ],
     "homePhotoIds": [
       "photo-see-campus",
       "photo-scene-parade",
