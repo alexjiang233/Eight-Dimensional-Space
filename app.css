@@ -1834,10 +1834,12 @@ html:has(.page-home) { scroll-padding-top:74px; }
 .finder-loupe.is-on { opacity:1; }
 @media (max-width: 700px) {
   .home-photo-cluster { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
-  /* 窄屏把日期从竖排改成图下一行：竖排会被右列的屏幕边缘切掉。 */
+  /* 窄屏收起色块：它挂在整块 figure 上，会把下面的日期吞进去。 */
+  .home-cluster-photo .print::before { display:none; }
+  /* 日期改到照片下一行：竖排会被右列的屏幕边缘切掉。 */
   .home-cluster-photo .print-date {
     position:static; display:block; writing-mode:horizontal-tb;
-    margin-top:13px; font-size:10px; letter-spacing:.14em; text-align:right;
+    margin-top:12px; font-size:10px; letter-spacing:.14em; text-align:right;
   }
   .home-cluster-photo.c1-13, .home-cluster-photo.c1-3, .home-cluster-photo.c3-5,
   .home-cluster-photo.c5-8, .home-cluster-photo.c8-10, .home-cluster-photo.c10-13 { grid-column:auto; }
