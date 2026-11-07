@@ -206,9 +206,13 @@ export interface Catalog {
     /** Group photos on the people page, in capture order. */
     peopleGroupPhotoIds?: Id[];
     introduction: {
-      about: {
-        lead: string;
-        intro: string;
+      /** The club's own recruitment Q&A, printed on the about page as written. */
+      qa: {
+        title: string;
+        version: string;
+        /** When the document was written, shown as provenance next to the version. */
+        written: string;
+        items: { q: string; a: (string | { list: string[] })[] }[];
       };
     };
   };

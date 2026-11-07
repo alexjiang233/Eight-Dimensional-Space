@@ -63,6 +63,10 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
     }).join('');
     const internal = data.site.homeInternal || [];
     const dailyPhotos = data.site.homeDailyPhotos || [];
+    // The cluster breaks its own grid on wide screens: six prints of six sizes,
+    // with the capture span sitting in the gap under the tall frame.
+    const photoMonths = photos.map((m) => (m.capturedAt || '').slice(0, 7)).filter(Boolean).sort();
+    const photoSpan = photoMonths.length ? `${photoMonths[0].replace('-', '.')}—${photoMonths[photoMonths.length - 1].replace('-', '.')}` : '';
     const military = get('events', data.site.featuredEventId);
     const militaryUrl = url(skin, 'events', military.id);
     const guides = ['broadcast-guide', 'full-review-guide'].map(id => get('notes', id));
@@ -70,7 +74,7 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
 
     const promo = work('promo-2026');
     const stats = [
-      [data.works.length, '收录作品'],
+      [data.works.filter((w) => w.kind !== 'replay').length, '收录作品'],
       [data.events.length, '活动记录'],
       [(data.appointments || []).length, '管理层成员'],
     ];
@@ -87,7 +91,7 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
     </section>
     <section class="section home-photos" id="photos" aria-labelledby="home-photos-title">
       <div class="section-head"><h2 id="home-photos-title">照片展示</h2><a class="text-link" href="${url(skin, 'works')}#photo-sets">照片选集</a></div>
-      <div class="home-photo-cluster" data-reveal>${photoCluster}</div>
+      <div class="home-photo-cluster" data-reveal>${photoCluster}${photoSpan ? `<p class="home-photo-note"><span>${e(photoSpan)}</span><em>校园 · 操场 · 窗外</em></p>` : ''}</div>
     </section>
     </div>
     <section class="section home-tech" id="fieldwork" aria-labelledby="home-tech-title">
@@ -147,36 +151,27 @@ export function collectionPages({ data, get, img, figure, url, e, workEntry, sou
       </a>
     </section>`;
   }
-  function about(skin) {
-    const copy = data.site.introduction.about;
-    // 关于 answers one question only: who this club is. A compact text opening,
-    // then the roster and the ways in — real lessons, the members, the film.
-    const internal = data.site.homeInternal || [];
-    const rosterRows = [...new Set((data.appointments || []).map((a) => a.cohortLabel))].sort().map((cohort) => {
-      const people = (data.appointments || []).filter((a) => a.cohortLabel === cohort);
-      return `<div class="about-roster-row"><span class="about-roster-cohort">${e(cohort)}</span><span class="about-roster-names">${people.map((a) => {
-        const m = get('members', a.memberId);
-        return `<a href="${url(skin, 'people', m.slug)}">${e(m.name)}${a.role ? `<em>${e(a.role)}</em>` : ''}</a>`;
-      }).join('')}</span></div>`;
-    }).join('');
-    const lessons = internal.filter((f) => f.videoWorkId).map((f) => {
-      const vw = work(f.videoWorkId);
-      return `<a class="about-lesson" href="${url(skin, 'works', vw.id)}"><strong>${e(f.title)}</strong><span>看这节社团课</span></a>`;
-    }).join('') + `<a class="about-lesson" href="${url(skin, 'events')}"><strong>历年活动</strong><span>查看现场记录</span></a>`;
-    return `<section class="section about-opening">
-      <div class="about-kicker"><span>淮北一中</span><span>摄影社</span></div>
-      <h1 data-split>八维空间摄影社</h1>
-      <p class="about-lead">${e(copy.lead)}</p>
-      <p class="about-intro">${e(copy.intro)}</p>
-      <nav class="about-formats" aria-label="浏览作品">
-        ${[['photos','照片'],['film','影片'],['replay','直播回放']].map(([kind, label]) => `<a href="${url(skin, 'works')}?type=${kind}">${label}</a>`).join('')}
-      </nav>
-    </section>
-    <section class="section about-columns">
-      <div class="about-roster"><div class="section-head"><h2>谁在这里</h2><a class="text-link" href="${url(skin, 'people')}">全部成员</a></div><div class="about-roster-grid">${rosterRows}</div><p class="about-note">名单经社团确认：2023 级仅列当前仍活跃的成员，非完整名单。</p></div>
-      <div class="about-join"><div class="section-head"><h2>社团日常</h2></div><div class="about-lessons">${lessons}</div><a class="watch-link" href="${url(skin, 'works', 'promo-2026')}" data-film><span class="play-shape" aria-hidden="true">▷</span>观看宣传片<span>在线播放 · 1分55秒</span></a></div>
-    </section>
-    `;
+  function about() {
+    // 关于 is the club's own recruitment Q&A (社团Q&A, Ver 0.3, written before
+    // the 2024 recruitment), printed as written — nothing rewritten around it.
+    const qa = data.site.introduction.qa;
+    const answer = (blocks) => blocks.map((block) => typeof block === 'string'
+      ? `<p>${e(block)}</p>`
+      : `<ul>${block.list.map((line) => `<li>${e(line)}</li>`).join('')}</ul>`).join('');
+    return `<article class="section about-qa">
+      <header class="qa-head">
+        <p class="eyebrow">关于</p>
+        <h1>${e(qa.title)}</h1>
+        <p class="qa-meta"><span>${e(qa.version)}</span><span>${e(qa.written)}</span></p>
+      </header>
+      <dl class="qa-list">${qa.items.map((item) => `<div class="qa-item">
+        <span class="qa-mark" aria-hidden="true">Q</span>
+        <dt>${e(item.q)}</dt>
+        <span class="qa-mark" aria-hidden="true">A</span>
+        <dd>${answer(item.a)}</dd>
+      </div>`).join('')}</dl>
+      <p class="source-caption">原文写于 2024 年招新前；校规条款以学校现行规定为准。</p>
+    </article>`;
   }
   function people(skin) {
     const management = `<section class="section management-section" id="management"><div class="section-head"><h2>历届管理层</h2><span>名单经社团确认</span></div>${creditsRoll(skin)}</section>`;

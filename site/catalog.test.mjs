@@ -527,13 +527,22 @@ test('the management roster matches the club-confirmed list with roles and gradu
   assert.ok(wxn.includes('2025级 / 社长'));
 });
 
-test('the work directory filters every imported film and replay without pushing the catalogue onto the home page', () => {
+test('the work directory lists films and albums while live records stay with their events', () => {
   const pages = createSite(catalog);
   const directory = pages.get('/works/');
-  for (const kind of ['film', 'replay', 'photos']) {
+  for (const kind of ['film', 'photos']) {
     const count = catalog.works.filter((work) => work.kind === kind).length;
     assert.equal((directory.match(new RegExp(`data-kind="${kind}"`, 'g')) || []).length, count, kind);
     assert.ok(directory.includes(`data-filter="${kind}"`));
+  }
+  // 直播回放与全程回顾属于活动记录：目录里一条都不出现，也没有对应筛选项。
+  assert.equal((directory.match(/data-kind="replay"/g) || []).length, 0);
+  assert.ok(!directory.includes('data-filter="replay"'));
+  assert.ok(!directory.includes('?type=replay'));
+  assert.ok(directory.includes(`${catalog.works.filter((w) => w.kind !== 'replay').length} 项作品`));
+  // 回放页本身仍然存在，由活动页进入。
+  for (const work of catalog.works.filter((w) => w.kind === 'replay')) {
+    assert.ok(pages.has(`/works/${work.id}/`), work.id);
   }
   // The directory is grouped by year markers.
   assert.ok(directory.includes('works-year-group'));
@@ -545,29 +554,41 @@ test('the work directory filters every imported film and replay without pushing 
   // The internal block stays untitled until real copy exists.
   assert.equal(catalog.site.homeInternalTitle, '');
   assert.ok(!home.includes('社团课与教学'));
-  // Three video forms on the wall, each tagged by its kind; the sports card
-  // presents 无体育，不淮一 with its own cover, deep-linking to that video.
-  assert.ok(home.includes('无体育，不淮一'));
-  assert.ok(home.includes('/media/bili-BV1xsnyzqEe8.jpg'));
-  assert.ok(home.includes('/works/sports-2025-videos/#video-bv1xsnyzqee8'));
-  assert.ok(!home.includes('2025年秋季运动会'));
-  for (const [id, tag] of [['psychodrama-2026-videos', '全程回顾'], ['military-replay', '直播回放']]) {
-    assert.ok(home.includes(`/works/${id}/`), id);
-    assert.ok(home.includes(`>${tag}<`), tag);
-  }
+  // 精选三张：元旦记忆、运动会短片、军训直播回放。前两张是合集里的单支影片，
+  // 卡片指向该片在合集页的锚点；回放指向活动页的观看区。
   assert.equal(catalog.site.homeSelection.length, 3);
-  assert.deepEqual(catalog.site.homeSelection, ['sports-2025-videos', 'psychodrama-2026-videos', 'military-replay']);
-  // The photo cluster scatters campus picks on the wall: the three reused
-  // media ids from the earlier selection plus the three new scans.
+  assert.deepEqual(catalog.site.homeSelection, ['gala-2026-videos', 'sports-2025-videos', 'military-replay']);
+  for (const id of catalog.site.homeSelection) assert.ok(catalog.works.some((w) => w.id === id), id);
+  for (const [id, label] of [
+    ['gala-2026-videos', '台下的笑，台上的光'],
+    ['sports-2025-videos', '无体育，不淮一'],
+    ['military-replay', '军训总结大会 · 直播回放'],
+  ]) {
+    assert.ok(home.includes(label), id);
+    assert.ok(catalog.site.homeSelectionMeta[id], id);
+  }
+  assert.ok(home.includes('/works/gala-2026-videos/#video-bv1bni3bnenc'));
+  assert.ok(home.includes('/works/sports-2025-videos/#video-bv1xsnyzqee8'));
+  assert.ok(home.includes('/events/military-2026/#watch'));
+  // 三张封面都是影片静帧，不再用压着大字标题的 B站封面。
+  for (const still of ['still-gala-2026-hall', 'still-sports-2025', 'still-military-replay']) {
+    assert.ok(home.includes(`/media/${still}.jpg`), still);
+  }
+  assert.ok(!home.includes('/media/bili-BV1bni3BNEnC.jpg'));
+  assert.ok(!home.includes('psychodrama-2026-videos'));
+  // 拼图的六张：大幅校园、横向窗边、竖幅操场、两处黄昏与花木，按格位大小配画面。
   assert.deepEqual(catalog.site.homePhotoIds, [
-    'photo-see-campus', 'photo-scene-parade', 'photo-scene-window',
-    'photo-scene-spring', 'photo-see-track', 'photo-see-flower',
+    'photo-see-campus', 'photo-scene-window', 'photo-scene-parade',
+    'photo-see-track', 'photo-see-flower', 'photo-scene-spring',
   ]);
   assert.equal((home.match(/class="home-cluster-photo/g) || []).length, catalog.site.homePhotoIds.length);
   for (const id of catalog.site.homePhotoIds) {
     const media = catalog.media.find((m) => m.id === id);
     assert.ok(home.includes(`src="${media.src}"`), id);
   }
+  // 拼图留出的空档里写着拍摄跨度，不再是一格空板。
+  assert.ok(home.includes('class="home-photo-note"'));
+  assert.ok(home.includes('2024.08—2026.05'));
   // The tech act is a collage of gear shots on the left and the claim on the
   // right, with one line quoted from the guide under it.
   assert.ok(home.includes('class="home-tech-collage"'));
@@ -703,7 +724,7 @@ test('the silver-print pass: chapter colors and detail pass', async () => {
   // Chapter colors: butter-cream tech, grey-green lessons on the silver page.
   assert.ok(css.includes('.home-tech { background:#f5edd8;'));
   assert.ok(css.includes('.home-internal { background:#e9e5db;'));
-  assert.ok(home.includes('data-count="45"'));
+  assert.ok(home.includes('data-count="19"'));
   assert.ok(!css.includes('progress-x'));
   assert.ok(appjs.includes('finder-loupe'));
   assert.ok(!appjs.includes("addEventListener('wheel'"));
@@ -830,22 +851,48 @@ test('activity categories define a complete stable series order without changing
   assert.throws(() => validateCatalog(missing), /Ungrouped series/);
 });
 
-test('about answers who the club is with real material only', () => {
+test('about prints the club Q&A as written, and nothing else', () => {
   const html = createSite(catalog).get('/about/');
-  // The retired homepage creed sections are gone for good — not parked here.
-  for (const gone of ['id="technique"', 'id="companions"', 'id="continuity"', '一起做事', '换届以后', '怎么开始', '一场直播里的位置', 'about-role-grid', 'about-recurring', 'about-chapter']) assert.ok(!html.includes(gone), gone);
   const main = html.split('<main id="main">')[1].split('</main>')[0];
-  for (const asset of ['work-screen.jpg', 'work-gear.jpg', '制作资料', '资料整理中']) assert.ok(!main.includes(asset), asset);
-  assert.ok(main.includes('谁在这里'));
-  assert.ok(main.includes('社团日常'));
-  for (const target of ['/people/JiangKaiyang/', '/people/WangXiaonuo/', '/events/', '/works/promo-2026/']) {
-    assert.ok(main.includes(`href="${target}"`), target);
+  // The retired homepage creed sections stay gone — not parked here either.
+  for (const gone of ['id="technique"', 'id="companions"', 'id="continuity"', '一起做事', '换届以后', '怎么开始', '一场直播里的位置', 'about-role-grid', 'about-recurring', 'about-chapter']) assert.ok(!html.includes(gone), gone);
+  // The page is the 2024 recruitment document: every question and every line
+  // of every answer, verbatim.
+  const qa = catalog.site.introduction.qa;
+  const esc = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  assert.equal(qa.items.length, 7);
+  assert.ok(main.includes(esc(qa.title)));
+  assert.ok(main.includes(qa.version));
+  assert.ok(main.includes(qa.written));
+  assert.equal((main.match(/class="qa-item"/g) || []).length, qa.items.length);
+  for (const item of qa.items) {
+    assert.ok(main.includes(item.q), item.q);
+    for (const block of item.a) {
+      if (typeof block === 'string') assert.ok(main.includes(block), block.slice(0, 16));
+      else for (const line of block.list) assert.ok(main.includes(`<li>${line}</li>`), line);
+    }
   }
-  assert.ok(main.includes('data-film'));
+  // The penalty rules keep their list shape instead of collapsing into prose.
+  assert.ok(main.includes('<ul>'));
+  assert.ok(main.includes('<li>私自带相机进入宿舍扣5分。</li>'));
+  // No re-written filler around the document: the old about blocks are gone.
+  for (const gone of ['谁在这里', '社团日常', '是谁取的，已经没人说得清了', 'class="about-year-list"', 'class="about-history-list"', 'about-portrait'])
+    assert.ok(!main.includes(gone), gone);
+  for (const target of ['/people/JiangKaiyang/', '/works/promo-2026/', 'data-film']) assert.ok(!main.includes(target), target);
   // No group photo as a personal lead image anywhere.
   assert.ok(!html.includes('军训团队合影'));
 });
 
+test('the Q&A keeps the club own wording', () => {
+  const html = createSite(catalog).get('/about/');
+  // Per-cohort character judgements, self-crediting and private quarrels stay out.
+  for (const banned of ['古朴', '爆发', '优雅', '活力', '最核心的始终是我', '一手规划', '私人恩怨', '技术实力并不十分稳固'])
+    assert.ok(!html.includes(banned), banned);
+  // The document is dated, and the school rules carry a "check the current
+  // version" caveat rather than posing as today's regulations.
+  assert.ok(html.includes('原文写于 2024 年招新前'));
+  assert.ok(html.includes('校规条款以学校现行规定为准'));
+});
 
 test('withdrawn monochrome photos leave every page and collection', () => {
   const names = ['work-tripod','work-edit','work-camera','work-review'];

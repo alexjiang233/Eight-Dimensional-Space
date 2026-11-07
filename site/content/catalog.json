@@ -10,14 +10,69 @@
     "heroStillId": "promo-hero-still",
     "heroVideoId": "promo-cover-loop",
     "introduction": {
-      "about": {
-        "lead": "我们把校园里的活动拍下来，也把怎么拍、怎么合作写下来。",
-        "intro": "八维空间是淮北一中的摄影社。照片、视频和直播，是我们参与校园生活的方式。"
+      "qa": {
+        "title": "社团 Q&A",
+        "version": "Ver 0.3",
+        "written": "2024 年招新前",
+        "items": [
+          {
+            "q": "能简要介绍一下社团吗？",
+            "a": [
+              "淮北一中八维空间摄影社建立于2021年9月，是淮北一中最新建立的社团之一。虽为社团中的新生代，但在近三年大放异彩。我们组织和参与了校内外大量活动，并连续两年被评为“星级社团”。社团拍摄的数以千计的精彩照片和视频，为校园里多样的活动增添了一份别样的精彩。"
+            ]
+          },
+          {
+            "q": "社团会举办什么活动？",
+            "a": [
+              "每年学校会举办固定的几场大型活动，如运动会、元旦汇演等，也会不定期开展许多小型活动。同时，会有很多由学校及其他社团的活动需要我们用影像记录。"
+            ]
+          },
+          {
+            "q": "我没有相机/不懂一些专业的名词，是否能参加社团？",
+            "a": [
+              "当然可以！自己的器材固然用起来更顺手，但你可以找其他同学借器材，当然请务必爱护。如果你有器材，也可以出借给其他同学，独乐乐不如众乐乐。但请注意，如果在出借过程中出现器材故障、损坏等意外情况，需由双方自行协商，本社团不负任何责任，一切后果自负。"
+            ]
+          },
+          {
+            "q": "加入社团后，我能获得什么？",
+            "a": [
+              "你很可能会交到一群志同道合的朋友，学习摄影知识和技巧，获得大量联系和拍摄的机会等等。"
+            ]
+          },
+          {
+            "q": "我的相机年代比较久远，会不会在社团里遭到其他同学的嘲笑？",
+            "a": [
+              "不会。社团严厉禁止“器材鄙视链”等恶劣现象的出现。如出现此类行为，一经查实，将从重从严从速处理。欢迎各位同学积极举报。"
+            ]
+          },
+          {
+            "q": "如果我想加入社团，但班主任或家长不允许，怎么办？",
+            "a": [
+              "在遵守校规校纪的情况下，你可以以非社团成员的身份参加一些不限制人数的活动，但必须服从社团管理。最终解释权归社团所有。"
+            ]
+          },
+          {
+            "q": "我能不能把相机带到学校/宿舍？如果我因为参加拍摄活动而违纪，社团是否可以帮忙向老师解释？",
+            "a": [
+              "目前学校允许将相机带进校园，但请不要过于张扬，在公共场合或上课时炫耀相机。",
+              "特别提醒：根据《淮北一中学生量化管理方案》，",
+              {
+                "list": [
+                  "私自带相机进入宿舍扣5分。",
+                  "私自携带和使用手机、iPad扣15分。",
+                  "无故早退、旷课每节扣3分。"
+                ]
+              },
+              "无论是否为社团成员，如出现违规违纪情况，社团不承担任何责任。",
+              "如确需在教学时间参与拍摄活动，请按规定履行请假手续。"
+            ]
+          }
+        ]
       }
     },
     "homeSelection": [
+      "gala-2026-videos",
       "sports-2025-videos",
-      "psychodrama-2026-videos",
       "military-replay"
     ],
     "worksPhotoSetIds": [
@@ -27,11 +82,11 @@
     ],
     "homePhotoIds": [
       "photo-see-campus",
-      "photo-scene-parade",
       "photo-scene-window",
-      "photo-scene-spring",
+      "photo-scene-parade",
       "photo-see-track",
-      "photo-see-flower"
+      "photo-see-flower",
+      "photo-scene-spring"
     ],
     "homeInternal": [
       {
@@ -67,11 +122,23 @@
       "photo-together-dinner"
     ],
     "homeSelectionMeta": {
+      "gala-2026-videos": {
+        "coverId": "still-bili-bv1bni3bnenc",
+        "title": "台下的笑，台上的光",
+        "tag": "记忆短片 · 2:05",
+        "href": "/works/gala-2026-videos/#video-bv1bni3bnenc"
+      },
       "sports-2025-videos": {
-        "coverId": "cover-bili-bv1xsnyzqee8",
+        "coverId": "still-bili-bv1xsnyzqee8",
         "title": "无体育，不淮一",
-        "tag": "集锦短片",
+        "tag": "短片 · 1:01",
         "href": "/works/sports-2025-videos/#video-bv1xsnyzqee8"
+      },
+      "military-replay": {
+        "coverId": "still-bili-bv1pwhp6we67",
+        "title": "军训总结大会 · 直播回放",
+        "tag": "直播回放 · 1:53:06",
+        "href": "/events/military-2026/#watch"
       }
     },
     "homeInternalTitle": "",
@@ -1219,6 +1286,62 @@
       "alt": "视频封面：我们架起相机，记录汗水、口号，和每一次咬牙坚持",
       "caption": "B站封面",
       "sourceId": "source-bili-bv1xz8u6jebc",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "still-bili-bv1xz8u6jebc",
+      "kind": "image",
+      "src": "/media/still-military-promo.jpg",
+      "width": 852,
+      "height": 399,
+      "alt": "《我们架起相机》画面：操场上的军训方阵，画面印着“一中军训 | 现场直播”",
+      "caption": "预告画面 · 军训方阵",
+      "sourceId": "source-bili-bv1xz8u6jebc",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "still-bili-bv1bni3bnenc",
+      "kind": "image",
+      "src": "/media/still-gala-2026-hall.jpg",
+      "width": 852,
+      "height": 366,
+      "alt": "《台下的笑，台上的光》画面：元旦汇演礼堂，亮着灯的舞台与满座观众",
+      "caption": "短片画面 · 汇演礼堂",
+      "sourceId": "source-bili-bv1bni3bnenc",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "still-bili-bv1xsnyzqee8",
+      "kind": "image",
+      "src": "/media/still-sports-2025.jpg",
+      "width": 852,
+      "height": 361,
+      "alt": "《无体育，不淮一》画面：田径场上正在投掷的学生，两侧站着同学",
+      "caption": "短片画面 · 田径场",
+      "sourceId": "source-bili-bv1xsnyzqee8",
+      "capturedAt": null,
+      "photographer": null,
+      "exif": null,
+      "publicationStatus": "public-source"
+    },
+    {
+      "id": "still-bili-bv1pwhp6we67",
+      "kind": "image",
+      "src": "/media/still-military-replay.jpg",
+      "width": 852,
+      "height": 420,
+      "alt": "军训总结大会直播画面：操场上列坐的方阵、主席台大屏与远处的楼群",
+      "caption": "直播画面 · 汇演现场",
+      "sourceId": "source-bilibili-military",
       "capturedAt": null,
       "photographer": null,
       "exif": null,
@@ -4122,14 +4245,14 @@
     {
       "id": "bili-club-bv1xz8u6jebc",
       "title": "我们架起相机，记录汗水、口号，和每一次咬牙坚持",
-      "subtitle": "短片 · 社团投稿",
+      "subtitle": "军训汇演 · 直播预告",
       "kind": "film",
-      "formatLabel": "短片",
+      "formatLabel": "直播预告",
       "year": 2026,
       "publishedAt": "2026-08-18",
       "sourceAccount": "club",
       "mediaId": "embed-bili-bv1xz8u6jebc",
-      "coverId": "cover-bili-bv1xz8u6jebc",
+      "coverId": "still-bili-bv1xz8u6jebc",
       "eventId": "military-2026",
       "authorIds": [],
       "creditMemberIds": [],

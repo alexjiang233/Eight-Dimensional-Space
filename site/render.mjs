@@ -396,8 +396,10 @@ export function createSite(data, { base = '/' } = {}) {
   function worksPage(skin) {
     // The directory groups by year: the year marker is how the archive reads.
     // .work-entry classes stay stable so the filter keeps working.
+    // 完整回放与全程回顾属于活动记录，不进作品目录；作品只留影片与影集。
+    const listed = data.works.filter((w) => w.kind !== 'replay');
     const byYear = new Map();
-    for (const w of [...data.works].sort(byRecency)) {
+    for (const w of [...listed].sort(byRecency)) {
       const key = String(w.yearLabel || w.year || '其他');
       if (!byYear.has(key)) byYear.set(key, []);
       byYear.get(key).push(w);
@@ -405,11 +407,10 @@ export function createSite(data, { base = '/' } = {}) {
     const groups = [...byYear]
       .map(([year, works]) => `<div class="works-year-group" data-year="${e(year)}"><p class="works-year">${e(year)}</p><div class="work-list directory">${works.map((w) => workEntry(w, skin)).join('')}</div></div>`)
       .join('');
-    return `<section class="page-intro section"><h1>作品与记录</h1><p>照片、影片，以及完整直播的回放入口。</p></section>${photoSetShelf(skin)}<section class="works-directory section"><div class="filter-bar" role="group" aria-label="按作品类型筛选">${[
+    return `<section class="page-intro section"><h1>作品与记录</h1><p>宣传片、校园短片与影集。每场活动的完整回放归在活动记录里。</p></section>${photoSetShelf(skin)}<section class="works-directory section"><div class="filter-bar" role="group" aria-label="按作品类型筛选">${[
       ['all', '全部'],
       ['photos', '照片'],
       ['film', '影片'],
-      ['replay', '直播回放'],
     ]
       .map(
         ([kind, label]) =>
@@ -417,7 +418,7 @@ export function createSite(data, { base = '/' } = {}) {
       )
       .join(
         '',
-      )}<button type="button" class="mobile-filter" data-open-filter>筛选作品</button><span data-result-count>${data.works.length} 项作品</span></div><div class="works-year-groups">${groups}</div><p class="empty-results" hidden>当前分类没有作品。</p></section>`;
+      )}<button type="button" class="mobile-filter" data-open-filter>筛选作品</button><span data-result-count>${listed.length} 项作品</span></div><div class="works-year-groups">${groups}</div><p class="empty-results" hidden>当前分类没有作品。</p></section>`;
   }
   function workPage(work, skin) {
     if (work.kind === 'photos' && work.galleryIds) return collection.photos(work, skin);
@@ -469,7 +470,6 @@ export function createSite(data, { base = '/' } = {}) {
       ['all', '全部'],
       ['photos', '照片'],
       ['film', '影片'],
-      ['replay', '直播回放'],
     ]
       .map(
         ([value, label]) =>
@@ -486,7 +486,7 @@ export function createSite(data, { base = '/' } = {}) {
       pages.set(path, layout(skin, { path, type }, title, content));
     add(route(skin), 'home', '首页', home(skin));
     add(route(skin, 'updates'), 'updates', '更新日志', renderUpdates(e));
-    add(route(skin, 'about'), 'about', '关于社团', collection.about(skin));
+    add(route(skin, 'about'), 'about', '关于社团', collection.about());
     add(route(skin, 'works'), 'works', '作品与记录', worksPage(skin));
     add(route(skin, 'events'), 'events', '活动', eventsIndexPage(skin));
     add(route(skin, 'people'), 'people', '在现场的人', peoplePage(skin));

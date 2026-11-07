@@ -228,30 +228,6 @@ $$('[data-compare-choice]').forEach((button) =>
     });
   }),
 );
-$$('[data-year]').forEach((button) =>
-  button.addEventListener('click', () => {
-    if (button.getAttribute('aria-pressed') === 'true') return;
-    const container = button.closest('.timeline');
-    changePicture(() => {
-      const image = container.querySelector('[data-year-image]');
-      const link = container.querySelector('[data-year-image-link]');
-      image.src = button.dataset.src;
-      image.alt = button.dataset.alt;
-      image.width = Number(button.dataset.width);
-      image.height = Number(button.dataset.height);
-      link.href = button.dataset.src;
-      link.dataset.caption = button.dataset.caption;
-      container.querySelector('[data-year-title]').textContent = button.dataset.title;
-      container.querySelector('[data-year-source]').textContent = button.dataset.sourceLabel;
-      container.querySelector('[data-year-caption]').textContent = button.dataset.caption;
-      container.querySelector('[data-year-link]').href = button.dataset.href;
-      container
-        .querySelectorAll('[data-year]')
-        .forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
-    });
-  }),
-);
-
 // A year may contain several events. Without JS every record remains visible.
 $$('.series-block').forEach(block => {
   const buttons = [...block.querySelectorAll('[data-series-year]')];
@@ -408,7 +384,7 @@ if ($('.filter-bar')) {
 
   }
   const param = new URLSearchParams(location.search).get('type');
-  applyFilter(['photos', 'film', 'replay'].includes(param) ? param : 'all');
+  applyFilter(['photos', 'film'].includes(param) ? param : 'all');
   $$('[data-filter]').forEach((b) =>
     b.addEventListener('click', () => applyFilter(b.dataset.filter)),
   );
