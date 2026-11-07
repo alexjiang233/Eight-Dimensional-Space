@@ -1834,6 +1834,11 @@ html:has(.page-home) { scroll-padding-top:74px; }
 .finder-loupe.is-on { opacity:1; }
 @media (max-width: 700px) {
   .home-photo-cluster { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+  /* 窄屏把日期从竖排改成图下一行：竖排会被右列的屏幕边缘切掉。 */
+  .home-cluster-photo .print-date {
+    position:static; display:block; writing-mode:horizontal-tb;
+    margin-top:13px; font-size:10px; letter-spacing:.14em; text-align:right;
+  }
   .home-cluster-photo.c1-13, .home-cluster-photo.c1-3, .home-cluster-photo.c3-5,
   .home-cluster-photo.c5-8, .home-cluster-photo.c8-10, .home-cluster-photo.c10-13 { grid-column:auto; }
   .home-cluster-photo.c1-13 { grid-column:1/-1; }
